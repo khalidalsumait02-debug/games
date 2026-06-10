@@ -1,0 +1,90 @@
+{
+  "note": "DRAFT SOP v1 — to be reviewed and adjusted by the training team. All steps and documents are editable here.",
+  "steps": [
+    {
+      "id": "request",
+      "name": "Client Request",
+      "detail": "The client approaches the bank (or the RM identifies a need) with a specific financing requirement."
+    },
+    {
+      "id": "callreport",
+      "name": "Call Report & Document Collection",
+      "detail": "The RM meets the client, prepares a call report, and collects the KYC and credit documents needed for analysis."
+    },
+    {
+      "id": "analysis",
+      "name": "Credit Analysis & Risk Rating",
+      "detail": "Credit analysis of the financials — ratios, cash flow, working capital cycle — and assignment of an internal risk rating."
+    },
+    {
+      "id": "committee",
+      "name": "Credit Committee Approval",
+      "detail": "The credit proposal is presented to the appropriate approval authority / credit committee. No commitment to the client before this."
+    },
+    {
+      "id": "offer",
+      "name": "Offer Letter & Facility Documentation",
+      "detail": "The approved terms are issued in an offer letter; facility agreements are signed by authorised signatories."
+    },
+    {
+      "id": "security",
+      "name": "Security Perfection",
+      "detail": "Collateral is put in place and legally perfected — mortgage registered, cash margin blocked, assignments notified — before any utilisation."
+    },
+    {
+      "id": "limit",
+      "name": "Limit Setup in System",
+      "detail": "Operations sets up the approved limits in the core system, checked against the approval and completed documentation."
+    },
+    {
+      "id": "utilization",
+      "name": "Utilization",
+      "detail": "The client draws on the facility — cash drawdown, LC issuance, or LG issuance — within the approved limits and conditions."
+    },
+    {
+      "id": "monitoring",
+      "name": "Monitoring & Renewal",
+      "detail": "Ongoing monitoring: account conduct, covenant checks, periodic financials, site visits, and annual review/renewal."
+    }
+  ],
+  "documents": {
+    "base": [
+      "Audited financial statements (last 3 years)",
+      "Valid trade license",
+      "Memorandum & Articles of Association",
+      "Board resolution to borrow",
+      "Authorised signatories list & specimen signatures",
+      "KYC file & Civil IDs of signatories"
+    ],
+    "wc": [
+      "Aging of receivables & inventory breakdown",
+      "Recent bank account statements"
+    ],
+    "capex": [
+      "Supplier quotation / pro-forma for the asset",
+      "Cash flow projections covering the loan tenor"
+    ],
+    "project": [
+      "Contract / award letter",
+      "Project cash flow & milestone schedule"
+    ],
+    "recv": [
+      "Copies of invoices to be discounted",
+      "Aging of receivables & inventory breakdown"
+    ],
+    "trade": [
+      "Pro-forma invoice from supplier",
+      "Import license"
+    ],
+    "tender": [
+      "Tender documents / contract & award letter"
+    ],
+    "distractors": [
+      "Company marketing brochure",
+      "Office lease agreement",
+      "CEO's personal utility bill",
+      "Employee payroll list",
+      "Competitor price list"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "id": "od",
+    "name": "Overdraft",
+    "category": "cash",
+    "short": "OD",
+    "description": "A flexible line on the client's current account allowing them to go below zero up to an approved limit. Interest is charged daily only on the amount actually used.",
+    "bestFor": "Small, short-lived timing gaps between collections and payments. Balances should swing in and out of debit.",
+    "warning": "An overdraft that is fully drawn all the time is a red flag — it is being used to fund something permanent (core working capital or even fixed assets) and should be converted to a proper facility.",
+    "incomeRate": 0.005,
+    "docTags": ["base"]
+  },
+  {
+    "id": "strl",
+    "name": "Short Term Revolving Loan",
+    "category": "cash",
+    "short": "STRL",
+    "description": "A revolving loan for financing the operating cycle: inventory and receivables. The client draws, repays from collections, and redraws. Each drawdown typically matches the working capital cycle (e.g. 90 days).",
+    "bestFor": "Core working capital needs — funding the gap between paying suppliers and collecting from customers.",
+    "warning": "Limit should be sized from the working capital cycle and sales level, not from what the client asks for. A revolving loan that never revolves (always 100% drawn) signals diversion to long-term uses.",
+    "incomeRate": 0.0045,
+    "docTags": ["base", "wc"]
+  },
+  {
+    "id": "stl",
+    "name": "Short-Term Loan",
+    "category": "cash",
+    "short": "STL",
+    "description": "A one-off loan with a fixed maturity under one year, repaid in a bullet or few instalments. Unlike the STRL it does not revolve.",
+    "bestFor": "A specific, one-time short-term need with a clear repayment source — e.g. bridging a confirmed receivable or a single large shipment.",
+    "warning": "Must have an identified repayment source at maturity. Rolling it over repeatedly means it should have been structured differently.",
+    "incomeRate": 0.0045,
+    "docTags": ["base"]
+  },
+  {
+    "id": "tl",
+    "name": "Term Loan",
+    "category": "cash",
+    "short": "TL",
+    "description": "A loan repaid in instalments over more than one year, used to finance fixed assets. Repayment comes from the cash flow the asset generates, so the tenor should match the asset's useful life.",
+    "bestFor": "Vehicles, machinery, equipment, fit-out, real estate — anything long-term. Check the DSCR: operating cash flow must comfortably cover instalments.",
+    "warning": "DSCR below 1.2x means the client may struggle to pay instalments. Never fund fixed assets with an overdraft or STRL — that is a maturity mismatch.",
+    "incomeRate": 0.0042,
+    "docTags": ["base", "capex"]
+  },
+  {
+    "id": "pf",
+    "name": "Project Finance",
+    "category": "cash",
+    "short": "PF",
+    "description": "Financing tied to a specific project (often construction or contracting), with drawdowns released against milestones and repayment from the project's own proceeds.",
+    "bestFor": "Large awarded contracts and developments. Secure an assignment of project proceeds so payments flow through the bank.",
+    "warning": "Control is everything: milestone-based drawdowns, assignment of proceeds, and monitoring of project progress. Lending the full amount up front removes all control.",
+    "incomeRate": 0.0045,
+    "docTags": ["base", "project"]
+  },
+  {
+    "id": "disc",
+    "name": "Invoice / Bill Discounting",
+    "category": "cash",
+    "short": "DISC",
+    "description": "The bank advances cash today against the client's invoices or bills receivable, collecting when the debtor pays. Usually with recourse to the client.",
+    "bestFor": "Clients with strong, slow-paying debtors (e.g. government entities). Turns receivables into immediate cash without a general-purpose loan.",
+    "warning": "Quality of the debtor matters more than the client. Verify invoices are genuine and take an assignment of the receivables.",
+    "incomeRate": 0.005,
+    "docTags": ["base", "recv"]
+  },
+  {
+    "id": "lc_sight",
+    "name": "Sight Letter of Credit",
+    "category": "noncash",
+    "short": "Sight LC",
+    "description": "The bank undertakes to pay the client's overseas supplier immediately when compliant shipping documents are presented. Protects both buyer and seller in international trade.",
+    "bestFor": "Imports where the supplier wants payment on shipment and the client wants to be sure goods were shipped as agreed before money moves.",
+    "warning": "When documents arrive, the client must pay (or the LC converts to cash exposure). Size the line to the trade cycle and take an appropriate cash margin for weaker names.",
+    "incomeRate": 0.0025,
+    "docTags": ["base", "trade"]
+  },
+  {
+    "id": "lc_usance",
+    "name": "Usance LC (Acceptance)",
+    "category": "noncash",
+    "short": "Usance LC",
+    "description": "Like a sight LC, but payment to the supplier is deferred (30/60/90/180 days after shipment). The bank 'accepts' the obligation, giving the client time to sell the goods before paying.",
+    "bestFor": "Importers whose goods sell within the usance period — the sale proceeds fund the LC payment. Match the usance tenor to the inventory turnover.",
+    "warning": "A usance period far longer than the client's turnover (e.g. 360 days for goods that sell in 60) means the client is using supplier money for something else — a classic red flag.",
+    "incomeRate": 0.003,
+    "docTags": ["base", "trade"]
+  },
+  {
+    "id": "lg_bid",
+    "name": "Bid Bond",
+    "category": "noncash",
+    "short": "Bid Bond",
+    "description": "A letter of guarantee (usually 1–5% of tender value) submitted with a tender, promising the beneficiary compensation if the bidder wins and then walks away.",
+    "bestFor": "Clients bidding on tenders. Low risk if the client genuinely intends and is able to perform.",
+    "warning": "Assess whether the client could actually execute the contract if they win — the bid bond is the first step toward much larger exposure (performance bond, financing).",
+    "incomeRate": 0.0015,
+    "docTags": ["base", "tender"]
+  },
+  {
+    "id": "lg_perf",
+    "name": "Performance Bond",
+    "category": "noncash",
+    "short": "PB",
+    "description": "A letter of guarantee (typically 5–10% of contract value) issued after award, promising the beneficiary compensation if the contractor fails to perform the contract.",
+    "bestFor": "Awarded contracts. Validity should track the contract period plus any maintenance period.",
+    "warning": "Called bonds become immediate cash exposure. Assess execution capability, and take an assignment of contract proceeds where possible.",
+    "incomeRate": 0.002,
+    "docTags": ["base", "tender"]
+  },
+  {
+    "id": "lg_apg",
+    "name": "Advance Payment Guarantee",
+    "category": "noncash",
+    "short": "APG",
+    "description": "Guarantees repayment of the advance (often 10–20% of contract value) the employer pays the contractor at the start. The APG amount reduces as the advance is recovered from progress payments.",
+    "bestFor": "Contractors receiving mobilisation advances. Insist the advance is paid into an account with the bank so its use can be monitored.",
+    "warning": "If the advance is diverted away from the project, the project stalls and the APG gets called. Route the advance through the bank.",
+    "incomeRate": 0.002,
+    "docTags": ["base", "tender"]
+  },
+  {
+    "id": "lg_ret",
+    "name": "Retention Bond",
+    "category": "noncash",
+    "short": "RB",
+    "description": "Replaces the cash retention the employer would otherwise withhold from each progress payment, releasing that cash to the contractor against the bank's guarantee.",
+    "bestFor": "Contractors who want their retention money released early to ease cash flow during or after a project.",
+    "warning": "Exposure remains until the maintenance/defects period ends — long after the work looks finished.",
+    "incomeRate": 0.002,
+    "docTags": ["base", "tender"]
+  }
+]

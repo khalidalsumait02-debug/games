@@ -1,0 +1,1068 @@
+[
+  {
+    "id": "l3-1",
+    "client": {
+      "name": "Wafra Agro Group",
+      "sector": "Agricultural Trading & Farming",
+      "contact": "Khaled, Group CFO",
+      "profile": "Prospective client, courted from a competitor. Glossy presentation, audited financials, impatient for a quick answer. The ratios look clean — almost too clean."
+    },
+    "request": "\"We're consolidating our banking. KD 2,000,000 STRL to start, and there's much more business behind it if you move fast. Our audited numbers are excellent — your competitor pre-approved us last week.\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Annual sales", "value": "KD 9,800,000" },
+        { "label": "Receivables", "value": "KD 2,600,000 (was 1,400,000)" },
+        { "label": "Net profit", "value": "KD 610,000" },
+        { "label": "Financial year end", "value": "31 December" }
+      ],
+      "ratios": [
+        { "label": "Current ratio", "value": "1.8x", "benchmark": "> 1.2x comfortable", "hint": "Healthy on its face." },
+        { "label": "Receivable days", "value": "97, up from 55", "hint": "Receivables nearly doubled in a year while sales grew 8%. Something is sitting in that line." },
+        { "label": "Notes to accounts, note 14", "value": "KD 1,040,000 of receivables due from 'Wafra International Trading WLL' — a related party, invoiced 28–31 December", "hint": "40% of receivables are to a sister company, booked in the last four days of the financial year." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "You've read the pack, including the notes. What's your honest read?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Probable window dressing: year-end sales to a related party inflate revenue and receivables — the 'clean' ratios may be decorated",
+            "quality": "best",
+            "feedback": "That's the pattern: invoice a sister company in the last week of December, book it as sales, and the year ends prettier than it was. The audit can be technically clean while the picture misleads."
+          },
+          {
+            "id": "b",
+            "label": "Strong group with healthy intercompany trade — normal for agro conglomerates",
+            "quality": "bad",
+            "feedback": "Intercompany trade is normal; KD 1M of it materialising in the final four days of the financial year is not. Timing plus counterparty plus size = the window-dressing signature.",
+            "consequence": "window_dressing"
+          },
+          {
+            "id": "c",
+            "label": "The auditors signed it, so the numbers are reliable as presented",
+            "quality": "poor",
+            "feedback": "An unqualified audit means the statements follow the standards — not that the December related-party sales reflect commercial reality. Credit reads behind the opinion.",
+            "consequence": "window_dressing"
+          },
+          {
+            "id": "d",
+            "label": "Receivables growth simply reflects the sales growth",
+            "quality": "poor",
+            "feedback": "Sales grew 8%; receivables grew 86%. The arithmetic of that explanation fails before the related-party note even enters the room.",
+            "consequence": "window_dressing"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "Khaled wants an answer this week. Your move?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Request the receivables aging, the related-party sales contracts, and post-year-end collection evidence before any approval",
+            "quality": "best",
+            "feedback": "The one test window dressing can't pass: show me the cash. If the December receivables collected in January, fine. If they're still sitting there — you have your answer."
+          },
+          {
+            "id": "b",
+            "label": "Approve KD 2,000,000 — audited numbers, competitor pre-approval, move fast",
+            "quality": "bad",
+            "feedback": "You lent KD 2M against ratios that note 14 had already undressed. 'Your competitor approved it' is the oldest pressure tactic in banking precisely because it works.",
+            "consequence": "window_dressing"
+          },
+          {
+            "id": "c",
+            "label": "Approve KD 1,000,000 now to win the relationship, verify later",
+            "quality": "poor",
+            "feedback": "Half the money against the same unanswered question. 'Lend first, verify later' is not a sequence credit recognises.",
+            "consequence": "window_dressing"
+          },
+          {
+            "id": "d",
+            "label": "Decline outright — too suspicious to touch",
+            "quality": "good",
+            "feedback": "Defensible — discipline beats deal-hunger. But a request for collection evidence costs nothing and would tell you whether you just declined a dressed-up balance sheet or a genuinely good client."
+          }
+        ]
+      },
+      {
+        "id": "judgment2",
+        "stage": "judgment",
+        "prompt": "Khaled responds: \"The aging is internal. The related-party contracts are confidential. Take the audited numbers or we go elsewhere.\" Final answer?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Decline politely — a client who won't show collection evidence on KD 1M of related-party receivables has answered the question",
+            "quality": "best",
+            "feedback": "Refusing routine transparency on the exact item in doubt is itself the finding. The deals you decline are part of your track record too — let the competitor have this one.",
+            "books": false
+          },
+          {
+            "id": "b",
+            "label": "Approve anyway — competitive markets demand flexibility",
+            "quality": "bad",
+            "feedback": "You waived the only verification that mattered, under deadline pressure, for a prospect. This is precisely how banks meet their worst clients.",
+            "consequence": "window_dressing"
+          },
+          {
+            "id": "c",
+            "label": "Approve with a personal guarantee from Khaled as comfort",
+            "quality": "poor",
+            "feedback": "A PG from the CFO of a group that may be dressing its numbers is comfort made of the same material as the numbers.",
+            "consequence": "window_dressing"
+          },
+          {
+            "id": "d",
+            "label": "Offer KD 500,000 'starter facility' to keep the door open",
+            "quality": "poor",
+            "feedback": "A quarter of the money against zero of the transparency. Small bad loans are still bad loans — and they grow.",
+            "consequence": "window_dressing"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 0,
+    "facilitySummary": "Declined — transparency refused (Wafra Agro)",
+    "docTags": ["base", "wc"],
+    "learn": "Window dressing signature: year-end related-party sales inflating receivables and ratios. The unbeatable test is post-year-end collection evidence — and a client who refuses to show it has shown you everything."
+  },
+  {
+    "id": "l3-2",
+    "client": {
+      "name": "Marina Heights Real Estate Co.",
+      "sector": "Real Estate Development",
+      "contact": "Abdulaziz, Chairman",
+      "profile": "Established developer, two completed mid-rise projects. Now proposing their most ambitious tower yet — and their most leveraged."
+    },
+    "request": "\"An 18-million-dinar residential tower near the waterfront. We want the bank in for KD 14,400,000 — 80% of cost — released up front so we can move fast. Presales will catch up; they always do.\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Total project cost", "value": "KD 18,000,000" },
+        { "label": "Requested financing", "value": "KD 14,400,000 (80% LTC), upfront" },
+        { "label": "Presales achieved", "value": "30% of units" },
+        { "label": "Developer equity available", "value": "KD 5,000,000" },
+        { "label": "Construction period", "value": "30 months" }
+      ],
+      "ratios": [
+        { "label": "Loan-to-cost requested", "value": "80%", "benchmark": "conservative ≈ 50–60%", "hint": "At 80% the developer has KD 3.6M at risk in an 18M project — the bank carries the project; the developer carries an option." },
+        { "label": "Presales coverage", "value": "30%", "hint": "70% of units face market risk 30 months out. Presales are the project's real repayment source." },
+        { "label": "DSCR / exit", "value": "Repayment entirely from unit sales", "hint": "No rental income, no corporate cash flow behind it — sales or nothing." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "80% LTC, upfront release, 30% presold. What does the bank offer?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Project Finance KD 9,000,000 (50% LTC) — milestone drawdowns against certified construction progress, equity in first",
+            "quality": "best",
+            "feedback": "The shape of survivable development finance: the developer's money builds the foundations, the bank's money follows verified progress, and at 50% LTC there's cushion if the market turns mid-build."
+          },
+          {
+            "id": "b",
+            "label": "KD 14,400,000 upfront — speed is a competitive advantage",
+            "quality": "bad",
+            "feedback": "Eighty percent of an 18M project wired on day one, secured by a hole in the ground and 30% presales. If anything slips — costs, sales, the market — the bank owns the problem at full size.",
+            "consequence": "project_overrun"
+          },
+          {
+            "id": "c",
+            "label": "KD 14,400,000 but milestone-released",
+            "quality": "poor",
+            "feedback": "Milestones fix the disbursement risk, not the leverage: at 80% LTC the developer can walk away from trouble far more cheaply than the bank can. Structure controls timing; only equity controls commitment.",
+            "consequence": "project_overrun"
+          },
+          {
+            "id": "d",
+            "label": "Decline — 30% presales is too thin for a project this size",
+            "quality": "good",
+            "feedback": "A defensible credit stance — plenty of committees would agree. But a 50% LTC milestone structure with presale covenants makes this bankable; declining forfeits a strong client the structure could have protected."
+          }
+        ]
+      },
+      {
+        "id": "collateral",
+        "stage": "collateral",
+        "prompt": "Security package for the tower financing?",
+        "options": [
+          {
+            "id": "a",
+            "label": "First mortgage over land & development + assignment of all presale proceeds into a project account + corporate guarantee",
+            "quality": "best",
+            "feedback": "The trinity of development finance: the asset, the cash flow, and the sponsor — with buyer payments flowing into an account the bank controls, not the developer's general coffers."
+          },
+          {
+            "id": "b",
+            "label": "First mortgage over the land only",
+            "quality": "good",
+            "feedback": "Necessary but not sufficient: half-built towers sell terribly. The presale proceeds are the living cash of this deal — capture them."
+          },
+          {
+            "id": "c",
+            "label": "Assignment of presale proceeds only — the mortgage slows things down",
+            "quality": "poor",
+            "feedback": "If sales stall, the proceeds assignment is an assignment of nothing — and the bank holds no claim on the only hard asset.",
+            "consequence": "weak_security"
+          },
+          {
+            "id": "d",
+            "label": "Chairman's personal guarantee — he's good for it",
+            "quality": "poor",
+            "feedback": "A PG against a KD 9M project exposure is a comfort letter with a signature. The project itself must collateralise the project.",
+            "consequence": "weak_security"
+          }
+        ]
+      },
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "One covenant matters more than the rest. Which do you insist on?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Minimum presales threshold before each drawdown tranche (e.g. 50% sold before the second tranche releases)",
+            "quality": "best",
+            "feedback": "It ties the bank's escalating exposure to proven market demand — the project must keep earning its financing as it rises. If sales stall, drawdowns stall, and the loss stops growing."
+          },
+          {
+            "id": "b",
+            "label": "Cost overruns funded by the developer before further drawdowns",
+            "quality": "good",
+            "feedback": "A genuinely important covenant — overruns are how 50% LTC quietly becomes 70%. Second only to the presales trigger, which protects against the bigger risk: building something nobody's buying."
+          },
+          {
+            "id": "c",
+            "label": "Monthly site progress reports to the bank",
+            "quality": "poor",
+            "feedback": "Reports inform; they don't protect. Knowing the tower is on schedule says nothing about whether anyone is buying the units.",
+            "consequence": "project_overrun"
+          },
+          {
+            "id": "d",
+            "label": "No additional covenants — the mortgage is protection enough",
+            "quality": "bad",
+            "feedback": "The mortgage protects against total loss, badly and slowly. Covenants prevent the situations where you'd need it.",
+            "consequence": "project_overrun"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 9000000,
+    "facilitySummary": "Project Finance KD 9.0M (50% LTC, milestone drawdowns)",
+    "docTags": ["base", "project"],
+    "plantedError": {
+      "prompt": "First drawdown request arrives. Legal review flags the security file. What's wrong?",
+      "options": [
+        { "id": "a", "label": "The mortgage over the land is signed but not yet registered with the authorities", "correct": true, "feedback": "Correct — an unregistered mortgage is legally unperfected; another creditor could register ahead of the bank. No drawdown until registration is complete. Security perfection precedes utilisation, always." },
+        { "id": "b", "label": "The mortgage deed should name the contractor, not the developer", "correct": false, "feedback": "The developer owns the land — the mortgage is correctly granted by them." },
+        { "id": "c", "label": "Nothing — signed documents are sufficient to release funds", "correct": false, "feedback": "Signed but unregistered means unperfected. Registration is what makes the mortgage real against third parties." }
+      ]
+    },
+    "learn": "Development finance survives on three disciplines: real developer equity in first (≈50% LTC), drawdowns chasing verified progress, and a presales covenant that halts the bank's exposure the moment the market stops buying."
+  },
+  {
+    "id": "l3-3",
+    "client": {
+      "name": "Al Tijaria Electronics Co.",
+      "sector": "Electronics Wholesale",
+      "contact": "Saad, General Manager",
+      "profile": "Annual review time. Eight-year client, decent payer, friendly relationship. The facility file, however, has developed a smell."
+    },
+    "request": "\"Renewal should be a formality, right? The STRL works perfectly for us — honestly it's the backbone of the company now. Same terms as always, KD 1,500,000.\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "STRL limit", "value": "KD 1,500,000" },
+        { "label": "Utilisation", "value": "100% — continuously for 14 months" },
+        { "label": "Drawdown rollovers", "value": "Every 90-day drawdown rolled at maturity, repaid by redrawing" },
+        { "label": "New on balance sheet", "value": "Warehouse property, KD 950,000, acquired 13 months ago" }
+      ],
+      "ratios": [
+        { "label": "STRL behaviour", "value": "Never revolves", "hint": "A revolving loan that hasn't revolved in 14 months isn't revolving — it's a frozen block of debt being refinanced every 90 days." },
+        { "label": "Timing", "value": "Hardcore utilisation began the month the warehouse was bought", "hint": "Follow the dates: the 'working capital' line stopped revolving exactly when KD 950,000 of property appeared." },
+        { "label": "True working capital need (recomputed)", "value": "≈ KD 600,000", "hint": "Pre-computed from current inventory and receivable levels — less than half the limit." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Diagnose the file before you touch the renewal.",
+        "options": [
+          {
+            "id": "a",
+            "label": "The STRL was diverted to buy the warehouse — short-term money is trapped in a long-term asset, rolled every 90 days to hide the mismatch",
+            "quality": "best",
+            "feedback": "The dates don't lie: hardcore utilisation began with the property purchase. Each rollover papers over a structural problem — working capital money doing a term loan's job."
+          },
+          {
+            "id": "b",
+            "label": "The business simply grew into the limit — renew and move on",
+            "quality": "bad",
+            "feedback": "Growth shows up in sales and inventory; the recomputed need is KD 600,000 against a KD 1.5M frozen balance. The other KD 900,000 is wearing a warehouse.",
+            "consequence": "maturity_mismatch"
+          },
+          {
+            "id": "c",
+            "label": "Normal seasonal hardcore — most STRLs look like this sometimes",
+            "quality": "poor",
+            "feedback": "Sometimes, briefly, yes. Fourteen consecutive months synchronised with a property purchase is not a season — it's a structure failure with a calendar attached.",
+            "consequence": "maturity_mismatch"
+          },
+          {
+            "id": "d",
+            "label": "Suspicious activity — freeze the account and escalate to compliance",
+            "quality": "poor",
+            "feedback": "Buying a warehouse with mispurposed working capital is bad structure, not money laundering. The remedy is restructuring, not a compliance freeze that torches an 8-year relationship.",
+            "consequence": "lost_goodwill"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "Now the renewal decision. What do you propose?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Carve out KD 900,000 into a 7-year term loan secured by warehouse mortgage; renew the STRL at KD 600,000 — its true cycle size",
+            "quality": "best",
+            "feedback": "Each dinar back in its right instrument: the property financed by a term loan that amortises from operating cash flow, and a working capital line that can finally revolve again. The honest fix."
+          },
+          {
+            "id": "b",
+            "label": "Renew as is — it's rolling fine, why disturb a paying client",
+            "quality": "bad",
+            "feedback": "You renewed a disguised term loan with no amortisation, no matching security, wrong pricing. 'Rolling fine' is what every evergreen looks like until the quarter it doesn't.",
+            "consequence": "maturity_mismatch"
+          },
+          {
+            "id": "c",
+            "label": "Demand the KD 900,000 excess be repaid within 60 days",
+            "quality": "poor",
+            "feedback": "The money is in the building — he can't repay it in 60 days without selling the warehouse or finding another bank in a hurry. An impossible demand is not de-risking.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "Convert the entire KD 1,500,000 to a term loan",
+            "quality": "good",
+            "feedback": "It fixes the mismatch but overshoots: KD 600,000 of genuine revolving need is now locked in amortising debt, and he'll be back for a new working capital line within a quarter. The carve-out is more precise."
+          }
+        ]
+      },
+      {
+        "id": "collateral",
+        "stage": "collateral",
+        "prompt": "Security for the restructured package?",
+        "options": [
+          {
+            "id": "a",
+            "label": "First mortgage over the warehouse for the term loan + PG; STRL secured as before",
+            "quality": "best",
+            "feedback": "The asset that caused the problem now secures its own financing — registered, proportionate, and the structure self-documents what went wrong and how it was fixed."
+          },
+          {
+            "id": "b",
+            "label": "PG only — the relationship carries it",
+            "quality": "poor",
+            "feedback": "A KD 900,000 term carve-out with an unencumbered warehouse sitting in plain view, and you took a signature instead. The committee will ask why; there is no good answer.",
+            "consequence": "weak_security"
+          },
+          {
+            "id": "c",
+            "label": "Keep existing security unchanged across the new structure",
+            "quality": "poor",
+            "feedback": "The existing security was sized for a revolving trade line, not a 7-year property loan. New structure, new security analysis.",
+            "consequence": "weak_security"
+          },
+          {
+            "id": "d",
+            "label": "Mortgage over the warehouse + assignment of all receivables + PG + 25% cash margin",
+            "quality": "good",
+            "feedback": "Nothing wrong with any element — but stacking maximum security on a cooperative 8-year client who's accepting your restructure reads as punitive. Proportion is also a credit skill."
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 1500000,
+    "facilitySummary": "TL KD 900K (warehouse) + STRL KD 600K (restructured)",
+    "docTags": ["base", "wc", "capex"],
+    "learn": "A revolving facility that never revolves is the loudest red flag in portfolio monitoring. Trace where the money went, then rebuild: term assets into term loans with matching security, and the STRL back to its true cycle size."
+  },
+  {
+    "id": "l3-4",
+    "client": {
+      "name": "Najmat Catering Services",
+      "sector": "Industrial & Airline Catering",
+      "contact": "Noura, CEO",
+      "profile": "Quality operator, client for 5 years. Just won the contract of their life — which is precisely what worries you."
+    },
+    "request": "\"We won the national airline's catering contract — five years, KD 4,000,000 a year! We need a KD 400,000 performance bond, a KD 600,000 advance guarantee, and about KD 1,200,000 for the new flight kitchen. This contract changes everything.\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "New contract", "value": "KD 4,000,000/year × 5 years" },
+        { "label": "Current annual revenue", "value": "KD 2,800,000" },
+        { "label": "Facilities requested", "value": "PB 400K + APG 600K + TL 1,200K" },
+        { "label": "Revenue concentration after ramp-up", "value": "≈ 85% from the airline" }
+      ],
+      "ratios": [
+        { "label": "DSCR on the kitchen TL (7 yrs, incl. contract)", "value": "1.6x", "benchmark": "minimum ~1.2x", "hint": "Comfortable — as long as the airline contract is alive." },
+        { "label": "DSCR excluding the airline contract", "value": "0.6x", "benchmark": "minimum ~1.2x", "hint": "The uncomfortable twin: without this one customer, the kitchen loan doesn't service. The contract isn't an upside — it's the whole deal." },
+        { "label": "Customer concentration", "value": "85%", "hint": "One termination clause away from a different company." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Before structuring — name the dominant risk in this file.",
+        "options": [
+          {
+            "id": "a",
+            "label": "Customer concentration: at 85% of revenue, the airline relationship IS the company — and the financed kitchen is single-purpose",
+            "quality": "best",
+            "feedback": "Exactly. The 1.6x DSCR is a derivative of one contract's survival. Everything in the structure must answer: what happens to the bank if the airline walks in year three?"
+          },
+          {
+            "id": "b",
+            "label": "Execution risk — can they actually scale to airline volumes?",
+            "quality": "good",
+            "feedback": "Real and worth covenanting — but a capable 5-year operator scaling a known business is a manageable risk. The 85% concentration is the one that can't be managed, only structured around."
+          },
+          {
+            "id": "c",
+            "label": "No major risk — a 5-year contract with the national airline is as good as government paper",
+            "quality": "bad",
+            "feedback": "Airline contracts carry termination clauses, service-level conditions and renegotiation rights. Treating one customer at 85% as risk-free is how concentration losses are born.",
+            "consequence": "concentration"
+          },
+          {
+            "id": "d",
+            "label": "Interest rate risk on the 7-year term loan",
+            "quality": "poor",
+            "feedback": "A footnote risk in a file whose headline is a single customer holding 85% of the revenue.",
+            "consequence": "concentration"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "Structure the package for a deal that is one contract deep.",
+        "options": [
+          {
+            "id": "a",
+            "label": "Full package — PB + APG + TL/7yrs — with assignment of airline contract proceeds, advance via the bank, and an early-amortisation trigger if the contract is lost",
+            "quality": "best",
+            "feedback": "You financed the opportunity and structured the concentration: contract cash flows through the bank, and if the airline ever exits, the loan starts repaying immediately instead of discovering the 0.6x DSCR the hard way."
+          },
+          {
+            "id": "b",
+            "label": "The LGs only — decline the kitchen loan until revenue diversifies",
+            "quality": "poor",
+            "feedback": "The contract requires the kitchen; without the capex there is no contract to win bonds for. This declines the deal while pretending not to.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "c",
+            "label": "Full package, clean and simple — a strong contract needs no scaffolding",
+            "quality": "bad",
+            "feedback": "KD 2.2M of exposure resting unsecured on one customer relationship. The contract is the repayment source; it cannot also be the security by just existing.",
+            "consequence": "concentration"
+          },
+          {
+            "id": "d",
+            "label": "Decline — 85% concentration is outside any sane appetite",
+            "quality": "poor",
+            "feedback": "Concentration is a structuring problem before it's a declining problem. With assigned proceeds and an exit trigger, this is a bankable deal a competitor will happily structure properly.",
+            "consequence": "lost_deal",
+            "books": false
+          }
+        ]
+      },
+      {
+        "id": "collateral",
+        "stage": "collateral",
+        "prompt": "Complete the security and covenant package.",
+        "options": [
+          {
+            "id": "a",
+            "label": "Assignment of contract proceeds + lien over kitchen equipment + PG + DSCR covenant tested quarterly",
+            "quality": "best",
+            "feedback": "Cash flow captured, asset charged, owner committed, and a quarterly tripwire that surfaces deterioration while it's still a conversation rather than a workout."
+          },
+          {
+            "id": "b",
+            "label": "Assignment of contract proceeds only",
+            "quality": "good",
+            "feedback": "The single most important piece — but a single-purpose flight kitchen with no lien and no covenant leaves recovery thin if the one customer leaves."
+          },
+          {
+            "id": "c",
+            "label": "Mortgage over the CEO's personal villa",
+            "quality": "poor",
+            "feedback": "Punitive optics, painful realisation, and it sidesteps the deal's own assets and cash flows — which are sitting there, assignable.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "20% cash margin on the LGs and nothing on the term loan",
+            "quality": "poor",
+            "feedback": "Margins the small, contingent exposures and leaves the KD 1.2M cash loan naked — security allocated upside down.",
+            "consequence": "weak_security"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 2200000,
+    "facilitySummary": "PB 400K + APG 600K + TL 1.2M (airline catering)",
+    "docTags": ["base", "tender", "capex"],
+    "learn": "Concentration isn't declined — it's structured: assign the contract proceeds, charge the financed asset, and build an early-amortisation trigger so the loan exits when the contract does. Always read the DSCR both with and without the star customer."
+  },
+  {
+    "id": "l3-5",
+    "client": {
+      "name": "Al-Dhow Marine Services",
+      "sector": "Marine & Port Services",
+      "contact": "Bader, Owner",
+      "profile": "Your old discounting client — two rough years later. Lost the port authority renewal to a competitor, two years of losses, OD maxed for months. Today he looks tired, and he's brought a proposal."
+    },
+    "request": "\"I need KD 500,000, short-term. I'll be straight with you — most of it repays what I owe Gulf Premier Bank; they're squeezing me. Clear them, and I can focus on winning the port contract back next quarter. You know me, you know I'm good for it.\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Net result, last 2 years", "value": "−KD 180,000 and −KD 240,000" },
+        { "label": "OD with us", "value": "KD 280,000 / 300,000 — maxed for 7 months" },
+        { "label": "Owed to Gulf Premier Bank", "value": "KD 420,000, reportedly past due" },
+        { "label": "Port contract status", "value": "Lost; re-tender 'next quarter' (unconfirmed)" }
+      ],
+      "ratios": [
+        { "label": "Purpose of new money", "value": "≈ 80% repays another bank", "hint": "Not one fil funds operations or recovery — it relocates an existing default from their books to ours." },
+        { "label": "Repayment source", "value": "A contract not yet re-tendered, not yet won", "hint": "Hope, with a date attached. And the date moves." },
+        { "label": "Current exposure status", "value": "OD hardcore 7 months, interest serviced erratically", "hint": "By conduct, this account is already migrating toward watchlist on its own." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Name what's actually being proposed here.",
+        "options": [
+          {
+            "id": "a",
+            "label": "Evergreening by transfer: new money to repay another lender, dressed as a bridge to a contract that doesn't exist yet",
+            "quality": "best",
+            "feedback": "Precisely. Gulf Premier is escaping, and the proposal nominates us to fund their exit. New money that creates no new capacity to repay is a bigger loss on a delay timer."
+          },
+          {
+            "id": "b",
+            "label": "A reasonable consolidation — one banking relationship is easier to manage",
+            "quality": "bad",
+            "feedback": "Consolidation is for performing debt. Consolidating a defaulted exposure out of a competitor's book into ours, secured by hope, has a different name — and the other bank is sending flowers.",
+            "consequence": "evergreening"
+          },
+          {
+            "id": "c",
+            "label": "A liquidity bridge to the port contract re-award",
+            "quality": "poor",
+            "feedback": "A bridge needs a far bank: the re-tender is unconfirmed, the win is hypothetical, and his track record on the last round is that he lost it. This bridge lands in water.",
+            "consequence": "evergreening"
+          },
+          {
+            "id": "d",
+            "label": "Fraud — report him and exit entirely",
+            "quality": "poor",
+            "feedback": "Bader was honest about the purpose — that's distress, not deception. The discipline is refusing bad structure while managing the genuine workout we already own.",
+            "consequence": "lost_goodwill"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "What do you actually do with this relationship?",
+        "options": [
+          {
+            "id": "a",
+            "label": "No new money. Restructure OUR exposure: term-out the KD 280,000 hardcore OD over a realistic tenor, tighten security, and set a monitoring plan",
+            "quality": "best",
+            "feedback": "The professional workout: you can't fix his Gulf Premier problem, but you can stop ours from growing and give the genuine debt a repayment shape his real cash flow can carry."
+          },
+          {
+            "id": "b",
+            "label": "Lend the KD 500,000 — five years of relationship deserves the benefit of the doubt",
+            "quality": "bad",
+            "feedback": "Exposure grows from 280K to 780K, repayment source unchanged: a contract nobody has tendered. The relationship argument just doubled the loss it was invoked to prevent.",
+            "consequence": "evergreening"
+          },
+          {
+            "id": "c",
+            "label": "Lend KD 250,000 — half measures, shared pain",
+            "quality": "poor",
+            "feedback": "Half of a loan with no repayment source is half a write-off, plus the original. There is no right size for new money here.",
+            "consequence": "evergreening"
+          },
+          {
+            "id": "d",
+            "label": "Call the OD and start legal recovery immediately",
+            "quality": "poor",
+            "feedback": "Against a cooperative, honest client with real (if struggling) operations, immediate legal action collapses any recovery value and guarantees the worst outcome for both sides. Workout first; war later, if ever.",
+            "consequence": "lost_goodwill"
+          }
+        ]
+      },
+      {
+        "id": "judgment2",
+        "stage": "judgment",
+        "prompt": "Internally — how must this account now be treated?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Reclassify to watchlist, provision per policy, quarterly review with a documented action plan",
+            "quality": "best",
+            "feedback": "The classification reflects what the account already is. Honest grading hurts the quarter and saves the year — and the documented plan is what turns a watchlist entry into a recovery story."
+          },
+          {
+            "id": "b",
+            "label": "Keep it performing — the restructure technically cures the arrears",
+            "quality": "bad",
+            "feedback": "Restructuring to dodge classification is the accounting arm of evergreening. The auditors and the regulator both know this move — and it has their least favourite name.",
+            "consequence": "evergreening"
+          },
+          {
+            "id": "c",
+            "label": "Straight to legal/recovery classification",
+            "quality": "poor",
+            "feedback": "Premature — a cooperative client in an agreed restructure with live operations is a watchlist case. Over-classifying forecloses the workout you just designed.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "Defer the decision until next annual review",
+            "quality": "poor",
+            "feedback": "Classification follows facts, and the facts are nine months old already. Deferral isn't caution; it's the file lying to the committee for another year.",
+            "consequence": "evergreening"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 280000,
+    "facilitySummary": "Workout: OD termed-out KD 280K, watchlist (Al-Dhow)",
+    "docTags": ["base", "wc"],
+    "plantedError": {
+      "prompt": "Preparing the restructure memo, you check the file's supporting documents. What's the gap?",
+      "options": [
+        { "id": "a", "label": "The latest financials on file are 18 months old — the restructure would be approved on stale numbers", "correct": true, "feedback": "Correct. A workout decision needs current numbers — interim accounts, recent bank statements, an updated order book. Restructuring on 18-month-old financials is navigation by an old map." },
+        { "id": "b", "label": "The original facility agreement is missing the bank's logo", "correct": false, "feedback": "Cosmetic. The binding content is signatures and terms, not letterhead." },
+        { "id": "c", "label": "Nothing — the file supports the decision", "correct": false, "feedback": "Check the dates on the financials: 18 months stale. No restructure should be approved against numbers that old." }
+      ]
+    },
+    "learn": "New money that repays another lender is evergreening by transfer — it adds loss, not capacity. The workout discipline: no new money, restructure what you own against real cash flow, classify honestly, monitor closely."
+  },
+  {
+    "id": "l3-6",
+    "client": {
+      "name": "Qortuba Auto Imports",
+      "sector": "Auto Spare Parts Import",
+      "contact": "Jassim, Owner",
+      "profile": "Spare parts importer, client for 4 years. Fast-moving inventory, reliable LC history. Today's request doesn't fit the man — or the business."
+    },
+    "request": "\"I want to switch our LC line to 360-day usance, KD 700,000. Cash flow management, you understand — everyone's extending tenors these days. The parts business is the same as ever.\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Requested", "value": "Usance LC, 360 days, KD 700,000" },
+        { "label": "Inventory turnover", "value": "Parts sell in ~60 days (unchanged for years)" },
+        { "label": "Receivable days", "value": "35" },
+        { "label": "New on balance sheet", "value": "Land plot, KD 800,000, purchased 2 months ago — paid in cash" }
+      ],
+      "ratios": [
+        { "label": "Cash conversion cycle", "value": "≈ 95 days", "hint": "Parts to cash in just over three months — among the fastest cycles on your desk." },
+        { "label": "Requested usance vs cycle", "value": "360 vs 95 days", "hint": "He'd hold collected cash for ~9 months before paying the LC. That is not cash flow management; that is a money source." },
+        { "label": "Cash position", "value": "Down KD 750,000 since the land purchase", "hint": "The land emptied the company's cash. The 360-day usance would quietly refill it — with the bank's trade line." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "A 60-day business asking for 360-day usance, two months after a cash land purchase. Read the file.",
+        "options": [
+          {
+            "id": "a",
+            "label": "The land purchase drained the company's cash, and the 360-day usance is designed to refinance it through the trade line — diversion by tenor",
+            "quality": "best",
+            "feedback": "The timeline tells it: cash bought land, and now supplier credit (bank-accepted) would replace the cash. The trade facility would silently carry a real estate position."
+          },
+          {
+            "id": "b",
+            "label": "Sensible treasury management — longer payment terms are free money",
+            "quality": "bad",
+            "feedback": "Free money for what? The parts repay themselves in 95 days. The other 265 days of float exist to fund something that is not parts — and the balance sheet shows you what.",
+            "consequence": "diversion"
+          },
+          {
+            "id": "c",
+            "label": "Industry-wide tenor extension — suppliers are simply offering more",
+            "quality": "poor",
+            "feedback": "Suppliers offer what importers ask for. The question is never what tenor is available, but what tenor the underlying trade cycle justifies. Here: 95 days, same as always.",
+            "consequence": "diversion"
+          },
+          {
+            "id": "d",
+            "label": "Nothing notable — tenor preferences vary",
+            "quality": "bad",
+            "feedback": "A 4x mismatch between usance and cycle, synchronised with a cash-draining land purchase, is about as notable as trade finance red flags get.",
+            "consequence": "diversion"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "Jassim is a good client who made an unfunded property move. Respond like a banker.",
+        "options": [
+          {
+            "id": "a",
+            "label": "Usance at 90–120 days matching the cycle; separately, offer to discuss a properly secured term loan against the land if he needs liquidity",
+            "quality": "best",
+            "feedback": "Both needs met, each in its own instrument: the trade line stays self-liquidating, and the land — if he wants cash against it — gets a term loan with a mortgage, priced and secured for what it is."
+          },
+          {
+            "id": "b",
+            "label": "Approve the 360 days — the LC history is spotless",
+            "quality": "bad",
+            "feedback": "The spotless history was built on matched tenors. You've now embedded a 9-month unsecured property exposure inside a trade line, invisible to every report that matters.",
+            "consequence": "diversion"
+          },
+          {
+            "id": "c",
+            "label": "Compromise at 180 days",
+            "quality": "poor",
+            "feedback": "Half the diversion is still diversion — 85 days of float with no trade purpose, just smaller. Splitting the difference isn't structure.",
+            "consequence": "diversion"
+          },
+          {
+            "id": "d",
+            "label": "Decline the renewal entirely — the request reveals intent",
+            "quality": "poor",
+            "feedback": "He has a real, healthy parts business that genuinely earns its 90-120 day line. Punishing the core trade for a clumsy side-move loses a good client over a conversation you haven't had yet.",
+            "consequence": "lost_deal",
+            "books": false
+          }
+        ]
+      },
+      {
+        "id": "collateral",
+        "stage": "collateral",
+        "prompt": "Terms for the renewed (90–120 day) trade line?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Existing margin + PG, plus a usage condition: usance tenor capped at the documented trade cycle, reviewed annually",
+            "quality": "best",
+            "feedback": "The cap turns this year's lesson into permanent structure — tenor follows the cycle by rule, not by negotiation, every renewal from now on."
+          },
+          {
+            "id": "b",
+            "label": "Existing security unchanged",
+            "quality": "good",
+            "feedback": "The line was and remains adequately secured — though after this request, writing the tenor-cycle cap into the terms would cost nothing and prevent the sequel."
+          },
+          {
+            "id": "c",
+            "label": "Take a mortgage over the new land as additional comfort on the trade line",
+            "quality": "poor",
+            "feedback": "Cross-collateralising the trade line with the land blesses the exact entanglement you just refused — now the LC line and the property really are one exposure.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "d",
+            "label": "Raise the cash margin to 50% as a penalty for the attempt",
+            "quality": "poor",
+            "feedback": "Punitive margining for a request you declined teaches resentment, not structure. The answer was no; the relationship continues.",
+            "consequence": "lost_goodwill"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 700000,
+    "facilitySummary": "Usance LC line KD 700,000 @ 90–120 days (tenor-capped)",
+    "docTags": ["base", "trade"],
+    "learn": "When requested tenor detaches from the trade cycle, the float is funding something else — find it on the balance sheet. Finance each need in its own instrument: trade at cycle tenor, property on a secured term loan."
+  },
+  {
+    "id": "l3-7",
+    "client": {
+      "name": "Hawally Hypermarket Group",
+      "sector": "Food & Grocery Retail",
+      "contact": "Anwar, CFO",
+      "profile": "Successful three-branch grocery retailer, client for 6 years. Wants to open three more branches. A junior analyst pre-reviewed the file and recommended declining for 'severe liquidity weakness'."
+    },
+    "request": "\"Three new branches, KD 2,100,000 of fit-out and equipment. Term loan, please. Also — your analyst sent us a worrying note about our 'liquidity problem'. We don't have a liquidity problem. Do we?\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Annual sales", "value": "KD 14,500,000" },
+        { "label": "Net margin", "value": "3.2% (steady — normal for grocery)" },
+        { "label": "Inventory days", "value": "38" },
+        { "label": "Receivable days", "value": "≈ 0 (customers pay at the till)" },
+        { "label": "Payable days", "value": "92" }
+      ],
+      "ratios": [
+        { "label": "Current ratio", "value": "0.6x", "benchmark": "the analyst flagged < 1.2x", "hint": "Frightening out of context. In context: see the working capital line below." },
+        { "label": "Working capital cycle", "value": "38 + 0 − 92 = −54 days", "hint": "NEGATIVE cycle: customers pay cash today; suppliers wait 92 days. Suppliers fund the whole operation and 54 days of float besides. For grocery retail this is strength, not distress." },
+        { "label": "DSCR on requested TL (6 yrs)", "value": "1.7x", "benchmark": "minimum ~1.2x", "hint": "Comfortable on existing cash flow, before the new branches contribute anything." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "First — was the analyst right? What does a 0.6x current ratio mean HERE?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Wrong call: negative working capital is the grocery model working — cash sales, supplier terms, no receivables. The 0.6x is structural strength misread as weakness",
+            "quality": "best",
+            "feedback": "Benchmarks have sectors. A contractor at 0.6x is drowning; a cash-sales grocer at 0.6x is being financed by its suppliers — the strongest working capital position in commerce. Read the model, then the ratio."
+          },
+          {
+            "id": "b",
+            "label": "The analyst is right — sub-1.0x current ratio is a hard stop regardless of industry",
+            "quality": "bad",
+            "feedback": "Ratio fundamentalism. Applied to retail, the 'hard stop' would decline every successful supermarket chain on earth — all of which run negative working capital on purpose.",
+            "consequence": "misread_sector"
+          },
+          {
+            "id": "c",
+            "label": "Genuine concern: if sales dip, those 92-day payables come due against a thin cushion",
+            "quality": "good",
+            "feedback": "The one real vulnerability of the model — it runs on velocity, and a sharp sales drop does bite. Worth a covenant; not a reason to misdiagnose a healthy structure as a sick one."
+          },
+          {
+            "id": "d",
+            "label": "The ratios conflict, so the financials are probably unreliable",
+            "quality": "poor",
+            "feedback": "Nothing conflicts — every number tells the same coherent retail story. The inconsistency was in the analysis, not the accounts.",
+            "consequence": "misread_sector"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "Now the expansion. Structure it.",
+        "options": [
+          {
+            "id": "a",
+            "label": "Term Loan KD 2,100,000 over 6 years for the fit-out — no working capital facility needed; the model self-funds operations",
+            "quality": "best",
+            "feedback": "Clean: term money for the fixed assets at 1.7x DSCR, and the recognition that this client needs no STRL is itself correct analysis — new branches generate cash from day one of trading."
+          },
+          {
+            "id": "b",
+            "label": "TL 2,100,000 + STRL KD 1,000,000 'to be safe' on the expansion",
+            "quality": "poor",
+            "feedback": "A working capital line for a negative-working-capital business is a limit in search of a purpose — and idle limits find purposes. Lend what the model needs, which here is fit-out only.",
+            "consequence": "diversion"
+          },
+          {
+            "id": "c",
+            "label": "Decline per the analyst's liquidity memo",
+            "quality": "bad",
+            "feedback": "Declining a 14.5M-revenue, 6-year client at 1.7x DSCR because a ratio was read without its sector — the competitor who understands retail will write this loan by Thursday.",
+            "consequence": "lost_deal",
+            "books": false
+          },
+          {
+            "id": "d",
+            "label": "TL KD 1,400,000 — fund two branches first, third on results",
+            "quality": "good",
+            "feedback": "Sensible conservatism, defensible at committee — though with DSCR at 1.7x before any new-branch contribution, the staging arguably under-backs a proven operator's plan."
+          }
+        ]
+      },
+      {
+        "id": "collateral",
+        "stage": "collateral",
+        "prompt": "Security and conditions for the expansion loan?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Lien over fit-out & equipment + corporate guarantee + minimum-sales covenant per new branch",
+            "quality": "best",
+            "feedback": "The covenant watches the model's one weak point — velocity. If a new branch underperforms, you know at the quarter, not at the default."
+          },
+          {
+            "id": "b",
+            "label": "Lien over fit-out & equipment + PG",
+            "quality": "good",
+            "feedback": "Adequate and proportionate — though for a velocity-dependent model, the sales covenant is the early-warning system worth one more paragraph in the agreement."
+          },
+          {
+            "id": "c",
+            "label": "Require a 100% cash margin given the 'weak liquidity'",
+            "quality": "bad",
+            "feedback": "Still pricing the misdiagnosis. Demanding blocked cash from a supplier-financed retailer repeats the analyst's error with money attached.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "Mortgage over one of the existing branch premises",
+            "quality": "poor",
+            "feedback": "The branches are leased — there's likely nothing to mortgage. The pack's asset story points at equipment, not property.",
+            "consequence": "weak_security"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 2100000,
+    "facilitySummary": "Term Loan KD 2.1M / 6 years (3 new branches)",
+    "docTags": ["base", "capex"],
+    "learn": "Ratios mean nothing without the business model: negative working capital is distress in contracting and excellence in cash retail. Benchmark within the sector — and covenant the model's actual weak point, not the textbook's."
+  },
+  {
+    "id": "l3-8",
+    "client": {
+      "name": "Sulaibiya Steel Fabrication",
+      "sector": "Steel Fabrication",
+      "contact": "Mishal, Owner",
+      "profile": "Aggressive operator who doubled the company in 18 months. Charismatic, persuasive, always in a hurry. Account conduct has developed cracks the growth story doesn't mention."
+    },
+    "request": "\"Revenue has DOUBLED in eighteen months and the order book is overflowing. I need all limits up 50% — today, ideally. Banks that move slowly lose clients like me. Are you a bank that moves slowly?\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Revenue growth", "value": "+105% in 18 months" },
+        { "label": "Gross margin", "value": "8%, down from 14%", "hint": "He's buying the growth — winning orders on price." },
+        { "label": "Payable days", "value": "95, up from 50" },
+        { "label": "Account conduct", "value": "2 returned cheques in 4 months ('technical errors'); 3 excesses over OD limit, regularised late" }
+      ],
+      "ratios": [
+        { "label": "Leverage (Debt / Equity)", "value": "2.4x, up from 1.0x", "benchmark": "< 2.0x comfortable", "hint": "Past the line and climbing — the growth is debt all the way down." },
+        { "label": "Working capital absorption", "value": "Every dinar of profit + new debt is consumed by WIP and receivables", "hint": "Classic overtrading mechanics: the order book eats cash faster than it returns it." },
+        { "label": "Interest cover", "value": "1.4x, down from 3.1x", "hint": "Margin erosion and debt growth compounding into the same number." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Strip away the charisma. What is this file?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Late-stage overtrading: debt-fueled growth at collapsing margins, with the returned cheques as the first public symptom of cash exhaustion",
+            "quality": "best",
+            "feedback": "All four gauges agree — leverage, margins, payables, conduct. The returned cheques are the part other creditors can see; the balance sheet explains why they happened."
+          },
+          {
+            "id": "b",
+            "label": "A growth company with timing issues — the order book will cure the cash flow",
+            "quality": "bad",
+            "feedback": "The order book is the cause, not the cure: at 8% margins, every new order consumes more cash in WIP than it returns in profit. More orders make it worse. That's the overtrading trap in one sentence.",
+            "consequence": "overtrading"
+          },
+          {
+            "id": "c",
+            "label": "Two returned cheques in four months — exit the relationship now",
+            "quality": "poor",
+            "feedback": "The cheques are a symptom demanding investigation and de-risking, not a panic trigger. A managed tightening can still save this client — and the bank's money. Abandonment saves neither.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "Healthy expansion with normal growing pains",
+            "quality": "bad",
+            "feedback": "Margins down 43%, leverage past 2x, suppliers waiting 95 days, cheques bouncing. If these are growing pains, the next stage of growth is insolvency.",
+            "consequence": "overtrading"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "He's across the desk, waiting for his 50%. Decide.",
+        "options": [
+          {
+            "id": "a",
+            "label": "No increases. Hold limits, require a capital injection plan and monthly management accounts, move all lines to secured basis with assignment of contract proceeds",
+            "quality": "best",
+            "feedback": "The intervention that can still work: the company needs equity and pricing discipline, not more debt — and the monthly numbers will show within a quarter whether Mishal heard you."
+          },
+          {
+            "id": "b",
+            "label": "Approve the 50% — back the order book, momentum is real",
+            "quality": "bad",
+            "feedback": "You just leveraged an overtrader past the point of return with the bank's money. When the cash runs out — and at 8% margins it will — the bank is the largest creditor at the table.",
+            "consequence": "overtrading"
+          },
+          {
+            "id": "c",
+            "label": "Offer +20% as a compromise to keep him engaged",
+            "quality": "poor",
+            "feedback": "Smaller fuel on the same fire. Any new debt deepens the mechanics; the compromise buys his goodwill with the bank's principal.",
+            "consequence": "overtrading"
+          },
+          {
+            "id": "d",
+            "label": "Freeze all utilisation and demand early repayment",
+            "quality": "poor",
+            "feedback": "An instant freeze mid-WIP strands live projects, triggers cross-defaults, and converts a salvageable overtrader into a certain loss. De-risking is a staircase, not a trapdoor.",
+            "consequence": "lost_goodwill"
+          }
+        ]
+      },
+      {
+        "id": "judgment2",
+        "stage": "judgment",
+        "prompt": "Last point — the two returned cheques. Mishal calls them 'technical errors'. What do they mean to you?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Near-conclusive cash exhaustion: companies pay cheques before almost anything — bounced ones mean the buffer is gone. 'Technical error', twice, is a story",
+            "quality": "best",
+            "feedback": "Returned cheques are the canary of corporate distress in this market — visible to every bank, every supplier, and the credit bureau. Two in four months means the cash is gone and the juggling has begun."
+          },
+          {
+            "id": "b",
+            "label": "Probably genuine errors — modern payment systems misfire sometimes",
+            "quality": "bad",
+            "feedback": "Once, perhaps. Twice, during a cash squeeze visible across the entire balance sheet, while suppliers wait 95 days? The kindest reading is still distress.",
+            "consequence": "overtrading"
+          },
+          {
+            "id": "c",
+            "label": "Relevant only if a cheque to our bank bounces",
+            "quality": "poor",
+            "feedback": "His cheques to anyone are signals about the same cash pool that repays us. Conduct intelligence doesn't respect whose name is on the payee line.",
+            "consequence": "overtrading"
+          },
+          {
+            "id": "d",
+            "label": "A pricing opportunity — raise his rates to match the risk",
+            "quality": "poor",
+            "feedback": "Repricing a deteriorating exposure without de-risking it earns an extra half-percent on money you're about to lose. Risk action first; pricing follows structure.",
+            "consequence": "overtrading"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 0,
+    "facilitySummary": "Limits held; capital plan required (Sulaibiya Steel)",
+    "docTags": ["base", "wc", "tender"],
+    "plantedError": {
+      "prompt": "While re-papering the lines onto a secured basis, documentation runs its checks. What surfaces?",
+      "options": [
+        { "id": "a", "label": "The board resolution on file names a general manager who left the company a year ago as sole authorised signatory", "correct": true, "feedback": "Correct — every document signed since his departure is potentially voidable. A current board resolution and updated signatory cards are needed before any re-papering. Authorisations age; check them at every major event." },
+        { "id": "b", "label": "The file uses the company's old logo on some documents", "correct": false, "feedback": "Branding has no legal weight — signatures and authorisations do." },
+        { "id": "c", "label": "Nothing — proceed with re-papering", "correct": false, "feedback": "The signatory authorisation is a year out of date and names someone who left. That invalidates the chain — fix it first." }
+      ]
+    },
+    "learn": "Overtrading endgame: doubling revenue at collapsing margins, financed by suppliers and debt, until the cheques start bouncing. The cure is equity and discipline — never more debt. And returned cheques are never 'technical errors' twice."
+  }
+]

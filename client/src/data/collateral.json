@@ -1,0 +1,37 @@
+[
+  {
+    "id": "cash_margin",
+    "name": "Cash Margin",
+    "description": "A percentage of the facility amount held in a blocked account. The strongest security — instantly liquid. Common on LCs and LGs (e.g. 10–100% depending on client strength)."
+  },
+  {
+    "id": "re_mortgage",
+    "name": "Real Estate Mortgage",
+    "description": "A registered first-degree mortgage over property. Strong security but slow to realise; value should be supported by a recent independent valuation with a sensible margin (e.g. lend against 50–70%)."
+  },
+  {
+    "id": "share_pledge",
+    "name": "Share Pledge",
+    "description": "Pledge over listed shares. Liquid but volatile — requires a margin cushion and top-up triggers if the price falls."
+  },
+  {
+    "id": "assign_proceeds",
+    "name": "Assignment of Contract Proceeds",
+    "description": "The project employer pays contract proceeds directly to the client's account with the bank. The natural security for contracting facilities — the repayment source itself is captured."
+  },
+  {
+    "id": "assign_recv",
+    "name": "Assignment of Receivables",
+    "description": "Specific invoices/receivables are assigned to the bank, with the debtor notified to pay the bank directly. Standard for discounting facilities."
+  },
+  {
+    "id": "personal_guarantee",
+    "name": "Personal Guarantee",
+    "description": "Guarantee from the owners/partners. More moral commitment than hard security — keeps owners on the hook but is only as good as their personal wealth."
+  },
+  {
+    "id": "corporate_guarantee",
+    "name": "Corporate Guarantee",
+    "description": "Guarantee from a parent or sister company. Useful when the borrower is a thin subsidiary of a strong group — always check the guarantor's own financials and a board resolution authorising it."
+  }
+]

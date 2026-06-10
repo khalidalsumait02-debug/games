@@ -1,0 +1,9 @@
+{
+  "bankName": "Dasman Corporate Bank",
+  "bankShort": "DCB",
+  "tagline": "Corporate Banking Academy",
+  "currency": "KD",
+  "leaderboardUrl": "http://localhost:8787",
+  "campaignMonths": 10,
+  "startingReputation": 70
+}
