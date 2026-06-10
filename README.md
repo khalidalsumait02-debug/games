@@ -20,6 +20,26 @@ Each level is a campaign of 8 client scenarios plus monitoring months —
 roughly 30–60 minutes, **pausable at any point** (progress autosaves; resume
 from the menu).
 
+## Play it online
+
+The game is deployed on GitHub Pages from the `gh-pages` branch:
+
+**https://khalidalsumait02-debug.github.io/games/**
+
+(On Pages there is no leaderboard server, so high scores use the per-device
+local leaderboard automatically.)
+
+To redeploy after making changes:
+
+```bash
+cd client && npm run build
+git worktree add /tmp/ghp gh-pages
+rm -rf /tmp/ghp/assets /tmp/ghp/index.html /tmp/ghp/favicon.svg
+cp -r dist/* /tmp/ghp/ && touch /tmp/ghp/.nojekyll
+cd /tmp/ghp && git add -A && git commit -m "Redeploy" && git push
+cd - && git worktree remove /tmp/ghp
+```
+
 ## Run the game
 
 ```bash
