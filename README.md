@@ -22,23 +22,16 @@ from the menu).
 
 ## Play it online
 
-The game is deployed on GitHub Pages from the `gh-pages` branch:
+The game is live on GitHub Pages:
 
 **https://khalidalsumait02-debug.github.io/games/**
 
+Deployment is automatic: every push to `main` triggers the
+`.github/workflows/deploy-pages.yml` workflow, which builds the client and
+publishes it to Pages. To redeploy, just push your changes to `main`.
+
 (On Pages there is no leaderboard server, so high scores use the per-device
 local leaderboard automatically.)
-
-To redeploy after making changes:
-
-```bash
-cd client && npm run build
-git worktree add /tmp/ghp gh-pages
-rm -rf /tmp/ghp/assets /tmp/ghp/index.html /tmp/ghp/favicon.svg
-cp -r dist/* /tmp/ghp/ && touch /tmp/ghp/.nojekyll
-cd /tmp/ghp && git add -A && git commit -m "Redeploy" && git push
-cd - && git worktree remove /tmp/ghp
-```
 
 ## Run the game
 
