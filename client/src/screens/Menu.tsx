@@ -11,7 +11,7 @@ interface Props {
   onSelectProfile: (id: string) => void;
   onCreateProfile: (name: string, pin?: string) => void;
   onDeleteProfile: (id: string) => void;
-  onStart: (level: 1 | 2 | 3) => void;
+  onStart: (level: 1 | 2 | 3 | 4) => void;
   onResume: () => void;
   onLeaderboard: () => void;
   onGlossary: () => void;
@@ -29,7 +29,7 @@ export default function Menu({
   onLeaderboard,
   onGlossary,
 }: Props) {
-  const [level, setLevel] = useState<1 | 2 | 3>(1);
+  const [level, setLevel] = useState<1 | 2 | 3 | 4>(1);
   const [creating, setCreating] = useState(profiles.length === 0);
   const [newName, setNewName] = useState('');
   const [newPin, setNewPin] = useState('');
@@ -53,7 +53,7 @@ export default function Menu({
   };
 
   const bestLine = (p: Profile) => {
-    const bests = ([1, 2, 3] as const)
+    const bests = ([1, 2, 3, 4] as const)
       .filter((l) => p.best[l] !== undefined)
       .map((l) => `L${l} ${p.best[l]!.toLocaleString()}`);
     return bests.length > 0 ? `Best: ${bests.join(' · ')}` : 'No campaigns finished yet';
@@ -135,7 +135,7 @@ export default function Menu({
 
         <div className="field-label">Choose your level</div>
         <div className="level-grid">
-          {([1, 2, 3] as const).map((l) => (
+          {([1, 2, 3, 4] as const).map((l) => (
             <button
               key={l}
               className={`level-card ${level === l ? 'selected' : ''}`}

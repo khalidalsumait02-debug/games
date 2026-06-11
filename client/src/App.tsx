@@ -97,7 +97,7 @@ export default function App() {
     setSavedGame(p ? loadSave(p.id) : null);
   };
 
-  const startGame = (level: 1 | 2 | 3) => {
+  const startGame = (level: 1 | 2 | 3 | 4) => {
     if (!profile) return;
     const g = newGame(profile.name, level, profile.id);
     save(g);

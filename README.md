@@ -12,9 +12,10 @@ findings, lost deals, and reputation damage.
 
 | Level | Audience | Focus |
 |-------|----------|-------|
-| 1 — Foundations | Fresh graduates | One facility per client: Sight LC, Usance LC (Acceptance), Bid/Performance/Advance Payment bonds, Overdraft, Short Term Revolving Loan, Term Loan, Discounting |
-| 2 — Structuring | 1–5 years experience | Sizing limits from the working capital cycle, DSCR-based tenors, usance matched to the trade cycle, restructuring, pushy clients |
-| 3 — Refresher | 5+ years experience | Window dressing, evergreening, diversion by tenor, concentration, overtrading, sector-aware ratio reading |
+| 1 — Intern | No banking background | The absolute basics, one concept per client: repayment sources, overdrafts, LCs, guarantees, term loans, collateral, why process matters, reading simple numbers |
+| 2 — Analyst | Fresh graduates | One facility per client: Sight LC, Usance LC (Acceptance), Bid/Performance/Advance Payment bonds, Overdraft, Short Term Revolving Loan, Term Loan, Discounting |
+| 3 — Associate | 1–5 years experience | Fill-in-the-blank proposals (facility / amount / tenor each scored), sizing from the working capital cycle, DSCR-based tenors, restructuring, pushy clients |
+| 4 — Senior RM | 5+ years experience | Every decision built from five-option blanks: window dressing, evergreening, diversion by tenor, concentration, overtrading, sector-aware ratio reading |
 
 Each level is a campaign of 8 client scenarios plus monitoring months —
 roughly 30–60 minutes, **pausable at any point** (progress autosaves; resume

@@ -24,7 +24,7 @@ function saveKey(profileId: string) {
   return `${SAVE_PREFIX}${profileId}`;
 }
 
-export function newGame(playerName: string, level: 1 | 2 | 3, profileId = 'local'): GameState {
+export function newGame(playerName: string, level: 1 | 2 | 3 | 4, profileId = 'local'): GameState {
   return {
     playerName,
     profileId,
@@ -400,7 +400,7 @@ function finalize(s: GameState) {
 }
 
 export function grade(score: number, level: number): string {
-  const t = score / (level === 1 ? 1 : level === 2 ? 1.15 : 1.15);
+  const t = score / (level <= 2 ? 1 : 1.15);
   if (t >= 2400) return 'AAA — Committee Chair material';
   if (t >= 2000) return 'AA — Senior Relationship Manager';
   if (t >= 1500) return 'A — Solid credit mind';

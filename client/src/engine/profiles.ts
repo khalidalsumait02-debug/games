@@ -6,7 +6,7 @@ export interface Profile {
   name: string;
   pin?: string; // present = cross-device sync enabled (when a server is configured)
   createdAt: number;
-  best: Partial<Record<1 | 2 | 3, number>>;
+  best: Partial<Record<1 | 2 | 3 | 4, number>>;
   campaignsCompleted: number;
 }
 
@@ -63,7 +63,7 @@ export function updateProfile(updated: Profile) {
   writeAll(readAll().map((p) => (p.id === updated.id ? updated : p)));
 }
 
-export function recordResult(id: string, level: 1 | 2 | 3, score: number) {
+export function recordResult(id: string, level: 1 | 2 | 3 | 4, score: number) {
   const all = readAll();
   const p = all.find((x) => x.id === id);
   if (!p) return;

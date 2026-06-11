@@ -1,1120 +1,779 @@
 [
   {
-    "id": "l1-1",
+    "id": "i-1",
     "client": {
-      "name": "Failaka Foods Trading Co.",
-      "sector": "Food Import & Distribution",
-      "contact": "Abdullah, General Manager",
-      "profile": "Client for 4 years. Clean account conduct, growing steadily. Imports frozen foods and distributes to co-ops and restaurants."
+      "name": "Al Noor Mini Market",
+      "sector": "Neighbourhood Grocery",
+      "contact": "Abu Salem, Owner",
+      "profile": "A small corner grocery near the bank's branch. Abu Salem has banked with us for years — deposits his takings every evening. First time asking for financing."
     },
-    "request": "\"We found a new supplier in Brazil with great prices, but they won't ship without secure payment — and I'm not wiring KD 250,000 in advance to someone I've never met. What can the bank do?\"",
+    "request": "\"Ramadan is coming and I want to fill the shop with stock — juices, dates, rice. I need about KD 20,000. I'll sell it all during the season and pay you back from the sales. Can the bank help?\"",
     "analysisPack": {
       "figures": [
-        {
-          "label": "Annual sales",
-          "value": "KD 2,400,000"
-        },
-        {
-          "label": "Net profit",
-          "value": "KD 190,000"
-        },
-        {
-          "label": "Cash & bank",
-          "value": "KD 110,000"
-        },
-        {
-          "label": "Receivables",
-          "value": "KD 320,000"
-        },
-        {
-          "label": "Inventory",
-          "value": "KD 380,000"
-        },
-        {
-          "label": "Equity",
-          "value": "KD 850,000"
-        }
+        { "label": "Monthly sales (normal)", "value": "KD 18,000" },
+        { "label": "Monthly sales (Ramadan)", "value": "KD 35,000" },
+        { "label": "Money he needs", "value": "KD 20,000" },
+        { "label": "How long until he can repay", "value": "~3 months" }
       ],
       "ratios": [
-        {
-          "label": "Current ratio",
-          "value": "1.7x",
-          "benchmark": "> 1.2x comfortable",
-          "hint": "Short-term assets comfortably cover short-term liabilities — liquidity is healthy."
-        },
-        {
-          "label": "Leverage (Debt / Equity)",
-          "value": "0.4x",
-          "benchmark": "< 2.0x comfortable",
-          "hint": "Low debt — the company is not over-borrowed."
-        },
-        {
-          "label": "Inventory days",
-          "value": "58 days",
-          "hint": "Stock sells in about two months."
-        },
-        {
-          "label": "Receivable days",
-          "value": "49 days",
-          "hint": "Customers pay in about 7 weeks."
-        }
+        { "label": "The key question", "value": "Where will repayment come from?", "hint": "Every loan needs a repayment source — the cash that will pay it back. Here it's the Ramadan sales: he buys stock, sells it, and the sales money repays the bank. This is the first question a banker asks about ANY financing." },
+        { "label": "Does the story add up?", "value": "Sales nearly double in Ramadan", "hint": "His Ramadan sales jump by KD 17,000 a month. Over the season that's far more than KD 20,000 — so the repayment source is realistic." }
       ]
     },
     "decisions": [
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "The supplier wants assured payment on shipment; the client refuses to prepay. What do you offer?",
+        "prompt": "First lesson: every financing needs a repayment source. What repays this loan?",
         "options": [
           {
             "id": "a",
-            "label": "Sight Letter of Credit — KD 250,000",
-            "detail": "Bank pays the supplier when compliant shipping documents are presented.",
+            "label": "The Ramadan sales — he turns the stock into cash and pays us from that",
             "quality": "best",
-            "feedback": "Exactly right. A sight LC protects both sides: the supplier is sure of payment, and the client's money only moves against documents proving the goods were shipped as agreed."
+            "feedback": "Exactly. The stock becomes sales, the sales become cash, the cash repays the loan. When a banker can trace that path clearly, the loan makes sense. This path is called the repayment source."
           },
           {
             "id": "b",
-            "label": "Overdraft KD 250,000 so he can wire the money in advance",
-            "quality": "bad",
-            "feedback": "This funds a blind prepayment to an unknown supplier — if the goods never ship, the money is gone and the bank financed the loss. The LC exists precisely to avoid this.",
+            "label": "His house — if he doesn't pay we take it",
+            "quality": "poor",
+            "feedback": "That's collateral (a backup if things go wrong), not a repayment source. Banks lend against the cash a business will generate — security is the safety net, never the plan.",
             "consequence": "weak_structure"
           },
           {
             "id": "c",
-            "label": "Usance LC (Acceptance) — 180 days",
-            "quality": "poor",
-            "feedback": "A usance LC defers payment — but this supplier insists on payment at shipment, so they will reject these terms and the deal stalls. Instrument family is right; the variant is wrong.",
+            "label": "He seems trustworthy — that's enough",
+            "quality": "bad",
+            "feedback": "Trust matters, but trust doesn't transfer money. Without a clear answer to 'where will the cash come from?', there is no loan — however honest the client.",
             "consequence": "weak_structure"
           },
           {
             "id": "d",
-            "label": "Term Loan KD 250,000 over 5 years",
+            "label": "The bank's profits cover it if he can't pay",
             "quality": "bad",
-            "feedback": "Term loans finance fixed assets repaid over years. This is a 60-day trading transaction — completely the wrong tenor and type.",
-            "consequence": "maturity_mismatch"
+            "feedback": "If the bank planned to absorb losses, it would be a charity. Every dinar lent must have a planned way home.",
+            "consequence": "weak_structure"
           }
         ]
       },
       {
-        "id": "collateral",
-        "stage": "collateral",
-        "prompt": "What security do you take for the LC line?",
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Now choose the financing. He needs KD 20,000 for about 3 months.",
         "options": [
           {
             "id": "a",
-            "label": "15% cash margin + personal guarantee of the partners",
+            "label": "A short-term loan, repaid after the season — about 3 months",
             "quality": "best",
-            "feedback": "Proportionate for a healthy 4-year client: the margin gives a first-loss cushion, the PG keeps the owners committed."
+            "feedback": "The loan's length matches the need: 3 months of stock, 3 months of financing. Matching the loan to the need is one of the most important habits in banking."
           },
           {
             "id": "b",
-            "label": "100% cash margin",
-            "quality": "good",
-            "feedback": "Completely safe for the bank — but if the client had KD 250,000 idle, they would barely need us. Commercially heavy for a client of this quality; expect them to shop around."
-          },
-          {
-            "id": "c",
-            "label": "Clean — no security",
+            "label": "A 10-year loan — give him plenty of time",
             "quality": "poor",
-            "feedback": "An unsecured trade line for a mid-sized private company leaves the bank with nothing if documents arrive and the client can't pay.",
-            "consequence": "weak_security"
-          },
-          {
-            "id": "d",
-            "label": "First-degree mortgage over the GM's home",
-            "quality": "poor",
-            "feedback": "Disproportionate for a KD 250,000 trade line on a healthy client — slow, expensive to register, and likely to push the client to a competitor.",
-            "consequence": "lost_goodwill"
-          }
-        ]
-      }
-    ],
-    "dealSizeKD": 250000,
-    "facilitySummary": "Sight LC line KD 250,000",
-    "docTags": [
-      "base",
-      "trade"
-    ],
-    "learn": "A sight LC pays the supplier only against compliant shipping documents — it replaces risky advance payments in international trade. Security should be proportionate to the client's strength."
-  },
-  {
-    "id": "l1-2",
-    "client": {
-      "name": "Mubarakiya Textiles Trading",
-      "sector": "Textile & Garment Wholesale",
-      "contact": "Fahad, Owner",
-      "profile": "Family business, 12 years old, buys from local wholesalers and importers. Sales peak strongly every year before Ramadan and Eid."
-    },
-    "request": "\"Every year before Ramadan I need to build stock — about KD 400,000 extra for roughly three months. I repay it all once the season's sales come in. It happens every single year. What's the right way to fund this?\"",
-    "analysisPack": {
-      "figures": [
-        {
-          "label": "Annual sales",
-          "value": "KD 3,100,000"
-        },
-        {
-          "label": "Net profit",
-          "value": "KD 210,000"
-        },
-        {
-          "label": "Inventory (normal)",
-          "value": "KD 520,000"
-        },
-        {
-          "label": "Inventory (seasonal peak)",
-          "value": "KD 900,000"
-        },
-        {
-          "label": "Receivables",
-          "value": "KD 240,000"
-        },
-        {
-          "label": "Equity",
-          "value": "KD 1,100,000"
-        }
-      ],
-      "ratios": [
-        {
-          "label": "Current ratio",
-          "value": "1.6x",
-          "benchmark": "> 1.2x comfortable",
-          "hint": "Healthy liquidity in normal months."
-        },
-        {
-          "label": "Working capital cycle",
-          "value": "~75 days",
-          "hint": "Money invested in stock comes back as cash in about 75 days — that's the natural tenor of the financing."
-        },
-        {
-          "label": "Leverage (Debt / Equity)",
-          "value": "0.5x",
-          "benchmark": "< 2.0x comfortable"
-        },
-        {
-          "label": "Seasonal peak need",
-          "value": "≈ KD 400,000",
-          "hint": "Pre-computed: peak inventory minus normal inventory. The number matches what he's asking for."
-        }
-      ]
-    },
-    "decisions": [
-      {
-        "id": "structure",
-        "stage": "structure",
-        "prompt": "A recurring, 3-month seasonal stock build, repaid from seasonal sales. What fits?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Short Term Revolving Loan — KD 400,000, drawdowns up to 90 days",
-            "quality": "best",
-            "feedback": "Textbook STRL: it funds the operating cycle, each drawdown matches the ~75–90 day cycle, he repays from season sales and redraws next year. Self-liquidating by design."
-          },
-          {
-            "id": "b",
-            "label": "Term Loan KD 400,000 over 5 years",
-            "quality": "bad",
-            "feedback": "He needs the money for 3 months a year and you've lent it for 5 years — he pays interest on idle money for the other 9 months, every year. Wrong tenor for a working capital need.",
+            "feedback": "He'd be paying interest for 10 years on stock he sold in 3 months. Longer is not kinder — it's just more expensive. Match the financing to the need.",
             "consequence": "maturity_mismatch"
           },
           {
             "id": "c",
-            "label": "Overdraft KD 400,000",
-            "quality": "good",
-            "feedback": "It works — but an OD this size invites drift into permanent usage. An STRL with 90-day drawdowns imposes the discipline of repaying each season, which is exactly the rhythm of his business."
+            "label": "KD 100,000 — take extra just in case",
+            "quality": "bad",
+            "feedback": "Five times what he needs. Extra borrowed money doesn't sit still — it gets spent, and then it must be repaid from sales that were only ever going to cover KD 20,000.",
+            "consequence": "diversion"
           },
           {
             "id": "d",
-            "label": "Sight LC line KD 400,000",
+            "label": "No loan — tell him to save up for a few years",
             "quality": "poor",
-            "feedback": "He buys from local wholesalers in dinars — there's no international trade transaction here for an LC to secure.",
-            "consequence": "weak_structure"
-          }
-        ]
-      },
-      {
-        "id": "collateral",
-        "stage": "collateral",
-        "prompt": "Security for the STRL?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Personal guarantee of the owner",
-            "quality": "best",
-            "feedback": "Standard and proportionate for a 12-year family business with healthy ratios — keeps the owner personally committed to the seasonal repayment."
-          },
-          {
-            "id": "b",
-            "label": "Clean, based on strong financials and track record",
-            "quality": "good",
-            "feedback": "Defensible for this client — but a PG costs the client nothing and meaningfully strengthens the bank's position. Why lend clean when a PG is easy to obtain?"
-          },
-          {
-            "id": "c",
-            "label": "100% cash margin",
-            "quality": "poor",
-            "feedback": "If he had KD 400,000 in spare cash he wouldn't be asking for seasonal finance. This effectively declines the deal.",
+            "feedback": "Financing exactly this kind of short, self-repaying need is what banks are for. The season won't wait for savings.",
             "consequence": "lost_goodwill"
-          },
-          {
-            "id": "d",
-            "label": "Pledge over listed shares",
-            "quality": "poor",
-            "feedback": "He's a textile trader — he holds stock, not a share portfolio. Security should connect to what the client actually has.",
-            "consequence": "weak_security"
           }
         ]
       }
     ],
-    "dealSizeKD": 400000,
-    "facilitySummary": "STRL KD 400,000 (90-day drawdowns)",
-    "docTags": [
-      "base",
-      "wc"
-    ],
-    "learn": "The Short Term Revolving Loan funds the operating cycle: draw to buy stock, repay from sales, redraw next cycle. Size it from the cycle, and match each drawdown's tenor to it."
+    "dealSizeKD": 20000,
+    "facilitySummary": "Seasonal loan KD 20,000 (3 months)",
+    "docTags": ["base"],
+    "learn": "Every financing starts with one question: where will repayment come from? Trace the path from the money's use to the cash that brings it back — and match the loan's length to that path."
   },
   {
-    "id": "l1-3",
+    "id": "i-2",
     "client": {
-      "name": "Al Sawari Contracting Co.",
-      "sector": "Construction & Contracting",
-      "contact": "Nasser, Finance Manager",
-      "profile": "Mid-size contractor, client for 6 years. Has completed six government renovation projects on time. Currently bidding for new work."
+      "name": "Bin Daij Electronics",
+      "sector": "Electronics Retail",
+      "contact": "Yaqoub, Owner",
+      "profile": "Sells phones and accessories in a busy mall. Healthy little business — this visit is about timing, not trouble."
     },
-    "request": "\"We're bidding on the Ministry of Health clinic renovation tender — contract value around KD 2,500,000. The tender requires a 2% bank guarantee with the bid, submitted by Thursday. We need it fast.\"",
+    "request": "\"Here's my problem: salaries go out on the 25th of every month, but the mall pays me my card sales on the 5th. For about ten days a month I'm short maybe KD 8,000 — then the money arrives and I'm fine again. What do I do?\"",
     "analysisPack": {
       "figures": [
-        {
-          "label": "Annual revenue",
-          "value": "KD 4,200,000"
-        },
-        {
-          "label": "Net profit",
-          "value": "KD 260,000"
-        },
-        {
-          "label": "Equity",
-          "value": "KD 1,300,000"
-        },
-        {
-          "label": "Completed similar projects",
-          "value": "6 (all on time)"
-        },
-        {
-          "label": "Required guarantee",
-          "value": "2% × 2.5M = KD 50,000"
-        }
+        { "label": "Monthly sales", "value": "KD 45,000" },
+        { "label": "The gap", "value": "~KD 8,000, for ~10 days" },
+        { "label": "How often", "value": "Every month, then it self-corrects" }
       ],
       "ratios": [
-        {
-          "label": "Current ratio",
-          "value": "1.4x",
-          "benchmark": "> 1.2x comfortable"
-        },
-        {
-          "label": "Leverage (Debt / Equity)",
-          "value": "0.7x",
-          "benchmark": "< 2.0x comfortable"
-        },
-        {
-          "label": "Execution track record",
-          "value": "Strong",
-          "hint": "Six similar projects completed — they can genuinely perform if they win. That's the key question behind any bid bond."
-        }
+        { "label": "What kind of need is this?", "value": "A timing gap, not missing money", "hint": "Yaqoub isn't short of money — his money arrives ten days late. The business is fine; only the calendar is awkward. Banks have a special tool for exactly this." },
+        { "label": "The tool", "value": "Overdraft (OD)", "hint": "An overdraft lets his account dip below zero up to an agreed limit. He pays interest only on the days he actually uses it — perfect for a gap that opens and closes by itself." }
       ]
     },
     "decisions": [
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "What does the client actually need for the tender?",
+        "prompt": "What fits a 10-day gap that closes by itself every month?",
         "options": [
           {
             "id": "a",
-            "label": "Bid Bond — KD 50,000, valid per tender conditions",
+            "label": "An overdraft — the account can dip to −KD 10,000 and recovers when the mall pays",
             "quality": "best",
-            "feedback": "Correct. The bid bond (2% of tender value) accompanies the offer and compensates the Ministry if the bidder wins then withdraws. It's the first rung of the guarantee ladder."
+            "feedback": "The overdraft is built for exactly this: short dips that fix themselves. He pays interest only for the days he's below zero — maybe ten days a month."
           },
           {
             "id": "b",
-            "label": "Performance Bond — KD 250,000 now",
+            "label": "A KD 10,000 loan for 5 years",
             "quality": "bad",
-            "feedback": "The performance bond comes after the award, not at bidding. Issuing 10% of contract value now is premature and five times the exposure needed today.",
+            "feedback": "He'd carry debt for five years — and pay five years of interest — to cover a gap that lasts ten days. The size of the tool must match the size of the problem.",
+            "consequence": "maturity_mismatch"
+          },
+          {
+            "id": "c",
+            "label": "Tell him to delay salaries to the 5th",
+            "quality": "poor",
+            "feedback": "Solving the bank's puzzle by making his staff wait for wages is no solution at all — and likely illegal. Banks exist to bridge exactly these gaps.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "A KD 50,000 credit line — room to grow",
+            "quality": "poor",
+            "feedback": "Six times the need. Unused limits tempt unplanned spending, and the bank carries risk it was never asked to carry. Size to the need.",
+            "consequence": "diversion"
+          }
+        ]
+      },
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "A month later you review his account. What does a HEALTHY overdraft look like?",
+        "options": [
+          {
+            "id": "a",
+            "label": "It dips below zero mid-month and comes back above zero when the mall pays",
+            "quality": "best",
+            "feedback": "That swing — down and back up — is the signature of a healthy overdraft. The account 'breathes'. The day it stops coming back up, something has changed in the business."
+          },
+          {
+            "id": "b",
+            "label": "It stays at the bottom of the limit all month — he's getting full value",
+            "quality": "bad",
+            "feedback": "An overdraft that's always at its limit isn't breathing — it's stuck. That means the money went into something permanent, and a permanent need should never live on an overdraft.",
+            "consequence": "maturity_mismatch"
+          },
+          {
+            "id": "c",
+            "label": "It's never used at all — that's safest",
+            "quality": "good",
+            "feedback": "Safe for the bank, but if he never needed it, we solved a problem he didn't have. A good facility gets used — correctly."
+          },
+          {
+            "id": "d",
+            "label": "Doesn't matter, as long as interest is paid",
+            "quality": "poor",
+            "feedback": "Interest payments can hide a stuck account for months. Bankers read the pattern of the account, not just the interest line.",
+            "consequence": "weak_structure"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 10000,
+    "facilitySummary": "Overdraft KD 10,000",
+    "docTags": ["base"],
+    "learn": "An overdraft covers short gaps that close by themselves — the account should swing below zero and back. An overdraft that's always full is a warning sign: permanent money is hiding in a temporary tool."
+  },
+  {
+    "id": "i-3",
+    "client": {
+      "name": "Deema Furniture House",
+      "sector": "Furniture Import",
+      "contact": "Deema, Founder",
+      "profile": "Imports sofas from a factory in Turkey she found online. First import deal of this size — and she's nervous."
+    },
+    "request": "\"The Turkish factory wants KD 30,000 before they ship anything. I've never met them! If I send the money and no sofas arrive, I'm finished. But they say they won't make the furniture without guaranteed payment. We're stuck — can the bank fix this?\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Order value", "value": "KD 30,000" },
+        { "label": "The deadlock", "value": "She won't pay first; they won't ship first" },
+        { "label": "Distance", "value": "Two strangers, two countries" }
+      ],
+      "ratios": [
+        { "label": "The problem in one word", "value": "Trust", "hint": "Neither side wants to move first. This exact problem is centuries old — and banks invented a tool for it: the Letter of Credit (LC)." },
+        { "label": "How the LC works", "value": "The bank promises the seller: 'ship the goods, show us the shipping documents, and WE pay you'", "hint": "The seller trusts the bank even if they don't trust Deema. And Deema's money only moves when documents prove the sofas were actually shipped. Both sides are protected." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "Two strangers, neither willing to move first. What does the bank offer?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A Letter of Credit — the bank pays the factory when shipping documents prove the sofas are on the way",
+            "quality": "best",
+            "feedback": "This is the LC's whole purpose: the factory trusts the bank's promise, and Deema's money moves only against proof of shipment. The deadlock dissolves."
+          },
+          {
+            "id": "b",
+            "label": "Lend her KD 30,000 to wire in advance",
+            "quality": "bad",
+            "feedback": "Now it's the bank's money on a one-way trip to a stranger's account. If nothing ships, the loss is just bigger and better funded. The risk wasn't money — it was trust.",
             "consequence": "weak_structure"
           },
           {
             "id": "c",
-            "label": "Overdraft KD 50,000 so they deposit cash with the Ministry",
+            "label": "Tell her to fly to Turkey and pay cash in person",
             "quality": "poor",
-            "feedback": "The tender asks for a bank guarantee. A cash deposit (even if accepted) ties up the client's liquidity for months across every tender they bid — guarantees exist to avoid exactly this.",
+            "feedback": "Charming, expensive, and it still doesn't protect her — cash handed over is cash gone, whatever happens at the factory afterwards.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "Advise her to find a local supplier instead",
+            "quality": "poor",
+            "feedback": "Telling clients to abandon good business because trust is hard is giving up — solving exactly this is what trade finance exists for.",
+            "consequence": "lost_goodwill"
+          }
+        ]
+      },
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Quick check — when does the bank actually pay the Turkish factory?",
+        "options": [
+          {
+            "id": "a",
+            "label": "When the factory presents documents proving the goods were shipped as agreed",
+            "quality": "best",
+            "feedback": "Correct — the LC pays against documents: a transport document, an invoice, a packing list matching the agreed terms. Paper proof first, payment second."
+          },
+          {
+            "id": "b",
+            "label": "As soon as the LC is opened",
+            "quality": "bad",
+            "feedback": "That would just be a prepayment with extra steps. The protection IS the condition: no shipping documents, no payment.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "c",
+            "label": "After Deema sells the sofas",
+            "quality": "poor",
+            "feedback": "The factory would never accept terms tied to how well Deema's shop does. The LC pays on shipment, not on her sales.",
             "consequence": "weak_structure"
           },
           {
             "id": "d",
-            "label": "Sight LC in favour of the Ministry",
+            "label": "Whenever the factory phones and asks politely",
             "quality": "bad",
-            "feedback": "An LC is a trade payment instrument against shipping documents. A tender requires a letter of guarantee — different instrument, different purpose.",
+            "feedback": "Banks pay against documents, not phone calls. The strictness is the safety.",
             "consequence": "weak_structure"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 30000,
+    "facilitySummary": "Sight LC KD 30,000 (Turkey imports)",
+    "docTags": ["base", "trade"],
+    "learn": "The Letter of Credit solves the oldest problem in trade: two strangers, neither willing to move first. The bank's promise replaces personal trust — and money moves only against documents proving shipment."
+  },
+  {
+    "id": "i-4",
+    "client": {
+      "name": "Hamdan Cleaning Services",
+      "sector": "Facility Services",
+      "contact": "Hamdan, Owner",
+      "profile": "Cleans office buildings with a crew of 40. Wants to bid for his first government contract."
+    },
+    "request": "\"The Ministry tender says every bidder must submit a 'bank guarantee of KD 5,000' with their offer. I don't want to borrow KD 5,000 — I just need this paper from the bank. What exactly are they asking for?\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Tender value", "value": "KD 250,000 (annual cleaning contract)" },
+        { "label": "Required with the bid", "value": "Bank guarantee — KD 5,000" },
+        { "label": "Is this a loan?", "value": "No — and that's the lesson" }
+      ],
+      "ratios": [
+        { "label": "Two families of facilities", "value": "Cash vs non-cash", "hint": "CASH facilities move money now (loans, overdrafts). NON-CASH facilities are promises — the bank guarantees something, and money only moves if a specific thing goes wrong. Hamdan needs a promise, not money." },
+        { "label": "This promise's name", "value": "Bid bond", "hint": "It tells the Ministry: 'if this bidder wins and then walks away, the bank pays you KD 5,000.' It keeps bidders serious — and it costs Hamdan a small fee, not a debt." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "What is the Ministry actually asking Hamdan for?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A bank promise (a bid bond) — money only moves if he wins and then abandons his bid",
+            "quality": "best",
+            "feedback": "Exactly — a non-cash facility. The bank lends its trustworthiness, not its money. Hamdan pays a small fee; no loan, no interest, no debt."
+          },
+          {
+            "id": "b",
+            "label": "A KD 5,000 loan to deposit with the Ministry",
+            "quality": "poor",
+            "feedback": "The tender asks for a guarantee precisely so bidders DON'T have to park cash. Borrowing to deposit money defeats the whole design.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "c",
+            "label": "Proof he has KD 5,000 in his account",
+            "quality": "poor",
+            "feedback": "A balance today proves nothing about Thursday. The Ministry wants an enforceable promise from a bank, not a snapshot.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "d",
+            "label": "KD 5,000 in cash, in an envelope, handed to the tender committee",
+            "quality": "bad",
+            "feedback": "That's not a guarantee — depending on the envelope, it might be a bribe. Government tenders run on bank instruments for good reason.",
+            "consequence": "weak_structure"
+          }
+        ]
+      },
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Before issuing even this small promise, what should the bank ask itself?",
+        "options": [
+          {
+            "id": "a",
+            "label": "If Hamdan wins, can he actually DO this contract? The bid bond is step one of a bigger relationship",
+            "quality": "best",
+            "feedback": "Sharp thinking. If he wins, he'll be back for a bigger guarantee (a performance bond) and maybe financing. The bank should only help him bid for work he can genuinely deliver."
+          },
+          {
+            "id": "b",
+            "label": "Nothing — it's only KD 5,000",
+            "quality": "poor",
+            "feedback": "Small guarantees lead to large ones. Issuing the bid bond signals the bank believes he can perform — believe it before you sign it.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "c",
+            "label": "Whether the Ministry is good for the money",
+            "quality": "poor",
+            "feedback": "Backwards — the Ministry RECEIVES the guarantee. The risk the bank carries is Hamdan's behaviour, not the Ministry's.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "d",
+            "label": "Whether to charge him interest on the KD 5,000",
+            "quality": "bad",
+            "feedback": "No money has moved, so there's nothing to charge interest on. Guarantees earn a fee — interest belongs to loans.",
+            "consequence": "weak_structure"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 5000,
+    "facilitySummary": "Bid bond KD 5,000 (Ministry tender)",
+    "docTags": ["base", "tender"],
+    "learn": "Banking has two families: CASH facilities move money now (loans, overdrafts); NON-CASH facilities are promises (guarantees, LCs) where money moves only if something specific happens. A bid bond is a promise that keeps bidders serious."
+  },
+  {
+    "id": "i-5",
+    "client": {
+      "name": "Lulwa's Bakery",
+      "sector": "Food Production",
+      "contact": "Lulwa, Owner",
+      "profile": "Famous for her saffron cakes. The shop can't keep up with orders — she wants a second industrial oven."
+    },
+    "request": "\"The oven costs KD 24,000 and will let me double my baking. I make about KD 1,000 profit a month now, and the supplier says the new oven should roughly double that. How should I pay for it?\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Oven cost", "value": "KD 24,000" },
+        { "label": "Current profit", "value": "~KD 1,000 / month" },
+        { "label": "Expected profit with new oven", "value": "~KD 2,000 / month" },
+        { "label": "Oven's working life", "value": "~10 years" }
+      ],
+      "ratios": [
+        { "label": "What kind of purchase is this?", "value": "A long-term asset", "hint": "The oven isn't stock to resell — it's equipment she'll use for ten years. Long-lived assets are financed with LONG loans (term loans), repaid bit by bit from the profit the asset itself creates." },
+        { "label": "Can she afford the repayments?", "value": "At 3 years: ~KD 700/month vs ~KD 2,000 profit", "hint": "Pre-computed for you: a 3-year loan costs about KD 700 a month. Her profit after the new oven should be ~KD 2,000 — so repayments fit comfortably, with room if the forecast disappoints." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "How should a 10-year oven be financed?",
+        "options": [
+          {
+            "id": "a",
+            "label": "A term loan over ~3 years — monthly repayments from the extra profit the oven makes",
+            "quality": "best",
+            "feedback": "The classic equipment loan: the asset works for years, so it's repaid over years — by the very profits it generates. The numbers show comfortable room."
+          },
+          {
+            "id": "b",
+            "label": "Her overdraft — just let the account go down by KD 24,000",
+            "quality": "bad",
+            "feedback": "Remember Yaqoub's lesson? An overdraft is for gaps that close in days. An oven would sit on the overdraft for YEARS, jammed at the limit — the classic mismatch.",
+            "consequence": "maturity_mismatch"
+          },
+          {
+            "id": "c",
+            "label": "A 3-month loan — get it over with quickly",
+            "quality": "poor",
+            "feedback": "KD 8,000 a month against KD 2,000 of profit. The repayment schedule would crush the bakery the oven was meant to grow.",
+            "consequence": "dscr_breach"
+          },
+          {
+            "id": "d",
+            "label": "A Letter of Credit",
+            "quality": "poor",
+            "feedback": "An LC solves the trust problem in trade — it doesn't answer how the oven gets PAID FOR over time. (If the oven came from abroad, she might use both: LC to buy safely, term loan to repay.)",
+            "consequence": "weak_structure"
+          }
+        ]
+      },
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "The golden rule hiding in this case — which is it?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Match the loan to the life of what it pays for: short needs, short loans; long assets, longer loans",
+            "quality": "best",
+            "feedback": "That's the rule — bankers call a violation of it a 'maturity mismatch'. Stock for a season = months. An oven for a decade = years. The financing should mirror the thing financed."
+          },
+          {
+            "id": "b",
+            "label": "Always pick whatever's cheapest this month",
+            "quality": "poor",
+            "feedback": "The overdraft might look 'cheap' until it's jammed for three years. Fit first, price second.",
+            "consequence": "maturity_mismatch"
+          },
+          {
+            "id": "c",
+            "label": "Never borrow for equipment — save up instead",
+            "quality": "poor",
+            "feedback": "Waiting two years to save KD 24,000 means two years of lost orders. Borrowing against an asset's own future profit is healthy finance, not recklessness.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "The longer the loan, the better — small payments forever",
+            "quality": "bad",
+            "feedback": "A 20-year loan on a 10-year oven means a decade of paying for a machine that no longer exists. Long, yes — longer than the asset, never.",
+            "consequence": "maturity_mismatch"
+          }
+        ]
+      }
+    ],
+    "dealSizeKD": 24000,
+    "facilitySummary": "Term loan KD 24,000 / 3 years (oven)",
+    "docTags": ["base", "capex"],
+    "learn": "Match the financing to the thing financed: short-lived needs take short facilities, long-lived assets take term loans — repaid over time by the profit the asset itself produces."
+  },
+  {
+    "id": "i-6",
+    "client": {
+      "name": "Jassim Auto Garage",
+      "sector": "Car Repair",
+      "contact": "Jassim, Owner",
+      "profile": "Busy workshop, good reputation. Asking for a KD 15,000 loan for new diagnostic equipment — and puzzled by one of the bank's questions."
+    },
+    "request": "\"Your colleague asked me what 'security' I can offer for the loan. Security? I'm not hiding anything! What does the bank mean — and why isn't my word enough?\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Loan requested", "value": "KD 15,000" },
+        { "label": "Purpose", "value": "Diagnostic equipment (resellable)" },
+        { "label": "His profit", "value": "~KD 1,500 / month — repayments fit" }
+      ],
+      "ratios": [
+        { "label": "What 'security' means", "value": "A backup — not the plan", "hint": "Security (collateral) is something of value the bank can claim IF repayment fails: the equipment itself, a guarantee from the owner, a deposit. The plan is still his profits — security is the seatbelt, not the engine." },
+        { "label": "The fit rule", "value": "Security should match the loan", "hint": "For a KD 15,000 equipment loan: a claim over the equipment plus the owner's personal promise is proportionate. Demanding his family home would be absurd — and asking for nothing would be careless." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "Explain it to Jassim: why does the bank ask for security even when it trusts him?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Because the future is uncertain for everyone — security protects the depositors' money if life surprises us",
+            "quality": "best",
+            "feedback": "Well put. The money banks lend belongs to depositors. Security isn't suspicion — it's the discipline of protecting other people's money against surprises nobody plans."
+          },
+          {
+            "id": "b",
+            "label": "Because the bank assumes every client will try to escape",
+            "quality": "poor",
+            "feedback": "If the bank truly believed that, it wouldn't lend at all. Security guards against misfortune more often than mischief — say it that way and clients understand.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "c",
+            "label": "It's just paperwork tradition — sign and ignore it",
+            "quality": "bad",
+            "feedback": "Security documents get exercised in real defaults to recover real money. Calling them decoration misleads the client and embarrasses the bank later.",
+            "consequence": "weak_security"
+          },
+          {
+            "id": "d",
+            "label": "Because rules are rules",
+            "quality": "poor",
+            "feedback": "True and useless. A banker who can't explain WHY a rule exists will never earn a client's confidence in it.",
+            "consequence": "lost_goodwill"
           }
         ]
       },
       {
         "id": "collateral",
         "stage": "collateral",
-        "prompt": "Security for the LG line?",
+        "prompt": "Now choose proportionate security for the KD 15,000 equipment loan.",
         "options": [
           {
             "id": "a",
-            "label": "10% cash margin + counter-indemnity signed by the company",
+            "label": "A claim over the new equipment + Jassim's personal guarantee",
             "quality": "best",
-            "feedback": "Standard structure: the counter-indemnity gives the bank recourse if the bond is called, and a modest margin reflects the client's strong track record."
+            "feedback": "Proportionate and natural: the financed asset backs its own loan, and his personal promise keeps him committed. This pattern repeats across all of banking."
           },
           {
             "id": "b",
-            "label": "Clean — strong 6-year relationship",
-            "quality": "good",
-            "feedback": "Arguable for KD 50,000 on this client — but a counter-indemnity is mandatory practice on any LG, and skipping the margin sets a precedent for the much larger bonds that follow if they win."
-          },
-          {
-            "id": "c",
-            "label": "100% cash margin",
+            "label": "A mortgage over his family home",
             "quality": "poor",
-            "feedback": "Contractors bid on several tenders at once — demanding full cash cover on every bid bond would freeze their liquidity and send them to a competitor.",
+            "feedback": "For KD 15,000? Heavy, slow, expensive to register — and it tells a good client you see him as a risk. Proportionality is part of the craft.",
             "consequence": "lost_goodwill"
           },
           {
-            "id": "d",
-            "label": "Real estate mortgage before issuing",
+            "id": "c",
+            "label": "Nothing — his word and a handshake",
             "quality": "poor",
-            "feedback": "Registering a mortgage takes weeks; the bid closes Thursday. Disproportionate and impossible in the timeframe.",
+            "feedback": "Friendly, but you've left depositors' money resting on luck. Easy, proportionate security exists — take it.",
+            "consequence": "weak_security"
+          },
+          {
+            "id": "d",
+            "label": "KD 15,000 cash held at the bank as deposit",
+            "quality": "bad",
+            "feedback": "If he had KD 15,000 spare, he wouldn't need the loan. Demanding cash to lend cash is a refusal wearing a smile.",
             "consequence": "lost_goodwill"
           }
         ]
       }
     ],
-    "dealSizeKD": 50000,
-    "facilitySummary": "Bid Bond KD 50,000 (MOH tender)",
-    "docTags": [
-      "base",
-      "tender"
+    "dealSizeKD": 15000,
+    "facilitySummary": "Equipment loan KD 15,000 (secured by equipment + PG)",
+    "docTags": ["base", "capex"],
+    "learn": "Security (collateral) is the backup, never the plan: it protects depositors' money if the repayment source fails. And it must be proportionate — the financed asset plus a personal guarantee fits a small equipment loan."
+  },
+  {
+    "id": "i-7",
+    "client": {
+      "name": "Noura's Flower Studio",
+      "sector": "Events & Flowers",
+      "contact": "Noura, Founder",
+      "profile": "Supplies flowers for weddings and corporate events. Approved yesterday for her first small facility — today you're processing it."
+    },
+    "request": "\"I got the approval — wonderful! But now your operations team wants my trade license, my signature card, some 'board resolution'... why all this paper? The loan is approved, isn't it? Just send the money!\"",
+    "analysisPack": {
+      "figures": [
+        { "label": "Facility approved", "value": "KD 12,000 working capital" },
+        { "label": "Status", "value": "Approved — but not yet paid out" },
+        { "label": "What stands between", "value": "The bank's process (the SOP)" }
+      ],
+      "ratios": [
+        { "label": "Why process matters", "value": "Approval decides IF; process makes it SAFE", "hint": "The credit decision says the loan makes sense. The process — checking licenses, signatures, documents, in the right order — makes sure the money goes to the right legal person, under an enforceable agreement. Skip it, and even a good loan becomes a bad one." },
+        { "label": "What the documents prove", "value": "Identity, authority, legality", "hint": "Trade license: the business legally exists. Signature card: the person signing is really her. Each paper answers one question that matters if anything is ever disputed." }
+      ]
+    },
+    "decisions": [
+      {
+        "id": "structure",
+        "stage": "structure",
+        "prompt": "What do you tell Noura about 'all this paper'?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Each document answers one question — that the business is real, the signer is really you, the agreement will hold. It protects you as much as us",
+            "quality": "best",
+            "feedback": "Exactly right — and clients accept process happily when someone explains what each paper is FOR. An enforceable agreement protects both sides of it."
+          },
+          {
+            "id": "b",
+            "label": "Skip the checks this once — she's clearly genuine",
+            "quality": "bad",
+            "feedback": "'Clearly genuine' is what everyone looks like until the one time they aren't. Process exists precisely because exceptions can't be spotted by feel.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "c",
+            "label": "Honestly, it's bureaucracy — every bank suffers from it",
+            "quality": "poor",
+            "feedback": "Apologising for the process teaches clients to resent it. The process is the product: it's why a bank's agreements actually hold.",
+            "consequence": "lost_goodwill"
+          },
+          {
+            "id": "d",
+            "label": "Pay first, collect papers later this week",
+            "quality": "bad",
+            "feedback": "Money first, checks later means the checks can no longer change anything. Order is the whole point: documents, then signatures, then money.",
+            "consequence": "weak_structure"
+          }
+        ]
+      },
+      {
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Her file arrives. Which item must be fixed BEFORE any money moves?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Her trade license expired last month",
+            "quality": "best",
+            "feedback": "Caught it. An expired license means the business isn't currently in legal good standing — renew first, then proceed. This exact check protects every facility the bank ever books."
+          },
+          {
+            "id": "b",
+            "label": "Her shop's Instagram handle isn't in the file",
+            "quality": "bad",
+            "feedback": "Marketing details are not legal requirements. Don't pad the process with theatre — it breeds contempt for the checks that matter.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "c",
+            "label": "The file is only 9 pages — make it look thicker",
+            "quality": "bad",
+            "feedback": "Thickness is not compliance. A complete thin file beats a padded thick one every day.",
+            "consequence": "weak_structure"
+          },
+          {
+            "id": "d",
+            "label": "Nothing — approved means approved",
+            "quality": "poor",
+            "feedback": "Look again at the license date. Approval was yesterday's decision; today's job is making it safe to act on.",
+            "consequence": "weak_structure"
+          }
+        ]
+      }
     ],
+    "dealSizeKD": 12000,
+    "facilitySummary": "Working capital KD 12,000 (Noura's Flower Studio)",
+    "docTags": ["base", "wc"],
     "plantedError": {
-      "prompt": "Operations flags the file before issuing the guarantee. Review the checklist — is anything wrong?",
+      "prompt": "Operations runs the final pre-payment check on Noura's file. Review it — anything wrong?",
       "exhibit": [
         "File review date: 11 June 2026",
-        "Tender documents — MOH clinic renovation, bid bond KD 50,000, validity 90 days",
-        "Trade license No. 88412 — valid until 9 April 2026",
-        "Board resolution authorising bank facilities — signed and on file",
-        "Authorised signatory list — matches specimen cards",
-        "KYC file — refreshed this quarter"
+        "Facility approval memo — signed yesterday",
+        "Trade license No. 41207 — valid until 9 May 2026",
+        "Signature card — completed and verified",
+        "Facility agreement — prepared for signing"
       ],
       "options": [
-        {
-          "id": "a",
-          "label": "The trade license on file expired two months ago",
-          "correct": true,
-          "feedback": "Caught it. Issuing a guarantee for a company whose trade license has lapsed is a compliance breach — get the renewed license before anything is issued."
-        },
-        {
-          "id": "b",
-          "label": "The tender documents shouldn't be in the file",
-          "correct": false,
-          "feedback": "Tender documents are exactly what we need — they define the required bond amount, wording and validity."
-        },
-        {
-          "id": "c",
-          "label": "Nothing — the file is complete, issue the bond",
-          "correct": false,
-          "feedback": "Look again at the trade license dates. It expired two months ago — a lapsed license must be renewed before issuance."
-        }
+        { "id": "a", "label": "The trade license expired on 9 May — last month", "correct": true, "feedback": "Well spotted. The license must be renewed before any payout — an agreement with a business that isn't in legal good standing may not hold." },
+        { "id": "b", "label": "The approval memo shouldn't be in the file", "correct": false, "feedback": "The approval memo is the file's foundation — it absolutely belongs there." },
+        { "id": "c", "label": "Nothing — release the funds", "correct": false, "feedback": "Check the license dates again: valid until 9 May, and today is 11 June." }
       ]
     },
-    "learn": "The guarantee ladder follows the project: Bid Bond at tender → Performance Bond and APG at award → Retention Bond at completion. Behind every bond, the real question is: can this client perform?"
+    "learn": "Approval decides IF the bank lends; the process makes it SAFE: license, signatures and documents — in the right order, before money moves. Each paper answers one question that matters when things go wrong."
   },
   {
-    "id": "l1-4",
+    "id": "i-8",
     "client": {
-      "name": "Shamal Steel Industries",
-      "sector": "Steel Fabrication & Erection",
-      "contact": "Yousef, Managing Partner",
-      "profile": "Specialist steel contractor, client for 3 years. Just received an award letter from the Ministry of Electricity & Water."
+      "name": "Two applicants, one afternoon",
+      "sector": "Your first solo recommendation",
+      "contact": "Coach Maryam, Senior RM",
+      "profile": "Your mentor slides two thin files across the desk. 'Both want KD 25,000 for a year. Read the numbers, tell me which one you'd back — and why. This is the whole job in miniature.'"
     },
-    "request": "\"Good news — we won the KD 1,800,000 substation steelworks contract! The Ministry requires a 10% performance bond before signing, and they're offering a 15% advance payment if we provide a guarantee for it. We want both, and the advance would really help us mobilise.\"",
+    "request": "\"File A: Salem's Spices — sales KD 90,000, profit KD 14,000, no debts, in business 8 years. File B: FastTrend Kiosk — sales KD 200,000, LOSS of KD 9,000, already owes KD 40,000 elsewhere, open 14 months. FastTrend's owner drives a beautiful car and promises 'sales will triple soon'. Which file gets your recommendation?\"",
     "analysisPack": {
       "figures": [
-        {
-          "label": "Contract value",
-          "value": "KD 1,800,000"
-        },
-        {
-          "label": "Performance bond required",
-          "value": "10% = KD 180,000"
-        },
-        {
-          "label": "Advance offered",
-          "value": "15% = KD 270,000 (against APG)"
-        },
-        {
-          "label": "Annual revenue",
-          "value": "KD 2,900,000"
-        },
-        {
-          "label": "Equity",
-          "value": "KD 980,000"
-        }
+        { "label": "A: Salem's Spices — profit", "value": "KD 14,000 / year (profitable)" },
+        { "label": "A: existing debt", "value": "None · 8 years in business" },
+        { "label": "B: FastTrend — result", "value": "LOSS of KD 9,000 / year" },
+        { "label": "B: existing debt", "value": "KD 40,000 owed already · 14 months old" }
       ],
       "ratios": [
-        {
-          "label": "Current ratio",
-          "value": "1.3x",
-          "benchmark": "> 1.2x comfortable"
-        },
-        {
-          "label": "Leverage (Debt / Equity)",
-          "value": "0.9x",
-          "benchmark": "< 2.0x comfortable"
-        },
-        {
-          "label": "Contract / revenue",
-          "value": "62%",
-          "hint": "A big job for them, but within capacity given their track record on similar work."
-        }
+        { "label": "Profit vs sales", "value": "Big sales ≠ healthy business", "hint": "FastTrend SELLS more than Salem — but loses money doing it. Profit is what's left after costs; a loss means every month makes the hole deeper. Repayment comes from profit, never from sales alone." },
+        { "label": "Existing debt", "value": "B already owes nearly 3× what it's asking", "hint": "New lenders stand at the back of the queue. If KD 40,000 of older debt is already straining a loss-making kiosk, our KD 25,000 would be fuel on a fire." }
       ]
     },
     "decisions": [
       {
-        "id": "structure",
-        "stage": "structure",
-        "prompt": "Structure the post-award package.",
+        "id": "judgment",
+        "stage": "judgment",
+        "prompt": "Which file do you recommend — and on what basis?",
         "options": [
           {
             "id": "a",
-            "label": "Performance Bond KD 180,000 + APG KD 270,000, with the advance paid into their account with us",
+            "label": "Salem's Spices — profitable, debt-free, proven over 8 years: the numbers can repay",
             "quality": "best",
-            "feedback": "Complete and controlled: the PB satisfies the Ministry, the APG unlocks KD 270,000 of free mobilisation money, and routing the advance through the bank lets you see it spent on the project — not elsewhere."
+            "feedback": "That's the job: the loan goes to the business whose numbers can carry it home. Modest and profitable beats big and bleeding — every time."
           },
           {
             "id": "b",
-            "label": "Performance Bond only — skip the advance, less exposure for us",
-            "quality": "poor",
-            "feedback": "You just declined KD 270,000 of interest-free funding for your client's mobilisation. They'll either strain their own cash or borrow it — at interest — possibly from another bank.",
-            "consequence": "lost_goodwill"
+            "label": "FastTrend — bigger sales, bigger energy, sales will triple",
+            "quality": "bad",
+            "feedback": "Sales without profit are motion without progress, and 'will triple soon' is a wish, not a repayment source. The KD 40,000 already owed would swallow our money first.",
+            "consequence": "weak_structure"
           },
           {
             "id": "c",
-            "label": "Overdraft KD 450,000 to cover both needs in cash",
-            "quality": "bad",
-            "feedback": "The Ministry requires guarantees, not cash, and an OD replaces a free advance with interest-bearing debt. Wrong instruments entirely.",
+            "label": "Both — split KD 12,500 each, diversify",
+            "quality": "poor",
+            "feedback": "Half a bad loan is still a bad loan. Diversification means many GOOD risks, not a blend of good and bad.",
             "consequence": "weak_structure"
           },
           {
             "id": "d",
-            "label": "APG only — the advance matters more than the bond",
-            "quality": "bad",
-            "feedback": "No performance bond means no signed contract — the Ministry requires it before signature. Without the contract there is no advance to guarantee either.",
-            "consequence": "weak_structure"
+            "label": "Neither — both are too small to bother with",
+            "quality": "poor",
+            "feedback": "Small, profitable, loyal clients like Salem are the bedrock of a bank. Today's KD 25,000 borrower is next decade's KD 2,500,000 relationship.",
+            "consequence": "lost_goodwill"
           }
         ]
       },
       {
-        "id": "collateral",
-        "stage": "collateral",
-        "prompt": "How do you protect the bank on KD 450,000 of guarantees?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Assignment of contract proceeds + advance routed through the bank + 10% cash margin",
-            "quality": "best",
-            "feedback": "The strongest package: every Ministry payment flows through us, we watch the advance being used for mobilisation, and the margin cushions a call. The repayment source itself is the security."
-          },
-          {
-            "id": "b",
-            "label": "Personal guarantees of the partners only",
-            "quality": "good",
-            "feedback": "Keeps the partners committed, but misses the natural security sitting right there: the Ministry's own payments. Always take the assignment of proceeds on contracting deals."
-          },
-          {
-            "id": "c",
-            "label": "100% cash margin on both bonds",
-            "quality": "poor",
-            "feedback": "KD 450,000 of blocked cash would consume the advance and more — the client would be worse off than before winning the contract.",
-            "consequence": "lost_goodwill"
-          },
-          {
-            "id": "d",
-            "label": "Clean — it's a government contract, nothing can go wrong",
-            "quality": "poor",
-            "feedback": "The employer is solid; the risk is the contractor failing to perform. If the project stalls, both bonds get called and the bank has nothing.",
-            "consequence": "weak_security"
-          }
-        ]
-      }
-    ],
-    "dealSizeKD": 450000,
-    "facilitySummary": "PB KD 180,000 + APG KD 270,000 (MEW contract)",
-    "docTags": [
-      "base",
-      "tender"
-    ],
-    "learn": "After award: Performance Bond to sign, APG to unlock the advance. Route the advance through the bank and take an assignment of contract proceeds — the contract payments are the natural security."
-  },
-  {
-    "id": "l1-5",
-    "client": {
-      "name": "Sidra Medical Supplies",
-      "sector": "Medical Equipment Distribution",
-      "contact": "Mariam, CEO",
-      "profile": "Distributes medical consumables to clinics and pharmacies. Client for 5 years, profitable every year."
-    },
-    "request": "\"Our delivery fleet is falling apart — we need six new vans, about KD 120,000 total. Just put it on an overdraft, that's easiest, right?\"",
-    "analysisPack": {
-      "figures": [
-        {
-          "label": "Annual sales",
-          "value": "KD 1,950,000"
-        },
-        {
-          "label": "EBITDA (operating cash flow)",
-          "value": "KD 95,000 / year"
-        },
-        {
-          "label": "Existing debt",
-          "value": "KD 60,000 (small term loan)"
-        },
-        {
-          "label": "Vans cost",
-          "value": "KD 120,000"
-        },
-        {
-          "label": "Van useful life",
-          "value": "~5 years"
-        }
-      ],
-      "ratios": [
-        {
-          "label": "DSCR at 4-year tenor",
-          "value": "1.8x",
-          "benchmark": "> 1.2x comfortable",
-          "hint": "Pre-computed: yearly cash flow covers the proposed instalments 1.8 times over. Comfortable."
-        },
-        {
-          "label": "Current ratio",
-          "value": "1.5x",
-          "benchmark": "> 1.2x comfortable"
-        },
-        {
-          "label": "Leverage (Debt / Equity)",
-          "value": "0.3x",
-          "benchmark": "< 2.0x comfortable"
-        }
-      ]
-    },
-    "decisions": [
-      {
         "id": "structure",
         "stage": "structure",
-        "prompt": "Vans are a fixed asset lasting ~5 years. The client asked for an overdraft. What do you actually book?",
+        "prompt": "Maryam nods. 'Last question: the car, the confidence, the big talk — what do they count for?'",
         "options": [
           {
             "id": "a",
-            "label": "Term Loan KD 120,000 over 4 years, monthly instalments",
+            "label": "Nothing by themselves — character matters, but the numbers must agree before charm gets a vote",
             "quality": "best",
-            "feedback": "Right structure: tenor inside the vans' useful life, instalments paid from the cash flow the fleet generates, and DSCR of 1.8x says it's comfortably affordable."
+            "feedback": "Welcome to banking. Listen to people, like people, believe in people — and lend to the ones whose numbers agree. You'll meet this exact temptation, in bigger suits, for the rest of your career."
           },
           {
             "id": "b",
-            "label": "Overdraft KD 120,000 — as she asked",
+            "label": "A lot — successful-looking people are usually successful",
             "quality": "bad",
-            "feedback": "Classic maturity mismatch: a 5-year asset sitting permanently on a facility designed for daily swings. The OD will be stuck at its limit for years, and the first cash squeeze becomes a crisis. 'The client asked for it' is not a structure.",
-            "consequence": "maturity_mismatch"
-          },
-          {
-            "id": "c",
-            "label": "Short Term Revolving Loan KD 120,000",
-            "quality": "poor",
-            "feedback": "The STRL funds inventory and receivables that convert back to cash each cycle. Vans don't convert to cash — this drawdown would never revolve.",
-            "consequence": "maturity_mismatch"
-          },
-          {
-            "id": "d",
-            "label": "Sight LC for the van purchase",
-            "quality": "poor",
-            "feedback": "The vans are bought from a local dealer in dinars — there's no cross-border trade transaction to secure. And an LC still leaves the question: what funds the payment?",
-            "consequence": "weak_structure"
-          }
-        ]
-      },
-      {
-        "id": "collateral",
-        "stage": "collateral",
-        "prompt": "Security for the term loan?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Lien over the vans + personal guarantee of the CEO",
-            "quality": "best",
-            "feedback": "The financed asset secures its own loan, and the PG keeps the owner committed. Proportionate and standard."
-          },
-          {
-            "id": "b",
-            "label": "Clean — small loan, strong client",
-            "quality": "good",
-            "feedback": "Survivable for KD 120,000 on a 5-year client — but the lien over the vans costs nothing to ask for. Take the easy security.",
-            "consequence": "weak_security"
-          },
-          {
-            "id": "c",
-            "label": "100% cash margin",
-            "quality": "poor",
-            "feedback": "Blocking KD 120,000 to lend KD 120,000 — she'd rightly ask what the loan is for.",
-            "consequence": "lost_goodwill"
-          },
-          {
-            "id": "d",
-            "label": "Pledge over listed shares",
-            "quality": "poor",
-            "feedback": "She runs a distribution company, not a portfolio. The natural security is the asset being financed — the vans.",
-            "consequence": "weak_security"
-          }
-        ]
-      }
-    ],
-    "dealSizeKD": 120000,
-    "facilitySummary": "Term Loan KD 120,000 / 4 years (fleet)",
-    "docTags": [
-      "base",
-      "capex"
-    ],
-    "plantedError": {
-      "prompt": "Documentation review before signing the facility agreement. Anything wrong with the file?",
-      "exhibit": [
-        "File review date: 11 June 2026",
-        "Supplier quotation — 6 delivery vans, total KD 120,000",
-        "Audited financial statements — last 3 years on file",
-        "Trade license — valid until March 2027",
-        "Authorised signatory list & specimen signatures — on file",
-        "Facility agreement — prepared and ready for signing"
-      ],
-      "options": [
-        {
-          "id": "a",
-          "label": "There is no board resolution authorising the borrowing",
-          "correct": true,
-          "feedback": "Correct. Without a valid resolution authorising the company to borrow and naming who signs, the facility agreement may be unenforceable. Never sign without it."
-        },
-        {
-          "id": "b",
-          "label": "The supplier quotation should not be in the credit file",
-          "correct": false,
-          "feedback": "The quotation is needed — it evidences what we're financing and the amount."
-        },
-        {
-          "id": "c",
-          "label": "Nothing — proceed to signing",
-          "correct": false,
-          "feedback": "Check the corporate authorisations: there's no board resolution to borrow in the file. That's a blocking gap."
-        }
-      ]
-    },
-    "learn": "Match the financing to the asset: fixed assets take term loans with tenors inside the asset's life, repaid by the cash flow it generates. DSCR above ~1.2x is the affordability test — and it's computed for you in the pack."
-  },
-  {
-    "id": "l1-6",
-    "client": {
-      "name": "Gulf Crescent Electronics",
-      "sector": "Consumer Electronics Retail & Wholesale",
-      "contact": "Hamad, Finance Manager",
-      "profile": "Client for 7 years, excellent account conduct. Sells to both walk-in customers and corporate accounts."
-    },
-    "request": "\"Our corporate customers pay on the 25th but our suppliers debit us on the 10th. Two weeks every month we're stretched — maybe KD 60,000 at the worst point — then it clears. Can we get some kind of loan?\"",
-    "analysisPack": {
-      "figures": [
-        {
-          "label": "Annual sales",
-          "value": "KD 2,700,000"
-        },
-        {
-          "label": "Net profit",
-          "value": "KD 175,000"
-        },
-        {
-          "label": "Typical cash gap",
-          "value": "KD 50–60,000 for ~2 weeks/month"
-        },
-        {
-          "label": "Account turnover with us",
-          "value": "KD 220,000 / month, always returns to credit"
-        }
-      ],
-      "ratios": [
-        {
-          "label": "Current ratio",
-          "value": "1.5x",
-          "benchmark": "> 1.2x comfortable"
-        },
-        {
-          "label": "Leverage (Debt / Equity)",
-          "value": "0.4x",
-          "benchmark": "< 2.0x comfortable"
-        },
-        {
-          "label": "Account conduct",
-          "value": "Excellent",
-          "hint": "The account swings into and out of credit every month — that's the natural shape of an overdraft user."
-        }
-      ]
-    },
-    "decisions": [
-      {
-        "id": "structure",
-        "stage": "structure",
-        "prompt": "A two-week timing gap, every month, that always self-corrects. What fits?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Overdraft — KD 75,000 limit",
-            "quality": "best",
-            "feedback": "The textbook overdraft case: short-lived swings that clear naturally. Interest only on days used, and his account history shows it will swing back into credit every month — which is your monitoring signal too."
-          },
-          {
-            "id": "b",
-            "label": "Short Term Revolving Loan KD 75,000",
-            "quality": "good",
-            "feedback": "Workable, but heavier than needed — fixed drawdowns and maturities for a gap that lasts two weeks. The OD's daily flexibility fits this pattern better."
-          },
-          {
-            "id": "c",
-            "label": "Short-Term Loan KD 75,000, 6-month bullet",
-            "quality": "poor",
-            "feedback": "A lump sum for six months to cover a two-week monthly wobble — he pays interest on money he doesn't need for most of the period.",
+            "feedback": "The most expensive sentence in finance. Looking successful is cheap; BEING profitable shows up only in the numbers — which is why we read them.",
             "consequence": "weak_structure"
           },
           {
-            "id": "d",
-            "label": "Term Loan KD 75,000 over 3 years",
-            "quality": "bad",
-            "feedback": "Three years of debt for a recurring two-week timing gap — the most expensive and least flexible answer possible.",
-            "consequence": "maturity_mismatch"
-          }
-        ]
-      },
-      {
-        "id": "collateral",
-        "stage": "collateral",
-        "prompt": "Security for the overdraft?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Personal guarantee of the partners",
-            "quality": "best",
-            "feedback": "Proportionate for a small, self-correcting line on a 7-year client with excellent conduct."
-          },
-          {
-            "id": "b",
-            "label": "Clean — based on 7 years of excellent conduct",
-            "quality": "good",
-            "feedback": "Defensible here — conduct is genuinely strong and the amount is modest. Still, a PG is a costless ask that protects the bank if things ever change."
-          },
-          {
             "id": "c",
-            "label": "Real estate mortgage",
+            "label": "The car could be extra security — ask him to pledge it",
             "quality": "poor",
-            "feedback": "Weeks of registration and legal cost for a KD 75,000 swing line. The client will laugh, then leave.",
-            "consequence": "lost_goodwill"
+            "feedback": "Creative, but you'd be decorating a loan that's wrong at its core. No security fixes a missing repayment source — remember Abu Salem's first lesson.",
+            "consequence": "weak_security"
           },
           {
             "id": "d",
-            "label": "100% cash margin",
-            "quality": "bad",
-            "feedback": "A fully cash-collateralised overdraft is a contradiction — if he had the cash parked, there would be no gap to fund.",
+            "label": "Avoid confident people — confidence means hiding something",
+            "quality": "poor",
+            "feedback": "Cynicism is just gullibility pointing the other way. Confidence is fine; unsupported confidence is the flag.",
             "consequence": "lost_goodwill"
           }
         ]
       }
     ],
-    "dealSizeKD": 75000,
-    "facilitySummary": "Overdraft KD 75,000",
-    "docTags": [
-      "base",
-      "wc"
-    ],
-    "learn": "Overdrafts suit short-lived, self-correcting swings — the account should return to credit regularly. An OD stuck at its limit is no longer an OD; it's a misclassified loan."
-  },
-  {
-    "id": "l1-7",
-    "client": {
-      "name": "Desert Rose Hospitality Group",
-      "sector": "Restaurants & Café Chains",
-      "contact": "Latifa, Procurement Director",
-      "profile": "Runs nine cafés and two restaurants. Client for 2 years, expanding steadily. Imports specialty coffee and foodstuffs from Italy."
-    },
-    "request": "\"Our Italian supplier offered us 90-day payment terms — but only if a bank stands behind the payment. Our stock sells through in about 70 days, so we'd collect from customers before we even pay them. How do we set this up?\"",
-    "analysisPack": {
-      "figures": [
-        {
-          "label": "Annual purchases from Italy",
-          "value": "KD 800,000"
-        },
-        {
-          "label": "Requested line",
-          "value": "KD 200,000"
-        },
-        {
-          "label": "Annual sales",
-          "value": "KD 3,400,000"
-        },
-        {
-          "label": "Net profit",
-          "value": "KD 290,000"
-        }
-      ],
-      "ratios": [
-        {
-          "label": "Inventory days",
-          "value": "~70 days",
-          "hint": "Stock converts to cash in 70 days — inside the 90-day terms the supplier is offering. The trade finances itself."
-        },
-        {
-          "label": "Current ratio",
-          "value": "1.4x",
-          "benchmark": "> 1.2x comfortable"
-        },
-        {
-          "label": "Leverage (Debt / Equity)",
-          "value": "0.6x",
-          "benchmark": "< 2.0x comfortable"
-        }
-      ]
-    },
-    "decisions": [
-      {
-        "id": "structure",
-        "stage": "structure",
-        "prompt": "Deferred payment to an overseas supplier, backed by the bank. What's the instrument?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Usance LC (Acceptance) — 90 days, line of KD 200,000",
-            "quality": "best",
-            "feedback": "Exactly it. The bank accepts the obligation to pay at 90 days; her stock sells in 70, so customer cash arrives before the LC falls due. Self-liquidating trade finance at its cleanest."
-          },
-          {
-            "id": "b",
-            "label": "Sight LC — KD 200,000",
-            "quality": "good",
-            "feedback": "Safe and workable — but it throws away the 90 days of free supplier credit she just negotiated, and she'd need other funding to bridge the 70-day stock cycle. Why pay at shipment when the supplier offered terms?"
-          },
-          {
-            "id": "c",
-            "label": "Overdraft KD 200,000 to pay the supplier directly",
-            "quality": "poor",
-            "feedback": "Replaces free supplier credit with interest-bearing bank debt, and gives up the LC's document control on cross-border shipments.",
-            "consequence": "weak_structure"
-          },
-          {
-            "id": "d",
-            "label": "Term Loan KD 200,000 over 5 years",
-            "quality": "bad",
-            "feedback": "Five-year debt for coffee that sells in 70 days. Wrong instrument, wrong tenor, wrong everything.",
-            "consequence": "maturity_mismatch"
-          }
-        ]
-      },
-      {
-        "id": "collateral",
-        "stage": "collateral",
-        "prompt": "Security for the usance LC line?",
-        "options": [
-          {
-            "id": "a",
-            "label": "10% cash margin + personal guarantee",
-            "quality": "best",
-            "feedback": "Proportionate: a modest first-loss cushion plus owner commitment, on a line whose own trade cycle repays it."
-          },
-          {
-            "id": "b",
-            "label": "Clean line",
-            "quality": "good",
-            "feedback": "A 2-year relationship is still young for clean trade lines — a small margin and PG cost the client little and protect the bank meaningfully.",
-            "consequence": "weak_security"
-          },
-          {
-            "id": "c",
-            "label": "100% cash margin",
-            "quality": "poor",
-            "feedback": "Full cash cover defeats the purpose of the supplier's credit terms — the client funds everything anyway.",
-            "consequence": "lost_goodwill"
-          },
-          {
-            "id": "d",
-            "label": "Mortgage over one of the restaurant premises",
-            "quality": "poor",
-            "feedback": "Heavy, slow security for a self-liquidating 90-day trade line. Keep mortgages for term exposure.",
-            "consequence": "lost_goodwill"
-          }
-        ]
-      }
-    ],
-    "dealSizeKD": 200000,
-    "facilitySummary": "Usance LC (Acceptance) line KD 200,000, 90 days",
-    "docTags": [
-      "base",
-      "trade"
-    ],
-    "learn": "Usance LC (Acceptance) = LC with deferred payment. When the usance period covers the inventory turnover, the trade finances itself: stock sells before the payment falls due."
-  },
-  {
-    "id": "l1-8",
-    "client": {
-      "name": "Al-Dhow Marine Services",
-      "sector": "Marine & Port Services",
-      "contact": "Bader, Owner",
-      "profile": "Provides maintenance and logistics services to the public port authority. Client for 5 years. Work is steady; payment is slow."
-    },
-    "request": "\"The port authority always pays — but in 120 days, sometimes more. Meanwhile I have salaries every month. Right now I'm sitting on KD 350,000 of approved, certified invoices. Can the bank turn those into cash?\"",
-    "analysisPack": {
-      "figures": [
-        {
-          "label": "Annual revenue",
-          "value": "KD 1,600,000"
-        },
-        {
-          "label": "Approved invoices outstanding",
-          "value": "KD 350,000"
-        },
-        {
-          "label": "Debtor",
-          "value": "Public port authority (government)"
-        },
-        {
-          "label": "Average collection period",
-          "value": "120–140 days"
-        }
-      ],
-      "ratios": [
-        {
-          "label": "Receivable days",
-          "value": "128 days",
-          "hint": "The problem in one number: work done, cash four months away."
-        },
-        {
-          "label": "Debtor quality",
-          "value": "Government — effectively certain payment",
-          "hint": "In discounting, the debtor's quality matters more than the client's. This debtor is as strong as they come."
-        },
-        {
-          "label": "Current ratio",
-          "value": "1.3x",
-          "benchmark": "> 1.2x comfortable"
-        }
-      ]
-    },
-    "decisions": [
-      {
-        "id": "structure",
-        "stage": "structure",
-        "prompt": "Strong receivables, slow payer, cash needed now. What's the facility?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Invoice Discounting line KD 300,000 — advance ~80% against approved invoices, with recourse",
-            "quality": "best",
-            "feedback": "Purpose-built for this: the bank advances against certified government invoices and collects when the authority pays. The margin (advancing 80%, not 100%) absorbs deductions and delays."
-          },
-          {
-            "id": "b",
-            "label": "Short Term Revolving Loan KD 300,000",
-            "quality": "good",
-            "feedback": "It funds the same gap, but as general-purpose borrowing — it doesn't tie the financing to the specific strong invoices, which is where the credit strength of this deal actually lives."
-          },
-          {
-            "id": "c",
-            "label": "Overdraft KD 300,000",
-            "quality": "poor",
-            "feedback": "A 120-day structural collection lag is not a short-lived swing — this OD would sit fully drawn for months at a time.",
-            "consequence": "weak_structure"
-          },
-          {
-            "id": "d",
-            "label": "Term Loan KD 300,000 over 5 years",
-            "quality": "bad",
-            "feedback": "There's no fixed asset and no 5-year need — the cash arrives in 120 days. Wrong instrument.",
-            "consequence": "maturity_mismatch"
-          }
-        ]
-      },
-      {
-        "id": "collateral",
-        "stage": "collateral",
-        "prompt": "Security for the discounting line?",
-        "options": [
-          {
-            "id": "a",
-            "label": "Assignment of the discounted receivables, with the port authority notified to pay the bank directly",
-            "quality": "best",
-            "feedback": "The essential structure: the debtor pays the bank, not the client. Without notification, collections pass through the client's hands — and can go elsewhere."
-          },
-          {
-            "id": "b",
-            "label": "Personal guarantee of the owner only",
-            "quality": "good",
-            "feedback": "Recourse to Bader helps, but the deal's whole strength is the government receivable — if you don't take the assignment, you've left the best security on the table.",
-            "consequence": "weak_security"
-          },
-          {
-            "id": "c",
-            "label": "Clean — the government always pays",
-            "quality": "poor",
-            "feedback": "The government pays the client. Without an assignment, nothing makes that money reach the bank.",
-            "consequence": "weak_security"
-          },
-          {
-            "id": "d",
-            "label": "Pledge over the company's workboats",
-            "quality": "poor",
-            "feedback": "Illiquid, hard-to-value security when a far better one exists: the receivables themselves.",
-            "consequence": "weak_security"
-          }
-        ]
-      }
-    ],
-    "dealSizeKD": 300000,
-    "facilitySummary": "Invoice Discounting line KD 300,000 (port authority invoices)",
-    "docTags": [
-      "base",
-      "recv"
-    ],
-    "plantedError": {
-      "prompt": "Operations checks the first batch of invoices submitted for discounting. Anything wrong?",
-      "exhibit": [
-        "Batch of 9 invoices submitted for discounting — total KD 350,000",
-        "7 invoices — port authority certification stamp present",
-        "2 invoices — marked 'submitted, certification pending'",
-        "Assignment of receivables — signed",
-        "Notification letter — acknowledged by the port authority"
-      ],
-      "options": [
-        {
-          "id": "a",
-          "label": "Two invoices have no certification stamp from the port authority",
-          "correct": true,
-          "feedback": "Correct. Only certified/approved invoices are eligible — an uncertified invoice may be disputed, leaving the bank advancing against air. Return them for certification."
-        },
-        {
-          "id": "b",
-          "label": "The invoices show the client's logo, which is unprofessional",
-          "correct": false,
-          "feedback": "The client's own invoices naturally carry their logo — that's not an issue."
-        },
-        {
-          "id": "c",
-          "label": "Nothing — advance against the full batch",
-          "correct": false,
-          "feedback": "Check the certification stamps: two invoices were never approved by the debtor. Those are not eligible."
-        }
-      ]
-    },
-    "learn": "Discounting turns strong receivables into immediate cash. The debtor's quality is the real credit; the assignment with debtor notification is the real security; and only certified invoices count."
+    "dealSizeKD": 25000,
+    "facilitySummary": "Loan KD 25,000 — Salem's Spices",
+    "docTags": ["base", "wc"],
+    "learn": "Repayment comes from profit, not sales, and never from charm: a modest profitable business beats a big loss-making one. Read the numbers first; let character confirm them — not replace them."
   }
 ]

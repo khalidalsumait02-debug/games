@@ -23,7 +23,7 @@ const ORDER: Record<'best' | 'worst', Quality[]> = {
   worst: ['bad', 'poor', 'good', 'best'],
 };
 
-function playCampaign(level: 1 | 2 | 3, strategy: 'best' | 'worst'): GameState {
+function playCampaign(level: 1 | 2 | 3 | 4, strategy: 'best' | 'worst'): GameState {
   let s = newGame('SmokeBot', level);
   const deck = getDeck(level);
   let guard = 0;
@@ -76,7 +76,7 @@ function playCampaign(level: 1 | 2 | 3, strategy: 'best' | 'worst'): GameState {
 }
 
 let failures = 0;
-for (const level of [1, 2, 3] as const) {
+for (const level of [1, 2, 3, 4] as const) {
   // sanity-check scenario data
   for (const sc of getDeck(level)) {
     for (const d of sc.decisions) {
@@ -91,8 +91,8 @@ for (const level of [1, 2, 3] as const) {
             console.error(`FAIL: ${sc.id}/${d.id}/${sl.id} has duplicate option ids`);
             failures++;
           }
-          if (level === 3 && sl.options.length < 5) {
-            console.error(`FAIL: ${sc.id}/${d.id}/${sl.id} L3 slots need 5 options`);
+          if (level === 4 && sl.options.length < 5) {
+            console.error(`FAIL: ${sc.id}/${d.id}/${sl.id} L4 slots need 5 options`);
             failures++;
           }
         }
@@ -117,18 +117,18 @@ for (const level of [1, 2, 3] as const) {
     }
   }
   // level design rules
-  if (level === 2) {
+  if (level === 3) {
     for (const sc of getDeck(level)) {
       if (!sc.decisions[0].slots?.length) {
-        console.error(`FAIL: ${sc.id} L2 first decision must be a slot builder`);
+        console.error(`FAIL: ${sc.id} L3 first decision must be a slot builder`);
         failures++;
       }
     }
   }
-  if (level === 3) {
+  if (level === 4) {
     for (const sc of getDeck(level)) {
       if (!sc.decisions.every((d) => d.slots?.length)) {
-        console.error(`FAIL: ${sc.id} L3 decisions must all be slot builders`);
+        console.error(`FAIL: ${sc.id} L4 decisions must all be slot builders`);
         failures++;
       }
     }

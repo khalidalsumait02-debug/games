@@ -46,7 +46,7 @@ app.use(express.json({ limit: '256kb' }));
 app.get('/api/scores', (req, res) => {
   const level = Number(req.query.level);
   let scores = readJson(SCORES_FILE, []);
-  if ([1, 2, 3].includes(level)) {
+  if ([1, 2, 3, 4].includes(level)) {
     scores = scores.filter((s) => s.level === level);
   }
   scores.sort((a, b) => b.score - a.score);
@@ -58,7 +58,7 @@ app.post('/api/scores', (req, res) => {
   if (
     typeof name !== 'string' ||
     !name.trim() ||
-    ![1, 2, 3].includes(Number(level)) ||
+    ![1, 2, 3, 4].includes(Number(level)) ||
     !Number.isFinite(Number(score))
   ) {
     return res.status(400).json({ error: 'invalid score entry' });

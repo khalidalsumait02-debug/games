@@ -10,7 +10,7 @@ interface Props {
 const MEDALS = ['🥇', '🥈', '🥉'];
 
 export default function Leaderboard({ onBack }: Props) {
-  const [level, setLevel] = useState<1 | 2 | 3>(1);
+  const [level, setLevel] = useState<1 | 2 | 3 | 4>(1);
   const [data, setData] = useState<{ level: number; source: 'shared' | 'local'; scores: ScoreEntry[] } | null>(null);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Leaderboard({ onBack }: Props) {
         <span className="kicker">Hall of Fame</span>
         <h2>High Scores</h2>
         <div className="tabs">
-          {([1, 2, 3] as const).map((l) => (
+          {([1, 2, 3, 4] as const).map((l) => (
             <button key={l} className={`tab ${level === l ? 'active' : ''}`} onClick={() => { sfx.click(); setLevel(l); }}>
               {`Level ${l} · ${LEVEL_INFO[l].name}`}
             </button>

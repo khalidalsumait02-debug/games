@@ -4,6 +4,7 @@ import sopData from '../data/sop.json';
 import level1 from '../data/scenarios.level1.json';
 import level2 from '../data/scenarios.level2.json';
 import level3 from '../data/scenarios.level3.json';
+import level4 from '../data/scenarios.level4.json';
 import configData from '../data/config.json';
 import type { Facility, CollateralType, Scenario, SopStep } from './types';
 
@@ -17,30 +18,37 @@ const decks: Record<number, Scenario[]> = {
   1: level1 as unknown as Scenario[],
   2: level2 as unknown as Scenario[],
   3: level3 as unknown as Scenario[],
+  4: level4 as unknown as Scenario[],
 };
 
-export function getDeck(level: 1 | 2 | 3): Scenario[] {
+export function getDeck(level: 1 | 2 | 3 | 4): Scenario[] {
   return decks[level];
 }
 
 export const LEVEL_INFO: Record<number, { title: string; name: string; audience: string; blurb: string }> = {
   1: {
-    title: 'Level 1 — Analyst',
+    title: 'Level 1 — Intern',
+    name: 'Intern',
+    audience: 'No banking background needed',
+    blurb: 'What is a loan, a guarantee, an LC, collateral? One concept per client, fully explained as you play.',
+  },
+  2: {
+    title: 'Level 2 — Analyst',
     name: 'Analyst',
     audience: 'Fresh graduates',
     blurb: 'Analyst hints always on, single-decision meetings, forgiving scoring.',
   },
-  2: {
-    title: 'Level 2 — Associate',
+  3: {
+    title: 'Level 3 — Associate',
     name: 'Associate',
     audience: '1–5 years’ experience',
-    blurb: 'Hints on demand, multi-step decisions, market events in play.',
+    blurb: 'Build proposals blank-by-blank: facility, amount and tenor each scored. Market events in play.',
   },
-  3: {
-    title: 'Level 3 — Senior RM',
+  4: {
+    title: 'Level 4 — Senior RM',
     name: 'Senior RM',
     audience: '5+ years’ experience',
-    blurb: 'Complex structures, thin margins for error, full audit exposure.',
+    blurb: 'Every decision built from five-option blanks. Complex structures, thin margins for error, full audit exposure.',
   },
 };
 

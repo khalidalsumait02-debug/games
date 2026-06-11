@@ -5,7 +5,7 @@ import { sfx } from '../engine/sfx';
 
 interface Props {
   scenario: Scenario;
-  level: 1 | 2 | 3;
+  level: 1 | 2 | 3 | 4;
   month: number;
   isFirstMeeting?: boolean;
   onDone: (picks: MeetingPick[]) => void;
@@ -63,7 +63,7 @@ export default function Meeting({ scenario, level, month, isFirstMeeting, onDone
   const [decisionIdx, setDecisionIdx] = useState(0);
   const [picks, setPicks] = useState<MeetingPick[]>([]);
   const [reaction, setReaction] = useState('');
-  const [showNotes, setShowNotes] = useState(level === 1);
+  const [showNotes, setShowNotes] = useState(level <= 2);
   const [coachDismissed, setCoachDismissed] = useState(() => localStorage.getItem('dcb_coached') === '1');
 
   // classic decisions: chosen option id; slot decisions: chosen option per slot
@@ -231,8 +231,8 @@ export default function Meeting({ scenario, level, month, isFirstMeeting, onDone
           </div>
 
           <div className="pack-header">
-            <span className="kicker">Key ratios · analyst notes {level === 1 ? 'on' : 'on demand'}</span>
-            {level > 1 && (
+            <span className="kicker">Key ratios · analyst notes {level <= 2 ? 'on' : 'on demand'}</span>
+            {level > 2 && (
               <button className="btn tiny" onClick={() => { sfx.click(); setShowNotes(!showNotes); }}>
                 {showNotes ? 'Hide notes' : 'Show notes'}
               </button>

@@ -147,7 +147,7 @@ export interface GameState {
   playerName: string;
   profileId: string;
   savedAt?: number;
-  level: 1 | 2 | 3;
+  level: 1 | 2 | 3 | 4;
   month: number;
   phase: Phase;
   scenarioIndex: number;
