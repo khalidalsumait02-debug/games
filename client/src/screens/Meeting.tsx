@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { MeetingPick, Scenario } from '../engine/types';
+import { QUALITY_POINTS } from '../engine/game';
+import { sfx } from '../engine/sfx';
+import Avatar from '../components/Avatar';
 
 interface Props {
   scenario: Scenario;
@@ -8,9 +11,9 @@ interface Props {
 }
 
 const STAGE_LABEL: Record<string, string> = {
-  structure: 'Structuring decision',
-  collateral: 'Security & conditions',
-  judgment: 'Credit judgement',
+  structure: 'Structuring',
+  collateral: 'Security & Conditions',
+  judgment: 'Credit Judgement',
 };
 
 const QUALITY_LABEL: Record<string, string> = {
@@ -19,6 +22,27 @@ const QUALITY_LABEL: Record<string, string> = {
   poor: 'Weak choice',
   bad: 'Serious mistake',
 };
+
+function useTypewriter(text: string) {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setN((v) => {
+        if (v >= text.length) {
+          clearInterval(id);
+          return v;
+        }
+        return v + 3;
+      });
+    }, 18);
+    return () => clearInterval(id);
+  }, [text]);
+  return {
+    shown: text.slice(0, n),
+    done: n >= text.length,
+    skip: () => setN(text.length),
+  };
+}
 
 export default function Meeting({ scenario, level, onDone }: Props) {
   const [decisionIdx, setDecisionIdx] = useState(0);
@@ -34,14 +58,18 @@ export default function Meeting({ scenario, level, onDone }: Props) {
   const decision = scenario.decisions[decisionIdx];
   const shuffledOptions = shuffledByDecision[decisionIdx];
   const pickedOption = picked ? decision.options.find((o) => o.id === picked) : null;
+  const quote = useTypewriter(scenario.request);
 
   const choose = (optionId: string) => {
     if (picked) return;
+    const opt = decision.options.find((o) => o.id === optionId)!;
+    sfx[opt.quality]();
     setPicked(optionId);
   };
 
   const next = () => {
     if (!pickedOption) return;
+    sfx.click();
     const pick: MeetingPick = {
       decisionId: decision.id,
       optionId: pickedOption.id,
@@ -62,21 +90,30 @@ export default function Meeting({ scenario, level, onDone }: Props) {
   return (
     <div className="meeting">
       <div className="meeting-left">
-        <div className="card client-card">
-          <h2>{scenario.client.name}</h2>
-          <span className="sector">{scenario.client.sector}</span>
+        <div className="card client-card anim-rise">
+          <div className="client-head">
+            <Avatar name={scenario.client.name} />
+            <div>
+              <h2>{scenario.client.name}</h2>
+              <span className="sector">{scenario.client.sector}</span>
+            </div>
+          </div>
           <p className="profile">{scenario.client.profile}</p>
-          <blockquote>
-            <span className="contact">{scenario.client.contact}:</span> {scenario.request}
+          <blockquote onClick={quote.skip} className={quote.done ? '' : 'typing'}>
+            <span className="contact">{scenario.client.contact}</span>
+            {quote.shown}
+            {!quote.done && <span className="caret" />}
           </blockquote>
         </div>
 
-        <div className="card pack-card">
+        <div className="card pack-card anim-rise d1">
           <div className="pack-header">
-            <h3>Analysis Pack</h3>
+            <h3>
+              <span className="pack-icon">📊</span> Analysis Pack
+            </h3>
             {level > 1 && (
-              <button className="btn tiny" onClick={() => setShowNotes(!showNotes)}>
-                {showNotes ? 'Hide analyst notes' : 'Show analyst notes'}
+              <button className="btn tiny" onClick={() => { sfx.click(); setShowNotes(!showNotes); }}>
+                {showNotes ? 'Hide analyst notes' : '💡 Analyst notes'}
               </button>
             )}
           </div>
@@ -90,7 +127,7 @@ export default function Meeting({ scenario, level, onDone }: Props) {
               ))}
             </tbody>
           </table>
-          <h4>Ratios & indicators (pre-computed)</h4>
+          <h4>Ratios &amp; indicators · pre-computed</h4>
           <div className="ratios">
             {scenario.analysisPack.ratios.map((r) => (
               <div className="ratio" key={r.label}>
@@ -99,7 +136,7 @@ export default function Meeting({ scenario, level, onDone }: Props) {
                   <span className="ratio-value">{r.value}</span>
                 </div>
                 {r.benchmark && <span className="benchmark">{r.benchmark}</span>}
-                {r.hint && showNotes && <p className="hint">{r.hint}</p>}
+                {r.hint && showNotes && <p className="hint">💡 {r.hint}</p>}
               </div>
             ))}
           </div>
@@ -107,40 +144,54 @@ export default function Meeting({ scenario, level, onDone }: Props) {
       </div>
 
       <div className="meeting-right">
-        <div className="card decision-card">
-          <div className="decision-progress">
-            Decision {decisionIdx + 1} of {scenario.decisions.length} · {STAGE_LABEL[decision.stage]}
+        <div className="card decision-card anim-rise d2" key={decisionIdx}>
+          <div className="stage-chips">
+            {scenario.decisions.map((d, i) => (
+              <span
+                key={d.id}
+                className={`stage-chip ${i < decisionIdx ? 'done' : ''} ${i === decisionIdx ? 'active' : ''}`}
+              >
+                {i < decisionIdx ? '✓ ' : ''}
+                {STAGE_LABEL[d.stage]}
+              </span>
+            ))}
           </div>
-          <h3>{decision.prompt}</h3>
+          <h3 className="decision-prompt">{decision.prompt}</h3>
           <div className="options">
-            {shuffledOptions.map((o) => {
+            {shuffledOptions.map((o, i) => {
               const isPicked = picked === o.id;
-              const revealClass = picked
-                ? isPicked
-                  ? `revealed ${o.quality}`
-                  : 'dimmed'
-                : '';
+              const revealClass = picked ? (isPicked ? `revealed ${o.quality}` : 'dimmed') : '';
               return (
                 <button
                   key={o.id}
-                  className={`option ${revealClass}`}
+                  className={`option anim-rise ${revealClass}`}
+                  style={{ animationDelay: `${i * 60}ms` }}
                   onClick={() => choose(o.id)}
                   disabled={!!picked}
                 >
-                  <span className="option-label">{o.label}</span>
-                  {o.detail && <span className="option-detail">{o.detail}</span>}
+                  <span className="option-key">{String.fromCharCode(65 + i)}</span>
+                  <span className="option-body">
+                    <span className="option-label">{o.label}</span>
+                    {o.detail && <span className="option-detail">{o.detail}</span>}
+                  </span>
                 </button>
               );
             })}
           </div>
 
           {pickedOption && (
-            <div className={`feedback ${pickedOption.quality}`}>
-              <strong>{QUALITY_LABEL[pickedOption.quality]}.</strong> {pickedOption.feedback}
+            <div className={`feedback anim-pop ${pickedOption.quality}`}>
+              <div className="feedback-head">
+                <strong>{QUALITY_LABEL[pickedOption.quality]}</strong>
+                <span className={`pts-badge ${pickedOption.quality}`}>
+                  +{QUALITY_POINTS[pickedOption.quality]} pts
+                </span>
+              </div>
+              <p>{pickedOption.feedback}</p>
               <button className="btn primary" onClick={next}>
                 {pickedOption.books === false || decisionIdx + 1 >= scenario.decisions.length
-                  ? 'Conclude the meeting'
-                  : 'Next decision'}
+                  ? 'Conclude the meeting ▸'
+                  : 'Next decision ▸'}
               </button>
             </div>
           )}

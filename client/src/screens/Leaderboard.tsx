@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { fetchScores, type ScoreEntry } from '../engine/leaderboard';
 import { LEVEL_INFO } from '../engine/content';
+import { sfx } from '../engine/sfx';
 
 interface Props {
   onBack: () => void;
 }
+
+const MEDALS = ['🥇', '🥈', '🥉'];
 
 export default function Leaderboard({ onBack }: Props) {
   const [level, setLevel] = useState<1 | 2 | 3>(1);
@@ -26,11 +29,12 @@ export default function Leaderboard({ onBack }: Props) {
 
   return (
     <div className="leaderboard">
-      <div className="card">
+      <div className="card anim-rise">
+        <span className="kicker">Hall of Fame</span>
         <h2>High Scores</h2>
         <div className="tabs">
           {([1, 2, 3] as const).map((l) => (
-            <button key={l} className={`tab ${level === l ? 'active' : ''}`} onClick={() => setLevel(l)}>
+            <button key={l} className={`tab ${level === l ? 'active' : ''}`} onClick={() => { sfx.click(); setLevel(l); }}>
               {LEVEL_INFO[l].title.split('—')[0].trim()}
             </button>
           ))}
@@ -39,7 +43,9 @@ export default function Leaderboard({ onBack }: Props) {
         {source === 'local' && (
           <p className="muted small">Shared leaderboard unreachable — showing scores saved on this device.</p>
         )}
-        {source !== 'loading' && scores.length === 0 && <p className="muted">No scores yet. Be the first.</p>}
+        {source !== 'loading' && scores.length === 0 && (
+          <p className="muted empty-board">No scores yet at this level. The top of the board is wide open.</p>
+        )}
         {scores.length > 0 && (
           <table className="scores">
             <thead>
@@ -54,17 +60,17 @@ export default function Leaderboard({ onBack }: Props) {
             <tbody>
               {scores.map((s, i) => (
                 <tr key={i} className={i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''}>
-                  <td>{i + 1}</td>
+                  <td>{MEDALS[i] ?? i + 1}</td>
                   <td>{s.name}</td>
                   <td className="num">{s.score.toLocaleString()}</td>
                   <td>{s.grade?.split('—')[0]?.trim()}</td>
-                  <td>{s.date}</td>
+                  <td className="muted">{s.date}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
-        <button className="btn primary" onClick={onBack}>
+        <button className="btn primary" onClick={() => { sfx.click(); onBack(); }}>
           Back
         </button>
       </div>

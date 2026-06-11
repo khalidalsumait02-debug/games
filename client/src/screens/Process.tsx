@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { Scenario } from '../engine/types';
 import { distractorDocs, requiredDocs, sopSteps } from '../engine/content';
+import { sfx } from '../engine/sfx';
 
 interface Props {
   scenario: Scenario;
@@ -40,12 +41,14 @@ export default function Process({ scenario, onDone }: Props) {
   const clickStep = (stepId: string) => {
     const expected = sopSteps[ordered.length].id;
     if (stepId === expected) {
+      sfx.step();
       setOrdered([...ordered, stepId]);
       setPool(pool.filter((s) => s.id !== stepId));
       if (ordered.length + 1 === sopSteps.length) {
         setPart('docs');
       }
     } else {
+      sfx.wrong();
       setOrderMistakes(orderMistakes + 1);
       setFlash(stepId);
       setTimeout(() => setFlash(null), 450);
@@ -54,6 +57,7 @@ export default function Process({ scenario, onDone }: Props) {
 
   const toggleDoc = (doc: string) => {
     if (docsSubmitted) return;
+    sfx.click();
     const next = new Set(selectedDocs);
     if (next.has(doc)) next.delete(doc);
     else next.add(doc);
@@ -72,12 +76,24 @@ export default function Process({ scenario, onDone }: Props) {
     return Math.max(0, Math.round(((correct - wrong - missed * 0.5) / required.length) * 100));
   }, [docsSubmitted, selectedDocs, required]);
 
-  const plantedCorrect = planted && plantedPick
-    ? planted.options.find((o) => o.id === plantedPick)?.correct ?? false
-    : false;
+  const plantedCorrect =
+    planted && plantedPick ? planted.options.find((o) => o.id === plantedPick)?.correct ?? false : false;
   const plantedScore = planted ? (plantedCorrect ? 100 : 0) : null;
 
+  const parts: { id: Part; label: string }[] = [
+    ...(hasBooking
+      ? [
+          { id: 'order' as Part, label: 'Sequence' },
+          { id: 'docs' as Part, label: 'Documents' },
+        ]
+      : []),
+    ...(planted ? [{ id: 'planted' as Part, label: 'File review' }] : []),
+    { id: 'summary' as Part, label: 'Sign-off' },
+  ];
+  const partIdx = parts.findIndex((p) => p.id === part);
+
   const finish = () => {
+    sfx.click();
     // without a booking, only the file-review part was played — score it alone
     const fallback = plantedScore ?? 100;
     onDone(hasBooking ? orderScore : fallback, hasBooking ? docScore : fallback, plantedScore);
@@ -85,23 +101,39 @@ export default function Process({ scenario, onDone }: Props) {
 
   return (
     <div className="process">
-      <div className="card">
-        <h2>Processing — {scenario.facilitySummary}</h2>
+      <div className="card anim-rise">
+        <div className="process-head">
+          <div>
+            <span className="kicker">Operations · Credit Administration</span>
+            <h2>{scenario.facilitySummary}</h2>
+          </div>
+          <div className="part-stepper">
+            {parts.map((p, i) => (
+              <span key={p.id} className={`part-step ${i < partIdx ? 'done' : ''} ${i === partIdx ? 'active' : ''}`}>
+                {i < partIdx ? '✓' : i + 1} {p.label}
+              </span>
+            ))}
+          </div>
+        </div>
         <p className="muted">
-          The committee said yes. Now the deal must move through the SOP correctly — sequence, documents, and checks.
-          Process mistakes don't always show up today; they show up when audit visits.
+          The committee said yes — now the deal must move through the SOP correctly. Process mistakes don't
+          show up today; they show up when audit visits.
         </p>
 
         {part === 'order' && (
           <div className="sop-order">
-            <h3>1 · Put the SOP steps in the correct order</h3>
-            <p className="muted">Click the step that comes next. Wrong clicks cost points.</p>
+            <h3>Put the SOP steps in the correct order</h3>
+            <p className="muted small">Click the step that comes next. Wrong clicks cost points.</p>
             <ol className="ordered-steps">
               {ordered.map((id) => {
                 const step = sopSteps.find((s) => s.id === id)!;
-                return <li key={id}>{step.name}</li>;
+                return (
+                  <li key={id} className="anim-pop">
+                    {step.name}
+                  </li>
+                );
               })}
-              {ordered.length < sopSteps.length && <li className="placeholder">?</li>}
+              {ordered.length < sopSteps.length && <li className="placeholder">{ordered.length + 1}</li>}
             </ol>
             <div className="step-pool">
               {pool.map((s) => (
@@ -115,13 +147,15 @@ export default function Process({ scenario, onDone }: Props) {
                 </button>
               ))}
             </div>
-            <div className="muted small">Mistakes: {orderMistakes}</div>
+            <div className={`muted small ${orderMistakes > 0 ? 'mistakes' : ''}`}>
+              Mistakes: {orderMistakes}
+            </div>
           </div>
         )}
 
         {part === 'docs' && (
           <div className="doc-check">
-            <h3>2 · Select every document this file requires — and nothing it doesn't</h3>
+            <h3>Select every document this file requires — and nothing it doesn't</h3>
             <div className="doc-grid">
               {docChoices.map((doc) => {
                 const sel = selectedDocs.has(doc);
@@ -134,7 +168,7 @@ export default function Process({ scenario, onDone }: Props) {
                 }
                 return (
                   <button key={doc} className={`doc ${cls}`} onClick={() => toggleDoc(doc)}>
-                    {doc}
+                    <span className="doc-tick">{sel ? '☑' : '☐'}</span> {doc}
                   </button>
                 );
               })}
@@ -143,18 +177,27 @@ export default function Process({ scenario, onDone }: Props) {
               <button
                 className="btn primary"
                 disabled={selectedDocs.size === 0}
-                onClick={() => setDocsSubmitted(true)}
+                onClick={() => {
+                  setDocsSubmitted(true);
+                }}
               >
-                Submit checklist
+                Submit checklist ▸
               </button>
             ) : (
-              <div className="feedback info">
-                <strong>Document check: {docScore}/100.</strong>{' '}
-                {docScore === 100
-                  ? 'Complete file, no padding — exactly what documentation wants to see.'
-                  : 'Green = correctly included · red = not required for this file · amber = required but missed.'}
-                <button className="btn primary" onClick={() => setPart(planted ? 'planted' : 'summary')}>
-                  Continue
+              <div className="feedback info anim-pop">
+                <div className="feedback-head">
+                  <strong>Document check</strong>
+                  <span className={`pts-badge ${docScore >= 80 ? 'best' : docScore >= 50 ? 'good' : 'bad'}`}>
+                    {docScore}/100
+                  </span>
+                </div>
+                <p>
+                  {docScore === 100
+                    ? 'Complete file, no padding — exactly what documentation wants to see.'
+                    : 'Green = correctly included · red = not required for this file · amber = required but missed.'}
+                </p>
+                <button className="btn primary" onClick={() => { sfx.click(); setPart(planted ? 'planted' : 'summary'); }}>
+                  Continue ▸
                 </button>
               </div>
             )}
@@ -163,30 +206,42 @@ export default function Process({ scenario, onDone }: Props) {
 
         {part === 'planted' && planted && (
           <div className="planted">
-            <h3>{hasBooking ? '3 · ' : ''}File review</h3>
-            <p>{planted.prompt}</p>
+            <h3>File review</h3>
+            <p className="planted-prompt">{planted.prompt}</p>
             <div className="options">
-              {plantedOptions.map((o) => {
+              {plantedOptions.map((o, i) => {
                 const isPicked = plantedPick === o.id;
                 const cls = plantedPick ? (isPicked ? (o.correct ? 'revealed best' : 'revealed bad') : 'dimmed') : '';
                 return (
                   <button
                     key={o.id}
-                    className={`option ${cls}`}
+                    className={`option anim-rise ${cls}`}
+                    style={{ animationDelay: `${i * 60}ms` }}
                     disabled={!!plantedPick}
-                    onClick={() => setPlantedPick(o.id)}
+                    onClick={() => {
+                      (o.correct ? sfx.best : sfx.bad)();
+                      setPlantedPick(o.id);
+                    }}
                   >
-                    <span className="option-label">{o.label}</span>
+                    <span className="option-key">{String.fromCharCode(65 + i)}</span>
+                    <span className="option-body">
+                      <span className="option-label">{o.label}</span>
+                    </span>
                   </button>
                 );
               })}
             </div>
             {plantedPick && (
-              <div className={`feedback ${plantedCorrect ? 'best' : 'bad'}`}>
-                <strong>{plantedCorrect ? 'Sharp eyes.' : 'Missed it.'}</strong>{' '}
-                {planted.options.find((o) => o.id === plantedPick)?.feedback}
-                <button className="btn primary" onClick={() => setPart('summary')}>
-                  Continue
+              <div className={`feedback anim-pop ${plantedCorrect ? 'best' : 'bad'}`}>
+                <div className="feedback-head">
+                  <strong>{plantedCorrect ? 'Sharp eyes' : 'Missed it'}</strong>
+                  <span className={`pts-badge ${plantedCorrect ? 'best' : 'bad'}`}>
+                    {plantedCorrect ? '+100' : '+0'} pts
+                  </span>
+                </div>
+                <p>{planted.options.find((o) => o.id === plantedPick)?.feedback}</p>
+                <button className="btn primary" onClick={() => { sfx.click(); setPart('summary'); }}>
+                  Continue ▸
                 </button>
               </div>
             )}
@@ -194,20 +249,29 @@ export default function Process({ scenario, onDone }: Props) {
         )}
 
         {part === 'summary' && (
-          <div className="process-summary">
-            <h3>Processing complete</h3>
+          <div className="process-summary anim-rise">
+            <h3>✦ Processing complete</h3>
             {hasBooking && (
-              <ul>
-                <li>SOP sequence: {orderScore}/100</li>
-                <li>Documentation: {docScore}/100</li>
-                {plantedScore !== null && <li>File review: {plantedScore}/100</li>}
-              </ul>
+              <div className="score-pills">
+                <span className="score-pill">
+                  SOP sequence <strong>{orderScore}</strong>
+                </span>
+                <span className="score-pill">
+                  Documentation <strong>{docScore}</strong>
+                </span>
+                {plantedScore !== null && (
+                  <span className="score-pill">
+                    File review <strong>{plantedScore}</strong>
+                  </span>
+                )}
+              </div>
             )}
             <div className="learn-box">
-              <strong>Takeaway:</strong> {scenario.learn}
+              <span className="learn-kicker">Key takeaway — added to your journal</span>
+              {scenario.learn}
             </div>
             <button className="btn primary big" onClick={finish}>
-              Go to month-end
+              Go to month-end ▸
             </button>
           </div>
         )}
