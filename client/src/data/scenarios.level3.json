@@ -10,15 +10,40 @@
     "request": "\"We're consolidating our banking. KD 2,000,000 STRL to start, and there's much more business behind it if you move fast. Our audited numbers are excellent — your competitor pre-approved us last week.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual sales", "value": "KD 9,800,000" },
-        { "label": "Receivables", "value": "KD 2,600,000 (was 1,400,000)" },
-        { "label": "Net profit", "value": "KD 610,000" },
-        { "label": "Financial year end", "value": "31 December" }
+        {
+          "label": "Annual sales",
+          "value": "KD 9,800,000"
+        },
+        {
+          "label": "Receivables",
+          "value": "KD 2,600,000 (was 1,400,000)"
+        },
+        {
+          "label": "Net profit",
+          "value": "KD 610,000"
+        },
+        {
+          "label": "Financial year end",
+          "value": "31 December"
+        }
       ],
       "ratios": [
-        { "label": "Current ratio", "value": "1.8x", "benchmark": "> 1.2x comfortable", "hint": "Healthy on its face." },
-        { "label": "Receivable days", "value": "97, up from 55", "hint": "Receivables nearly doubled in a year while sales grew 8%. Something is sitting in that line." },
-        { "label": "Notes to accounts, note 14", "value": "KD 1,040,000 of receivables due from 'Wafra International Trading WLL' — a related party, invoiced 28–31 December", "hint": "40% of receivables are to a sister company, booked in the last four days of the financial year." }
+        {
+          "label": "Current ratio",
+          "value": "1.8x",
+          "benchmark": "> 1.2x comfortable",
+          "hint": "Healthy on its face."
+        },
+        {
+          "label": "Receivable days",
+          "value": "97, up from 55",
+          "hint": "Receivables nearly doubled in a year while sales grew 8%. Something is sitting in that line."
+        },
+        {
+          "label": "Notes to accounts, note 14",
+          "value": "KD 1,040,000 of receivables due from 'Wafra International Trading WLL' — a related party, invoiced 28–31 December",
+          "hint": "40% of receivables are to a sister company, booked in the last four days of the financial year."
+        }
       ]
     },
     "decisions": [
@@ -127,7 +152,10 @@
     ],
     "dealSizeKD": 0,
     "facilitySummary": "Declined — transparency refused (Wafra Agro)",
-    "docTags": ["base", "wc"],
+    "docTags": [
+      "base",
+      "wc"
+    ],
     "learn": "Window dressing signature: year-end related-party sales inflating receivables and ratios. The unbeatable test is post-year-end collection evidence — and a client who refuses to show it has shown you everything."
   },
   {
@@ -141,16 +169,44 @@
     "request": "\"An 18-million-dinar residential tower near the waterfront. We want the bank in for KD 14,400,000 — 80% of cost — released up front so we can move fast. Presales will catch up; they always do.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Total project cost", "value": "KD 18,000,000" },
-        { "label": "Requested financing", "value": "KD 14,400,000 (80% LTC), upfront" },
-        { "label": "Presales achieved", "value": "30% of units" },
-        { "label": "Developer equity available", "value": "KD 5,000,000" },
-        { "label": "Construction period", "value": "30 months" }
+        {
+          "label": "Total project cost",
+          "value": "KD 18,000,000"
+        },
+        {
+          "label": "Requested financing",
+          "value": "KD 14,400,000 (80% LTC), upfront"
+        },
+        {
+          "label": "Presales achieved",
+          "value": "30% of units"
+        },
+        {
+          "label": "Developer equity available",
+          "value": "KD 5,000,000"
+        },
+        {
+          "label": "Construction period",
+          "value": "30 months"
+        }
       ],
       "ratios": [
-        { "label": "Loan-to-cost requested", "value": "80%", "benchmark": "conservative ≈ 50–60%", "hint": "At 80% the developer has KD 3.6M at risk in an 18M project — the bank carries the project; the developer carries an option." },
-        { "label": "Presales coverage", "value": "30%", "hint": "70% of units face market risk 30 months out. Presales are the project's real repayment source." },
-        { "label": "DSCR / exit", "value": "Repayment entirely from unit sales", "hint": "No rental income, no corporate cash flow behind it — sales or nothing." }
+        {
+          "label": "Loan-to-cost requested",
+          "value": "80%",
+          "benchmark": "conservative ≈ 50–60%",
+          "hint": "At 80% the developer has KD 3.6M at risk in an 18M project — the bank carries the project; the developer carries an option."
+        },
+        {
+          "label": "Presales coverage",
+          "value": "30%",
+          "hint": "70% of units face market risk 30 months out. Presales are the project's real repayment source."
+        },
+        {
+          "label": "DSCR / exit",
+          "value": "Repayment entirely from unit sales",
+          "hint": "No rental income, no corporate cash flow behind it — sales or nothing."
+        }
       ]
     },
     "decisions": [
@@ -256,13 +312,39 @@
     ],
     "dealSizeKD": 9000000,
     "facilitySummary": "Project Finance KD 9.0M (50% LTC, milestone drawdowns)",
-    "docTags": ["base", "project"],
+    "docTags": [
+      "base",
+      "project"
+    ],
     "plantedError": {
       "prompt": "First drawdown request arrives. Legal review flags the security file. What's wrong?",
+      "exhibit": [
+        "First drawdown request — KD 1,800,000 against milestone 1 (foundations)",
+        "Engineer certificate — milestone 1 verified complete",
+        "Mortgage deed over the land — signed by the developer",
+        "Real estate registry: registration receipt — not yet in file",
+        "Assignment of presale proceeds — buyers notified",
+        "Project insurance — assigned to the bank"
+      ],
       "options": [
-        { "id": "a", "label": "The mortgage over the land is signed but not yet registered with the authorities", "correct": true, "feedback": "Correct — an unregistered mortgage is legally unperfected; another creditor could register ahead of the bank. No drawdown until registration is complete. Security perfection precedes utilisation, always." },
-        { "id": "b", "label": "The mortgage deed should name the contractor, not the developer", "correct": false, "feedback": "The developer owns the land — the mortgage is correctly granted by them." },
-        { "id": "c", "label": "Nothing — signed documents are sufficient to release funds", "correct": false, "feedback": "Signed but unregistered means unperfected. Registration is what makes the mortgage real against third parties." }
+        {
+          "id": "a",
+          "label": "The mortgage over the land is signed but not yet registered with the authorities",
+          "correct": true,
+          "feedback": "Correct — an unregistered mortgage is legally unperfected; another creditor could register ahead of the bank. No drawdown until registration is complete. Security perfection precedes utilisation, always."
+        },
+        {
+          "id": "b",
+          "label": "The mortgage deed should name the contractor, not the developer",
+          "correct": false,
+          "feedback": "The developer owns the land — the mortgage is correctly granted by them."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — signed documents are sufficient to release funds",
+          "correct": false,
+          "feedback": "Signed but unregistered means unperfected. Registration is what makes the mortgage real against third parties."
+        }
       ]
     },
     "learn": "Development finance survives on three disciplines: real developer equity in first (≈50% LTC), drawdowns chasing verified progress, and a presales covenant that halts the bank's exposure the moment the market stops buying."
@@ -278,15 +360,39 @@
     "request": "\"Renewal should be a formality, right? The STRL works perfectly for us — honestly it's the backbone of the company now. Same terms as always, KD 1,500,000.\"",
     "analysisPack": {
       "figures": [
-        { "label": "STRL limit", "value": "KD 1,500,000" },
-        { "label": "Utilisation", "value": "100% — continuously for 14 months" },
-        { "label": "Drawdown rollovers", "value": "Every 90-day drawdown rolled at maturity, repaid by redrawing" },
-        { "label": "New on balance sheet", "value": "Warehouse property, KD 950,000, acquired 13 months ago" }
+        {
+          "label": "STRL limit",
+          "value": "KD 1,500,000"
+        },
+        {
+          "label": "Utilisation",
+          "value": "100% — continuously for 14 months"
+        },
+        {
+          "label": "Drawdown rollovers",
+          "value": "Every 90-day drawdown rolled at maturity, repaid by redrawing"
+        },
+        {
+          "label": "New on balance sheet",
+          "value": "Warehouse property, KD 950,000, acquired 13 months ago"
+        }
       ],
       "ratios": [
-        { "label": "STRL behaviour", "value": "Never revolves", "hint": "A revolving loan that hasn't revolved in 14 months isn't revolving — it's a frozen block of debt being refinanced every 90 days." },
-        { "label": "Timing", "value": "Hardcore utilisation began the month the warehouse was bought", "hint": "Follow the dates: the 'working capital' line stopped revolving exactly when KD 950,000 of property appeared." },
-        { "label": "True working capital need (recomputed)", "value": "≈ KD 600,000", "hint": "Pre-computed from current inventory and receivable levels — less than half the limit." }
+        {
+          "label": "STRL behaviour",
+          "value": "Never revolves",
+          "hint": "A revolving loan that hasn't revolved in 14 months isn't revolving — it's a frozen block of debt being refinanced every 90 days."
+        },
+        {
+          "label": "Timing",
+          "value": "Hardcore utilisation began the month the warehouse was bought",
+          "hint": "Follow the dates: the 'working capital' line stopped revolving exactly when KD 950,000 of property appeared."
+        },
+        {
+          "label": "True working capital need (recomputed)",
+          "value": "≈ KD 600,000",
+          "hint": "Pre-computed from current inventory and receivable levels — less than half the limit."
+        }
       ]
     },
     "decisions": [
@@ -393,7 +499,11 @@
     ],
     "dealSizeKD": 1500000,
     "facilitySummary": "TL KD 900K (warehouse) + STRL KD 600K (restructured)",
-    "docTags": ["base", "wc", "capex"],
+    "docTags": [
+      "base",
+      "wc",
+      "capex"
+    ],
     "learn": "A revolving facility that never revolves is the loudest red flag in portfolio monitoring. Trace where the money went, then rebuild: term assets into term loans with matching security, and the STRL back to its true cycle size."
   },
   {
@@ -407,15 +517,41 @@
     "request": "\"We won the national airline's catering contract — five years, KD 4,000,000 a year! We need a KD 400,000 performance bond, a KD 600,000 advance guarantee, and about KD 1,200,000 for the new flight kitchen. This contract changes everything.\"",
     "analysisPack": {
       "figures": [
-        { "label": "New contract", "value": "KD 4,000,000/year × 5 years" },
-        { "label": "Current annual revenue", "value": "KD 2,800,000" },
-        { "label": "Facilities requested", "value": "PB 400K + APG 600K + TL 1,200K" },
-        { "label": "Revenue concentration after ramp-up", "value": "≈ 85% from the airline" }
+        {
+          "label": "New contract",
+          "value": "KD 4,000,000/year × 5 years"
+        },
+        {
+          "label": "Current annual revenue",
+          "value": "KD 2,800,000"
+        },
+        {
+          "label": "Facilities requested",
+          "value": "PB 400K + APG 600K + TL 1,200K"
+        },
+        {
+          "label": "Revenue concentration after ramp-up",
+          "value": "≈ 85% from the airline"
+        }
       ],
       "ratios": [
-        { "label": "DSCR on the kitchen TL (7 yrs, incl. contract)", "value": "1.6x", "benchmark": "minimum ~1.2x", "hint": "Comfortable — as long as the airline contract is alive." },
-        { "label": "DSCR excluding the airline contract", "value": "0.6x", "benchmark": "minimum ~1.2x", "hint": "The uncomfortable twin: without this one customer, the kitchen loan doesn't service. The contract isn't an upside — it's the whole deal." },
-        { "label": "Customer concentration", "value": "85%", "hint": "One termination clause away from a different company." }
+        {
+          "label": "DSCR on the kitchen TL (7 yrs, incl. contract)",
+          "value": "1.6x",
+          "benchmark": "minimum ~1.2x",
+          "hint": "Comfortable — as long as the airline contract is alive."
+        },
+        {
+          "label": "DSCR excluding the airline contract",
+          "value": "0.6x",
+          "benchmark": "minimum ~1.2x",
+          "hint": "The uncomfortable twin: without this one customer, the kitchen loan doesn't service. The contract isn't an upside — it's the whole deal."
+        },
+        {
+          "label": "Customer concentration",
+          "value": "85%",
+          "hint": "One termination clause away from a different company."
+        }
       ]
     },
     "decisions": [
@@ -523,7 +659,11 @@
     ],
     "dealSizeKD": 2200000,
     "facilitySummary": "PB 400K + APG 600K + TL 1.2M (airline catering)",
-    "docTags": ["base", "tender", "capex"],
+    "docTags": [
+      "base",
+      "tender",
+      "capex"
+    ],
     "learn": "Concentration isn't declined — it's structured: assign the contract proceeds, charge the financed asset, and build an early-amortisation trigger so the loan exits when the contract does. Always read the DSCR both with and without the star customer."
   },
   {
@@ -537,15 +677,39 @@
     "request": "\"I need KD 500,000, short-term. I'll be straight with you — most of it repays what I owe Gulf Premier Bank; they're squeezing me. Clear them, and I can focus on winning the port contract back next quarter. You know me, you know I'm good for it.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Net result, last 2 years", "value": "−KD 180,000 and −KD 240,000" },
-        { "label": "OD with us", "value": "KD 280,000 / 300,000 — maxed for 7 months" },
-        { "label": "Owed to Gulf Premier Bank", "value": "KD 420,000, reportedly past due" },
-        { "label": "Port contract status", "value": "Lost; re-tender 'next quarter' (unconfirmed)" }
+        {
+          "label": "Net result, last 2 years",
+          "value": "−KD 180,000 and −KD 240,000"
+        },
+        {
+          "label": "OD with us",
+          "value": "KD 280,000 / 300,000 — maxed for 7 months"
+        },
+        {
+          "label": "Owed to Gulf Premier Bank",
+          "value": "KD 420,000, reportedly past due"
+        },
+        {
+          "label": "Port contract status",
+          "value": "Lost; re-tender 'next quarter' (unconfirmed)"
+        }
       ],
       "ratios": [
-        { "label": "Purpose of new money", "value": "≈ 80% repays another bank", "hint": "Not one fil funds operations or recovery — it relocates an existing default from their books to ours." },
-        { "label": "Repayment source", "value": "A contract not yet re-tendered, not yet won", "hint": "Hope, with a date attached. And the date moves." },
-        { "label": "Current exposure status", "value": "OD hardcore 7 months, interest serviced erratically", "hint": "By conduct, this account is already migrating toward watchlist on its own." }
+        {
+          "label": "Purpose of new money",
+          "value": "≈ 80% repays another bank",
+          "hint": "Not one fil funds operations or recovery — it relocates an existing default from their books to ours."
+        },
+        {
+          "label": "Repayment source",
+          "value": "A contract not yet re-tendered, not yet won",
+          "hint": "Hope, with a date attached. And the date moves."
+        },
+        {
+          "label": "Current exposure status",
+          "value": "OD hardcore 7 months, interest serviced erratically",
+          "hint": "By conduct, this account is already migrating toward watchlist on its own."
+        }
       ]
     },
     "decisions": [
@@ -654,13 +818,38 @@
     ],
     "dealSizeKD": 280000,
     "facilitySummary": "Workout: OD termed-out KD 280K, watchlist (Al-Dhow)",
-    "docTags": ["base", "wc"],
+    "docTags": [
+      "base",
+      "wc"
+    ],
     "plantedError": {
       "prompt": "Preparing the restructure memo, you check the file's supporting documents. What's the gap?",
+      "exhibit": [
+        "Restructure memo — term-out of KD 280,000 hardcore OD",
+        "Audited financial statements on file — dated 18 months ago",
+        "Interim management accounts — none provided",
+        "Updated order book — discussed verbally, nothing in writing",
+        "Security documents — current and enforceable"
+      ],
       "options": [
-        { "id": "a", "label": "The latest financials on file are 18 months old — the restructure would be approved on stale numbers", "correct": true, "feedback": "Correct. A workout decision needs current numbers — interim accounts, recent bank statements, an updated order book. Restructuring on 18-month-old financials is navigation by an old map." },
-        { "id": "b", "label": "The original facility agreement is missing the bank's logo", "correct": false, "feedback": "Cosmetic. The binding content is signatures and terms, not letterhead." },
-        { "id": "c", "label": "Nothing — the file supports the decision", "correct": false, "feedback": "Check the dates on the financials: 18 months stale. No restructure should be approved against numbers that old." }
+        {
+          "id": "a",
+          "label": "The latest financials on file are 18 months old — the restructure would be approved on stale numbers",
+          "correct": true,
+          "feedback": "Correct. A workout decision needs current numbers — interim accounts, recent bank statements, an updated order book. Restructuring on 18-month-old financials is navigation by an old map."
+        },
+        {
+          "id": "b",
+          "label": "The original facility agreement is missing the bank's logo",
+          "correct": false,
+          "feedback": "Cosmetic. The binding content is signatures and terms, not letterhead."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — the file supports the decision",
+          "correct": false,
+          "feedback": "Check the dates on the financials: 18 months stale. No restructure should be approved against numbers that old."
+        }
       ]
     },
     "learn": "New money that repays another lender is evergreening by transfer — it adds loss, not capacity. The workout discipline: no new money, restructure what you own against real cash flow, classify honestly, monitor closely."
@@ -676,15 +865,39 @@
     "request": "\"I want to switch our LC line to 360-day usance, KD 700,000. Cash flow management, you understand — everyone's extending tenors these days. The parts business is the same as ever.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Requested", "value": "Usance LC, 360 days, KD 700,000" },
-        { "label": "Inventory turnover", "value": "Parts sell in ~60 days (unchanged for years)" },
-        { "label": "Receivable days", "value": "35" },
-        { "label": "New on balance sheet", "value": "Land plot, KD 800,000, purchased 2 months ago — paid in cash" }
+        {
+          "label": "Requested",
+          "value": "Usance LC, 360 days, KD 700,000"
+        },
+        {
+          "label": "Inventory turnover",
+          "value": "Parts sell in ~60 days (unchanged for years)"
+        },
+        {
+          "label": "Receivable days",
+          "value": "35"
+        },
+        {
+          "label": "New on balance sheet",
+          "value": "Land plot, KD 800,000, purchased 2 months ago — paid in cash"
+        }
       ],
       "ratios": [
-        { "label": "Cash conversion cycle", "value": "≈ 95 days", "hint": "Parts to cash in just over three months — among the fastest cycles on your desk." },
-        { "label": "Requested usance vs cycle", "value": "360 vs 95 days", "hint": "He'd hold collected cash for ~9 months before paying the LC. That is not cash flow management; that is a money source." },
-        { "label": "Cash position", "value": "Down KD 750,000 since the land purchase", "hint": "The land emptied the company's cash. The 360-day usance would quietly refill it — with the bank's trade line." }
+        {
+          "label": "Cash conversion cycle",
+          "value": "≈ 95 days",
+          "hint": "Parts to cash in just over three months — among the fastest cycles on your desk."
+        },
+        {
+          "label": "Requested usance vs cycle",
+          "value": "360 vs 95 days",
+          "hint": "He'd hold collected cash for ~9 months before paying the LC. That is not cash flow management; that is a money source."
+        },
+        {
+          "label": "Cash position",
+          "value": "Down KD 750,000 since the land purchase",
+          "hint": "The land emptied the company's cash. The 360-day usance would quietly refill it — with the bank's trade line."
+        }
       ]
     },
     "decisions": [
@@ -793,7 +1006,10 @@
     ],
     "dealSizeKD": 700000,
     "facilitySummary": "Usance LC line KD 700,000 @ 90–120 days (tenor-capped)",
-    "docTags": ["base", "trade"],
+    "docTags": [
+      "base",
+      "trade"
+    ],
     "learn": "When requested tenor detaches from the trade cycle, the float is funding something else — find it on the balance sheet. Finance each need in its own instrument: trade at cycle tenor, property on a secured term loan."
   },
   {
@@ -807,16 +1023,45 @@
     "request": "\"Three new branches, KD 2,100,000 of fit-out and equipment. Term loan, please. Also — your analyst sent us a worrying note about our 'liquidity problem'. We don't have a liquidity problem. Do we?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual sales", "value": "KD 14,500,000" },
-        { "label": "Net margin", "value": "3.2% (steady — normal for grocery)" },
-        { "label": "Inventory days", "value": "38" },
-        { "label": "Receivable days", "value": "≈ 0 (customers pay at the till)" },
-        { "label": "Payable days", "value": "92" }
+        {
+          "label": "Annual sales",
+          "value": "KD 14,500,000"
+        },
+        {
+          "label": "Net margin",
+          "value": "3.2% (steady — normal for grocery)"
+        },
+        {
+          "label": "Inventory days",
+          "value": "38"
+        },
+        {
+          "label": "Receivable days",
+          "value": "≈ 0 (customers pay at the till)"
+        },
+        {
+          "label": "Payable days",
+          "value": "92"
+        }
       ],
       "ratios": [
-        { "label": "Current ratio", "value": "0.6x", "benchmark": "the analyst flagged < 1.2x", "hint": "Frightening out of context. In context: see the working capital line below." },
-        { "label": "Working capital cycle", "value": "38 + 0 − 92 = −54 days", "hint": "NEGATIVE cycle: customers pay cash today; suppliers wait 92 days. Suppliers fund the whole operation and 54 days of float besides. For grocery retail this is strength, not distress." },
-        { "label": "DSCR on requested TL (6 yrs)", "value": "1.7x", "benchmark": "minimum ~1.2x", "hint": "Comfortable on existing cash flow, before the new branches contribute anything." }
+        {
+          "label": "Current ratio",
+          "value": "0.6x",
+          "benchmark": "the analyst flagged < 1.2x",
+          "hint": "Frightening out of context. In context: see the working capital line below."
+        },
+        {
+          "label": "Working capital cycle",
+          "value": "38 + 0 − 92 = −54 days",
+          "hint": "NEGATIVE cycle: customers pay cash today; suppliers wait 92 days. Suppliers fund the whole operation and 54 days of float besides. For grocery retail this is strength, not distress."
+        },
+        {
+          "label": "DSCR on requested TL (6 yrs)",
+          "value": "1.7x",
+          "benchmark": "minimum ~1.2x",
+          "hint": "Comfortable on existing cash flow, before the new branches contribute anything."
+        }
       ]
     },
     "decisions": [
@@ -923,7 +1168,10 @@
     ],
     "dealSizeKD": 2100000,
     "facilitySummary": "Term Loan KD 2.1M / 6 years (3 new branches)",
-    "docTags": ["base", "capex"],
+    "docTags": [
+      "base",
+      "capex"
+    ],
     "learn": "Ratios mean nothing without the business model: negative working capital is distress in contracting and excellence in cash retail. Benchmark within the sector — and covenant the model's actual weak point, not the textbook's."
   },
   {
@@ -937,15 +1185,41 @@
     "request": "\"Revenue has DOUBLED in eighteen months and the order book is overflowing. I need all limits up 50% — today, ideally. Banks that move slowly lose clients like me. Are you a bank that moves slowly?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Revenue growth", "value": "+105% in 18 months" },
-        { "label": "Gross margin", "value": "8%, down from 14%", "hint": "He's buying the growth — winning orders on price." },
-        { "label": "Payable days", "value": "95, up from 50" },
-        { "label": "Account conduct", "value": "2 returned cheques in 4 months ('technical errors'); 3 excesses over OD limit, regularised late" }
+        {
+          "label": "Revenue growth",
+          "value": "+105% in 18 months"
+        },
+        {
+          "label": "Gross margin",
+          "value": "8%, down from 14%",
+          "hint": "He's buying the growth — winning orders on price."
+        },
+        {
+          "label": "Payable days",
+          "value": "95, up from 50"
+        },
+        {
+          "label": "Account conduct",
+          "value": "2 returned cheques in 4 months ('technical errors'); 3 excesses over OD limit, regularised late"
+        }
       ],
       "ratios": [
-        { "label": "Leverage (Debt / Equity)", "value": "2.4x, up from 1.0x", "benchmark": "< 2.0x comfortable", "hint": "Past the line and climbing — the growth is debt all the way down." },
-        { "label": "Working capital absorption", "value": "Every dinar of profit + new debt is consumed by WIP and receivables", "hint": "Classic overtrading mechanics: the order book eats cash faster than it returns it." },
-        { "label": "Interest cover", "value": "1.4x, down from 3.1x", "hint": "Margin erosion and debt growth compounding into the same number." }
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "2.4x, up from 1.0x",
+          "benchmark": "< 2.0x comfortable",
+          "hint": "Past the line and climbing — the growth is debt all the way down."
+        },
+        {
+          "label": "Working capital absorption",
+          "value": "Every dinar of profit + new debt is consumed by WIP and receivables",
+          "hint": "Classic overtrading mechanics: the order book eats cash faster than it returns it."
+        },
+        {
+          "label": "Interest cover",
+          "value": "1.4x, down from 3.1x",
+          "hint": "Margin erosion and debt growth compounding into the same number."
+        }
       ]
     },
     "decisions": [
@@ -1054,13 +1328,39 @@
     ],
     "dealSizeKD": 0,
     "facilitySummary": "Limits held; capital plan required (Sulaibiya Steel)",
-    "docTags": ["base", "wc", "tender"],
+    "docTags": [
+      "base",
+      "wc",
+      "tender"
+    ],
     "plantedError": {
       "prompt": "While re-papering the lines onto a secured basis, documentation runs its checks. What surfaces?",
+      "exhibit": [
+        "Re-papering pack — all lines moving to secured basis",
+        "Board resolution on file — 3 years old, names GM 'Adel M.' as sole authorised signatory",
+        "Commercial registry extract — Adel M. resigned from the company last year",
+        "New facility documents — drafted, awaiting signature",
+        "Assignment of contract proceeds — drafted"
+      ],
       "options": [
-        { "id": "a", "label": "The board resolution on file names a general manager who left the company a year ago as sole authorised signatory", "correct": true, "feedback": "Correct — every document signed since his departure is potentially voidable. A current board resolution and updated signatory cards are needed before any re-papering. Authorisations age; check them at every major event." },
-        { "id": "b", "label": "The file uses the company's old logo on some documents", "correct": false, "feedback": "Branding has no legal weight — signatures and authorisations do." },
-        { "id": "c", "label": "Nothing — proceed with re-papering", "correct": false, "feedback": "The signatory authorisation is a year out of date and names someone who left. That invalidates the chain — fix it first." }
+        {
+          "id": "a",
+          "label": "The board resolution on file names a general manager who left the company a year ago as sole authorised signatory",
+          "correct": true,
+          "feedback": "Correct — every document signed since his departure is potentially voidable. A current board resolution and updated signatory cards are needed before any re-papering. Authorisations age; check them at every major event."
+        },
+        {
+          "id": "b",
+          "label": "The file uses the company's old logo on some documents",
+          "correct": false,
+          "feedback": "Branding has no legal weight — signatures and authorisations do."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — proceed with re-papering",
+          "correct": false,
+          "feedback": "The signatory authorisation is a year out of date and names someone who left. That invalidates the chain — fix it first."
+        }
       ]
     },
     "learn": "Overtrading endgame: doubling revenue at collapsing margins, financed by suppliers and debt, until the cheques start bouncing. The cure is equity and discipline — never more debt. And returned cheques are never 'technical errors' twice."

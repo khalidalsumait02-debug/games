@@ -1395,6 +1395,50 @@ kbd {
   font-size: 1.02rem;
 }
 
+.file-exhibit {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 14px 0 18px;
+  font-family: 'Courier New', monospace;
+}
+
+.file-exhibit-head {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+}
+
+.file-exhibit ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.file-exhibit li {
+  font-size: 0.88rem;
+  color: var(--ink);
+  padding: 5px 0 5px 18px;
+  position: relative;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.07);
+}
+
+.file-exhibit li:last-child {
+  border-bottom: none;
+}
+
+.file-exhibit li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+}
+
 .process-summary h3 {
   color: var(--gold);
 }

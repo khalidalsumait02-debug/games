@@ -208,6 +208,16 @@ export default function Process({ scenario, onDone }: Props) {
           <div className="planted">
             <h3>File review</h3>
             <p className="planted-prompt">{planted.prompt}</p>
+            {planted.exhibit && (
+              <div className="file-exhibit anim-rise">
+                <div className="file-exhibit-head">📁 The file, as presented</div>
+                <ul>
+                  {planted.exhibit.map((line, i) => (
+                    <li key={i}>{line}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div className="options">
               {plantedOptions.map((o, i) => {
                 const isPicked = plantedPick === o.id;

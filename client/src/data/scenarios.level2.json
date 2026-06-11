@@ -10,18 +10,49 @@
     "request": "\"We want a KD 2,500,000 Short Term Revolving Loan. Honestly, the extra headroom just makes me sleep better — better too much than too little, right?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual sales", "value": "KD 6,000,000" },
-        { "label": "Cost of goods sold", "value": "KD 4,800,000" },
-        { "label": "Net profit", "value": "KD 380,000" },
-        { "label": "Equity", "value": "KD 2,100,000" }
+        {
+          "label": "Annual sales",
+          "value": "KD 6,000,000"
+        },
+        {
+          "label": "Cost of goods sold",
+          "value": "KD 4,800,000"
+        },
+        {
+          "label": "Net profit",
+          "value": "KD 380,000"
+        },
+        {
+          "label": "Equity",
+          "value": "KD 2,100,000"
+        }
       ],
       "ratios": [
-        { "label": "Inventory days", "value": "75" },
-        { "label": "Receivable days", "value": "60" },
-        { "label": "Payable days", "value": "45" },
-        { "label": "Working capital cycle", "value": "75 + 60 − 45 = 90 days" },
-        { "label": "Computed working capital need", "value": "≈ KD 1,200,000", "hint": "90/365 × COGS of 4.8M. This is what the operating cycle actually requires." },
-        { "label": "Requested limit vs need", "value": "2.5M vs 1.2M — more than double" }
+        {
+          "label": "Inventory days",
+          "value": "75"
+        },
+        {
+          "label": "Receivable days",
+          "value": "60"
+        },
+        {
+          "label": "Payable days",
+          "value": "45"
+        },
+        {
+          "label": "Working capital cycle",
+          "value": "75 + 60 − 45 = 90 days"
+        },
+        {
+          "label": "Computed working capital need",
+          "value": "≈ KD 1,200,000",
+          "hint": "90/365 × COGS of 4.8M. This is what the operating cycle actually requires."
+        },
+        {
+          "label": "Requested limit vs need",
+          "value": "2.5M vs 1.2M — more than double"
+        }
       ]
     },
     "decisions": [
@@ -130,7 +161,10 @@
     ],
     "dealSizeKD": 1200000,
     "facilitySummary": "STRL KD 1,200,000 (90-day cycle)",
-    "docTags": ["base", "wc"],
+    "docTags": [
+      "base",
+      "wc"
+    ],
     "learn": "Size the STRL from the working capital cycle: (inventory days + receivable days − payable days) / 365 × COGS. The client's comfort number is not a credit basis — excess limits invite diversion."
   },
   {
@@ -144,16 +178,42 @@
     "request": "\"We won! Signing is in three weeks. We need the 10% performance bond, the Ministry is offering a 20% advance against a guarantee, and we'll need about KD 800,000 of working capital to mobilise before the first progress payment lands.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Contract value", "value": "KD 12,000,000" },
-        { "label": "Performance bond (10%)", "value": "KD 1,200,000" },
-        { "label": "Advance payment (20%)", "value": "KD 2,400,000 against APG" },
-        { "label": "Mobilisation need", "value": "KD 800,000 until first progress payment" },
-        { "label": "Annual revenue (before this)", "value": "KD 4,200,000" }
+        {
+          "label": "Contract value",
+          "value": "KD 12,000,000"
+        },
+        {
+          "label": "Performance bond (10%)",
+          "value": "KD 1,200,000"
+        },
+        {
+          "label": "Advance payment (20%)",
+          "value": "KD 2,400,000 against APG"
+        },
+        {
+          "label": "Mobilisation need",
+          "value": "KD 800,000 until first progress payment"
+        },
+        {
+          "label": "Annual revenue (before this)",
+          "value": "KD 4,200,000"
+        }
       ],
       "ratios": [
-        { "label": "Contract / annual revenue", "value": "2.9x", "hint": "A transformational job — nearly three years of normal revenue in one contract. Execution risk is the whole story; control of cash flows is the bank's protection." },
-        { "label": "Current ratio", "value": "1.4x", "benchmark": "> 1.2x comfortable" },
-        { "label": "Track record", "value": "6 completed government projects, on time" }
+        {
+          "label": "Contract / annual revenue",
+          "value": "2.9x",
+          "hint": "A transformational job — nearly three years of normal revenue in one contract. Execution risk is the whole story; control of cash flows is the bank's protection."
+        },
+        {
+          "label": "Current ratio",
+          "value": "1.4x",
+          "benchmark": "> 1.2x comfortable"
+        },
+        {
+          "label": "Track record",
+          "value": "6 completed government projects, on time"
+        }
       ]
     },
     "decisions": [
@@ -226,13 +286,40 @@
     ],
     "dealSizeKD": 4400000,
     "facilitySummary": "PB KD 1.2M + APG KD 2.4M + STRL KD 800K (MOH project)",
-    "docTags": ["base", "tender", "project"],
+    "docTags": [
+      "base",
+      "tender",
+      "project"
+    ],
     "plantedError": {
       "prompt": "You review the deal file the day before issuance. One line in the processing history catches your eye. What's wrong?",
+      "exhibit": [
+        "Credit proposal — PB KD 1.2M + APG KD 2.4M + STRL KD 800K (one package)",
+        "Call report & site visit — completed Monday",
+        "Credit analysis & risk rating — completed Tuesday",
+        "LG application sent to operations for issuance — Wednesday",
+        "Credit committee meeting — scheduled Thursday",
+        "Award letter and contract — on file"
+      ],
       "options": [
-        { "id": "a", "label": "The LG application was sent to operations for issuance before the credit committee approved the package", "correct": true, "feedback": "Exactly. Nothing goes to issuance before approval — sequence is not bureaucracy, it's control. An issued guarantee is irrevocable even if the committee later declines." },
-        { "id": "b", "label": "The award letter is addressed to the client, not the bank", "correct": false, "feedback": "Award letters are always addressed to the contractor — that's normal." },
-        { "id": "c", "label": "Nothing — the file is in order", "correct": false, "feedback": "Look at the sequence: issuance was requested before committee approval. That's a serious process breach." }
+        {
+          "id": "a",
+          "label": "The LG application was sent to operations for issuance before the credit committee approved the package",
+          "correct": true,
+          "feedback": "Exactly. Nothing goes to issuance before approval — sequence is not bureaucracy, it's control. An issued guarantee is irrevocable even if the committee later declines."
+        },
+        {
+          "id": "b",
+          "label": "The award letter is addressed to the client, not the bank",
+          "correct": false,
+          "feedback": "Award letters are always addressed to the contractor — that's normal."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — the file is in order",
+          "correct": false,
+          "feedback": "Look at the sequence: issuance was requested before committee approval. That's a serious process breach."
+        }
       ]
     },
     "learn": "Assess a project's facilities as one package — bonds, advance, and working capital together — and take control of the cash: assignment of proceeds and the advance routed through the bank."
@@ -248,15 +335,41 @@
     "request": "\"There's a German extrusion line for sale — KD 900,000, almost new. With it I can take contracts I currently turn away. I want a 5-year term loan for the full amount.\"",
     "analysisPack": {
       "figures": [
-        { "label": "EBITDA (operating cash flow)", "value": "KD 160,000 / year" },
-        { "label": "Existing debt service", "value": "KD 30,000 / year" },
-        { "label": "Machine cost", "value": "KD 900,000" },
-        { "label": "Machine useful life", "value": "~10 years" }
+        {
+          "label": "EBITDA (operating cash flow)",
+          "value": "KD 160,000 / year"
+        },
+        {
+          "label": "Existing debt service",
+          "value": "KD 30,000 / year"
+        },
+        {
+          "label": "Machine cost",
+          "value": "KD 900,000"
+        },
+        {
+          "label": "Machine useful life",
+          "value": "~10 years"
+        }
       ],
       "ratios": [
-        { "label": "DSCR — as requested (900K / 5 yrs)", "value": "0.8x", "benchmark": "minimum ~1.2x", "hint": "Pre-computed: annual cash flow does not cover the proposed instalments. As requested, this loan defaults on arithmetic alone." },
-        { "label": "DSCR — at 600K / 6 yrs", "value": "1.3x", "benchmark": "minimum ~1.2x", "hint": "Pre-computed: a smaller loan over a longer tenor is affordable." },
-        { "label": "Leverage (Debt / Equity)", "value": "1.1x", "benchmark": "< 2.0x comfortable" }
+        {
+          "label": "DSCR — as requested (900K / 5 yrs)",
+          "value": "0.8x",
+          "benchmark": "minimum ~1.2x",
+          "hint": "Pre-computed: annual cash flow does not cover the proposed instalments. As requested, this loan defaults on arithmetic alone."
+        },
+        {
+          "label": "DSCR — at 600K / 6 yrs",
+          "value": "1.3x",
+          "benchmark": "minimum ~1.2x",
+          "hint": "Pre-computed: a smaller loan over a longer tenor is affordable."
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "1.1x",
+          "benchmark": "< 2.0x comfortable"
+        }
       ]
     },
     "decisions": [
@@ -331,13 +444,38 @@
     ],
     "dealSizeKD": 600000,
     "facilitySummary": "Term Loan KD 600,000 / 6 years (extrusion line)",
-    "docTags": ["base", "capex"],
+    "docTags": [
+      "base",
+      "capex"
+    ],
     "plantedError": {
       "prompt": "At signing, the documentation officer compares signatures. Something doesn't match. What's the issue?",
+      "exhibit": [
+        "Term loan agreement KD 600,000 — signed today by the owner",
+        "Documentation note: signature on agreement slants left, thin stroke",
+        "Specimen signature card (on file since 2019): slants right, heavy stroke",
+        "Lien over extrusion line — registration initiated",
+        "Insurance over the machine — assigned to the bank"
+      ],
       "options": [
-        { "id": "a", "label": "The signature on the facility agreement doesn't match the specimen signature card on file", "correct": true, "feedback": "Correct — stop the signing. A mismatched signature can render the agreement unenforceable. Verify identity and update the specimen card through proper channels first." },
-        { "id": "b", "label": "The agreement is signed in blue ink instead of black", "correct": false, "feedback": "Ink colour is not the issue — signature authenticity is." },
-        { "id": "c", "label": "Nothing — minor variations in signatures are normal", "correct": false, "feedback": "Variations happen, but a mismatch flagged by documentation must be resolved, never waved through." }
+        {
+          "id": "a",
+          "label": "The signature on the facility agreement doesn't match the specimen signature card on file",
+          "correct": true,
+          "feedback": "Correct — stop the signing. A mismatched signature can render the agreement unenforceable. Verify identity and update the specimen card through proper channels first."
+        },
+        {
+          "id": "b",
+          "label": "The agreement is signed in blue ink instead of black",
+          "correct": false,
+          "feedback": "Ink colour is not the issue — signature authenticity is."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — minor variations in signatures are normal",
+          "correct": false,
+          "feedback": "Variations happen, but a mismatch flagged by documentation must be resolved, never waved through."
+        }
       ]
     },
     "learn": "DSCR is the gate for term lending: below ~1.2x, restructure the deal — smaller amount, longer (sensible) tenor, or more client equity. The pack gives you the scenarios; your job is to pick the one that works."
@@ -353,15 +491,39 @@
     "request": "\"We want a usance LC line, KD 600,000, at 180 days. Long usance means we keep our cash longer — what's not to like?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual imports", "value": "KD 2,200,000" },
-        { "label": "Annual sales", "value": "KD 3,000,000" },
-        { "label": "Requested line", "value": "KD 600,000 at 180 days usance" }
+        {
+          "label": "Annual imports",
+          "value": "KD 2,200,000"
+        },
+        {
+          "label": "Annual sales",
+          "value": "KD 3,000,000"
+        },
+        {
+          "label": "Requested line",
+          "value": "KD 600,000 at 180 days usance"
+        }
       ],
       "ratios": [
-        { "label": "Inventory days", "value": "60", "hint": "Tiles sell through in two months." },
-        { "label": "Receivable days", "value": "30" },
-        { "label": "Cash conversion of a shipment", "value": "≈ 90 days", "hint": "Pre-computed: 60 days to sell + 30 to collect. Cash from each shipment is in hand by day 90." },
-        { "label": "Requested usance vs cycle", "value": "180 vs 90 days", "hint": "He'd hold collected cash for ~90 extra days before the LC falls due. Where does that cash sit — and what's it doing — in the meantime?" }
+        {
+          "label": "Inventory days",
+          "value": "60",
+          "hint": "Tiles sell through in two months."
+        },
+        {
+          "label": "Receivable days",
+          "value": "30"
+        },
+        {
+          "label": "Cash conversion of a shipment",
+          "value": "≈ 90 days",
+          "hint": "Pre-computed: 60 days to sell + 30 to collect. Cash from each shipment is in hand by day 90."
+        },
+        {
+          "label": "Requested usance vs cycle",
+          "value": "180 vs 90 days",
+          "hint": "He'd hold collected cash for ~90 extra days before the LC falls due. Where does that cash sit — and what's it doing — in the meantime?"
+        }
       ]
     },
     "decisions": [
@@ -468,7 +630,10 @@
     ],
     "dealSizeKD": 600000,
     "facilitySummary": "Usance LC line KD 600,000, 90 days",
-    "docTags": ["base", "trade"],
+    "docTags": [
+      "base",
+      "trade"
+    ],
     "learn": "The usance period is a tenor — match it to the cash conversion cycle. Usance longer than the cycle hands the client a float of bank-owed money, and floats get spent."
   },
   {
@@ -482,16 +647,45 @@
     "request": "\"The new contracts need twenty additional trucks — KD 1,400,000. We'd like a term loan over five years; can you make it work?\"",
     "analysisPack": {
       "figures": [
-        { "label": "EBITDA (operating cash flow)", "value": "KD 520,000 / year" },
-        { "label": "Existing term loan instalments", "value": "KD 120,000 / year" },
-        { "label": "Trucks cost", "value": "KD 1,400,000" },
-        { "label": "Truck useful life", "value": "~8 years" },
-        { "label": "New contracts (signed)", "value": "Add ≈ KD 300,000 / year EBITDA when fully running" }
+        {
+          "label": "EBITDA (operating cash flow)",
+          "value": "KD 520,000 / year"
+        },
+        {
+          "label": "Existing term loan instalments",
+          "value": "KD 120,000 / year"
+        },
+        {
+          "label": "Trucks cost",
+          "value": "KD 1,400,000"
+        },
+        {
+          "label": "Truck useful life",
+          "value": "~8 years"
+        },
+        {
+          "label": "New contracts (signed)",
+          "value": "Add ≈ KD 300,000 / year EBITDA when fully running"
+        }
       ],
       "ratios": [
-        { "label": "DSCR — 1.4M over 5 years", "value": "1.1x", "benchmark": "minimum ~1.2x", "hint": "Pre-computed, on current cash flow: tight. One bad quarter and instalments are missed." },
-        { "label": "DSCR — 1.4M over 7 years", "value": "1.4x", "benchmark": "minimum ~1.2x", "hint": "Pre-computed: comfortable, with the new contracts' cash flow as upside on top." },
-        { "label": "Leverage after deal", "value": "1.5x", "benchmark": "< 2.0x comfortable" }
+        {
+          "label": "DSCR — 1.4M over 5 years",
+          "value": "1.1x",
+          "benchmark": "minimum ~1.2x",
+          "hint": "Pre-computed, on current cash flow: tight. One bad quarter and instalments are missed."
+        },
+        {
+          "label": "DSCR — 1.4M over 7 years",
+          "value": "1.4x",
+          "benchmark": "minimum ~1.2x",
+          "hint": "Pre-computed: comfortable, with the new contracts' cash flow as upside on top."
+        },
+        {
+          "label": "Leverage after deal",
+          "value": "1.5x",
+          "benchmark": "< 2.0x comfortable"
+        }
       ]
     },
     "decisions": [
@@ -564,7 +758,10 @@
     ],
     "dealSizeKD": 1400000,
     "facilitySummary": "Term Loan KD 1,400,000 / 7 years (20 trucks)",
-    "docTags": ["base", "capex"],
+    "docTags": [
+      "base",
+      "capex"
+    ],
     "learn": "Use the DSCR table to choose the tenor: comfortable coverage on today's cash flow, tenor inside the asset's life, and growth as a cushion — not as the base case."
   },
   {
@@ -578,15 +775,39 @@
     "request": "\"The Ministry owes us KD 2,200,000 in approved invoices and pays in 120 to 150 days. Meanwhile we pay our suppliers in 60. The gap is crushing us. Can we discount the receivables?\"",
     "analysisPack": {
       "figures": [
-        { "label": "MOH receivables (approved)", "value": "KD 2,200,000" },
-        { "label": "Annual sales", "value": "KD 5,500,000" },
-        { "label": "Net profit margin", "value": "9%" },
-        { "label": "Supplier payment terms", "value": "60 days" }
+        {
+          "label": "MOH receivables (approved)",
+          "value": "KD 2,200,000"
+        },
+        {
+          "label": "Annual sales",
+          "value": "KD 5,500,000"
+        },
+        {
+          "label": "Net profit margin",
+          "value": "9%"
+        },
+        {
+          "label": "Supplier payment terms",
+          "value": "60 days"
+        }
       ],
       "ratios": [
-        { "label": "Receivable days (MOH)", "value": "135", "hint": "The gap: paid by suppliers at day 60, paid by MOH at day 135." },
-        { "label": "Debtor quality", "value": "Ministry of Health — government", "hint": "Payment is near-certain; only timing is uncertain. Ideal discounting material." },
-        { "label": "Standard advance rate", "value": "~70%", "hint": "Pre-computed: 70% of 2.2M ≈ KD 1.5M. The margin absorbs deductions, disputes and delays." }
+        {
+          "label": "Receivable days (MOH)",
+          "value": "135",
+          "hint": "The gap: paid by suppliers at day 60, paid by MOH at day 135."
+        },
+        {
+          "label": "Debtor quality",
+          "value": "Ministry of Health — government",
+          "hint": "Payment is near-certain; only timing is uncertain. Ideal discounting material."
+        },
+        {
+          "label": "Standard advance rate",
+          "value": "~70%",
+          "hint": "Pre-computed: 70% of 2.2M ≈ KD 1.5M. The margin absorbs deductions, disputes and delays."
+        }
       ]
     },
     "decisions": [
@@ -660,13 +881,38 @@
     ],
     "dealSizeKD": 1500000,
     "facilitySummary": "Invoice Discounting KD 1,500,000 (MOH receivables)",
-    "docTags": ["base", "recv"],
+    "docTags": [
+      "base",
+      "recv"
+    ],
     "plantedError": {
       "prompt": "Operations samples the invoice batch before the first advance. One issue surfaces. What is it?",
+      "exhibit": [
+        "Invoice batch for discounting — 12 invoices, total KD 1,480,000",
+        "11 invoices — MOH certification stamp present",
+        "Invoice #4471, KD 180,000 — status: 'under review at MOH'",
+        "Assignment of receivables — signed",
+        "Notification — acknowledged by the Ministry"
+      ],
       "options": [
-        { "id": "a", "label": "An invoice for KD 180,000 carries no MOH certification stamp — it's still 'under review'", "correct": true, "feedback": "Right. 'Under review' means it can still be disputed or reduced. Only certified invoices enter the discounting pool — exclude it until stamped." },
-        { "id": "b", "label": "The invoices are numbered non-sequentially", "correct": false, "feedback": "Clients invoice many customers; gaps in the sequence shown to us are normal." },
-        { "id": "c", "label": "Nothing — advance against the batch", "correct": false, "feedback": "One invoice is uncertified — still capable of being disputed. It must come out of the pool." }
+        {
+          "id": "a",
+          "label": "An invoice for KD 180,000 carries no MOH certification stamp — it's still 'under review'",
+          "correct": true,
+          "feedback": "Right. 'Under review' means it can still be disputed or reduced. Only certified invoices enter the discounting pool — exclude it until stamped."
+        },
+        {
+          "id": "b",
+          "label": "The invoices are numbered non-sequentially",
+          "correct": false,
+          "feedback": "Clients invoice many customers; gaps in the sequence shown to us are normal."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — advance against the batch",
+          "correct": false,
+          "feedback": "One invoice is uncertified — still capable of being disputed. It must come out of the pool."
+        }
       ]
     },
     "learn": "In discounting, structure does the credit work: ~70% advance rate absorbs deductions, recourse keeps the client committed, and assignment WITH debtor notification makes collections flow to the bank, not through the client."
@@ -682,15 +928,41 @@
     "request": "\"Business is booming — revenue up 45%! But the overdraft is always at the ceiling and we keep needing guarantees at the last minute for new projects. Just raise the OD from KD 1,000,000 to 1,500,000 and we're sorted.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Revenue growth", "value": "+45% year on year" },
-        { "label": "Overdraft usage", "value": "KD 950,000 of 1,000,000 — at the ceiling for 9 months straight" },
-        { "label": "Net profit margin", "value": "6% (was 8%)" },
-        { "label": "Work in progress", "value": "KD 1,400,000 across 7 projects" }
+        {
+          "label": "Revenue growth",
+          "value": "+45% year on year"
+        },
+        {
+          "label": "Overdraft usage",
+          "value": "KD 950,000 of 1,000,000 — at the ceiling for 9 months straight"
+        },
+        {
+          "label": "Net profit margin",
+          "value": "6% (was 8%)"
+        },
+        {
+          "label": "Work in progress",
+          "value": "KD 1,400,000 across 7 projects"
+        }
       ],
       "ratios": [
-        { "label": "Current ratio", "value": "1.05x and falling", "benchmark": "> 1.2x comfortable", "hint": "Liquidity is thinning while revenue soars — growth is consuming cash faster than profits replace it." },
-        { "label": "Leverage (Debt / Equity)", "value": "1.8x, up from 1.1x", "benchmark": "< 2.0x comfortable", "hint": "Rising fast. The classic overtrading signature: growth funded entirely by debt." },
-        { "label": "OD behaviour", "value": "Hardcore — never returns to credit", "hint": "This is not an overdraft anymore; it's permanent working capital wearing the wrong clothes." }
+        {
+          "label": "Current ratio",
+          "value": "1.05x and falling",
+          "benchmark": "> 1.2x comfortable",
+          "hint": "Liquidity is thinning while revenue soars — growth is consuming cash faster than profits replace it."
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "1.8x, up from 1.1x",
+          "benchmark": "< 2.0x comfortable",
+          "hint": "Rising fast. The classic overtrading signature: growth funded entirely by debt."
+        },
+        {
+          "label": "OD behaviour",
+          "value": "Hardcore — never returns to credit",
+          "hint": "This is not an overdraft anymore; it's permanent working capital wearing the wrong clothes."
+        }
       ]
     },
     "decisions": [
@@ -797,7 +1069,11 @@
     ],
     "dealSizeKD": 1750000,
     "facilitySummary": "Restructured: STRL 1.0M + LG line 600K + OD 150K",
-    "docTags": ["base", "wc", "tender"],
+    "docTags": [
+      "base",
+      "wc",
+      "tender"
+    ],
     "learn": "A permanently maxed overdraft is a structure problem, not a limit problem. Rebuild by need — STRL for the cycle, LG line for bonds, small OD for swings — and watch for overtrading: growth that consumes cash faster than it creates it."
   },
   {
@@ -811,16 +1087,43 @@
     "request": "\"I want to double the STRL — from KD 600,000 to 1,200,000. More stock means more sales, simple as that. You've known me six years; this should be easy.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual sales (this year)", "value": "KD 4,100,000" },
-        { "label": "Annual sales (last year)", "value": "KD 4,150,000" },
-        { "label": "Inventory", "value": "KD 1,550,000 (was 680,000)" },
-        { "label": "STRL utilisation", "value": "100% for 5 months" }
+        {
+          "label": "Annual sales (this year)",
+          "value": "KD 4,100,000"
+        },
+        {
+          "label": "Annual sales (last year)",
+          "value": "KD 4,150,000"
+        },
+        {
+          "label": "Inventory",
+          "value": "KD 1,550,000 (was 680,000)"
+        },
+        {
+          "label": "STRL utilisation",
+          "value": "100% for 5 months"
+        }
       ],
       "ratios": [
-        { "label": "Inventory days", "value": "140, up from 60", "hint": "Stock used to sell in 2 months; now it sits for nearly 5. With sales flat, the inventory more than doubled — what exactly is in that warehouse?" },
-        { "label": "Sales growth", "value": "−1%", "hint": "'More stock means more sales' — but the stock already doubled and sales didn't move." },
-        { "label": "Payable days", "value": "75, up from 45", "hint": "Suppliers are being stretched too — cash is tight everywhere." },
-        { "label": "Receivable days", "value": "55 (stable)" }
+        {
+          "label": "Inventory days",
+          "value": "140, up from 60",
+          "hint": "Stock used to sell in 2 months; now it sits for nearly 5. With sales flat, the inventory more than doubled — what exactly is in that warehouse?"
+        },
+        {
+          "label": "Sales growth",
+          "value": "−1%",
+          "hint": "'More stock means more sales' — but the stock already doubled and sales didn't move."
+        },
+        {
+          "label": "Payable days",
+          "value": "75, up from 45",
+          "hint": "Suppliers are being stretched too — cash is tight everywhere."
+        },
+        {
+          "label": "Receivable days",
+          "value": "55 (stable)"
+        }
       ]
     },
     "decisions": [
@@ -928,7 +1231,10 @@
     ],
     "dealSizeKD": 600000,
     "facilitySummary": "STRL KD 600,000 held (under stock review)",
-    "docTags": ["base", "wc"],
+    "docTags": [
+      "base",
+      "wc"
+    ],
     "learn": "Inventory days exploding while sales stay flat = stock that isn't selling. The answer to 'lend more?' is 'show me the aging.' Investigate before increasing — and de-risk with a plan, not a panic."
   }
 ]

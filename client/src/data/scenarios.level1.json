@@ -10,18 +10,54 @@
     "request": "\"We found a new supplier in Brazil with great prices, but they won't ship without secure payment — and I'm not wiring KD 250,000 in advance to someone I've never met. What can the bank do?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual sales", "value": "KD 2,400,000" },
-        { "label": "Net profit", "value": "KD 190,000" },
-        { "label": "Cash & bank", "value": "KD 110,000" },
-        { "label": "Receivables", "value": "KD 320,000" },
-        { "label": "Inventory", "value": "KD 380,000" },
-        { "label": "Equity", "value": "KD 850,000" }
+        {
+          "label": "Annual sales",
+          "value": "KD 2,400,000"
+        },
+        {
+          "label": "Net profit",
+          "value": "KD 190,000"
+        },
+        {
+          "label": "Cash & bank",
+          "value": "KD 110,000"
+        },
+        {
+          "label": "Receivables",
+          "value": "KD 320,000"
+        },
+        {
+          "label": "Inventory",
+          "value": "KD 380,000"
+        },
+        {
+          "label": "Equity",
+          "value": "KD 850,000"
+        }
       ],
       "ratios": [
-        { "label": "Current ratio", "value": "1.7x", "benchmark": "> 1.2x comfortable", "hint": "Short-term assets comfortably cover short-term liabilities — liquidity is healthy." },
-        { "label": "Leverage (Debt / Equity)", "value": "0.4x", "benchmark": "< 2.0x comfortable", "hint": "Low debt — the company is not over-borrowed." },
-        { "label": "Inventory days", "value": "58 days", "hint": "Stock sells in about two months." },
-        { "label": "Receivable days", "value": "49 days", "hint": "Customers pay in about 7 weeks." }
+        {
+          "label": "Current ratio",
+          "value": "1.7x",
+          "benchmark": "> 1.2x comfortable",
+          "hint": "Short-term assets comfortably cover short-term liabilities — liquidity is healthy."
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "0.4x",
+          "benchmark": "< 2.0x comfortable",
+          "hint": "Low debt — the company is not over-borrowed."
+        },
+        {
+          "label": "Inventory days",
+          "value": "58 days",
+          "hint": "Stock sells in about two months."
+        },
+        {
+          "label": "Receivable days",
+          "value": "49 days",
+          "hint": "Customers pay in about 7 weeks."
+        }
       ]
     },
     "decisions": [
@@ -96,7 +132,10 @@
     ],
     "dealSizeKD": 250000,
     "facilitySummary": "Sight LC line KD 250,000",
-    "docTags": ["base", "trade"],
+    "docTags": [
+      "base",
+      "trade"
+    ],
     "learn": "A sight LC pays the supplier only against compliant shipping documents — it replaces risky advance payments in international trade. Security should be proportionate to the client's strength."
   },
   {
@@ -110,18 +149,53 @@
     "request": "\"Every year before Ramadan I need to build stock — about KD 400,000 extra for roughly three months. I repay it all once the season's sales come in. It happens every single year. What's the right way to fund this?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual sales", "value": "KD 3,100,000" },
-        { "label": "Net profit", "value": "KD 210,000" },
-        { "label": "Inventory (normal)", "value": "KD 520,000" },
-        { "label": "Inventory (seasonal peak)", "value": "KD 900,000" },
-        { "label": "Receivables", "value": "KD 240,000" },
-        { "label": "Equity", "value": "KD 1,100,000" }
+        {
+          "label": "Annual sales",
+          "value": "KD 3,100,000"
+        },
+        {
+          "label": "Net profit",
+          "value": "KD 210,000"
+        },
+        {
+          "label": "Inventory (normal)",
+          "value": "KD 520,000"
+        },
+        {
+          "label": "Inventory (seasonal peak)",
+          "value": "KD 900,000"
+        },
+        {
+          "label": "Receivables",
+          "value": "KD 240,000"
+        },
+        {
+          "label": "Equity",
+          "value": "KD 1,100,000"
+        }
       ],
       "ratios": [
-        { "label": "Current ratio", "value": "1.6x", "benchmark": "> 1.2x comfortable", "hint": "Healthy liquidity in normal months." },
-        { "label": "Working capital cycle", "value": "~75 days", "hint": "Money invested in stock comes back as cash in about 75 days — that's the natural tenor of the financing." },
-        { "label": "Leverage (Debt / Equity)", "value": "0.5x", "benchmark": "< 2.0x comfortable" },
-        { "label": "Seasonal peak need", "value": "≈ KD 400,000", "hint": "Pre-computed: peak inventory minus normal inventory. The number matches what he's asking for." }
+        {
+          "label": "Current ratio",
+          "value": "1.6x",
+          "benchmark": "> 1.2x comfortable",
+          "hint": "Healthy liquidity in normal months."
+        },
+        {
+          "label": "Working capital cycle",
+          "value": "~75 days",
+          "hint": "Money invested in stock comes back as cash in about 75 days — that's the natural tenor of the financing."
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "0.5x",
+          "benchmark": "< 2.0x comfortable"
+        },
+        {
+          "label": "Seasonal peak need",
+          "value": "≈ KD 400,000",
+          "hint": "Pre-computed: peak inventory minus normal inventory. The number matches what he's asking for."
+        }
       ]
     },
     "decisions": [
@@ -194,7 +268,10 @@
     ],
     "dealSizeKD": 400000,
     "facilitySummary": "STRL KD 400,000 (90-day drawdowns)",
-    "docTags": ["base", "wc"],
+    "docTags": [
+      "base",
+      "wc"
+    ],
     "learn": "The Short Term Revolving Loan funds the operating cycle: draw to buy stock, repay from sales, redraw next cycle. Size it from the cycle, and match each drawdown's tenor to it."
   },
   {
@@ -208,16 +285,43 @@
     "request": "\"We're bidding on the Ministry of Health clinic renovation tender — contract value around KD 2,500,000. The tender requires a 2% bank guarantee with the bid, submitted by Thursday. We need it fast.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual revenue", "value": "KD 4,200,000" },
-        { "label": "Net profit", "value": "KD 260,000" },
-        { "label": "Equity", "value": "KD 1,300,000" },
-        { "label": "Completed similar projects", "value": "6 (all on time)" },
-        { "label": "Required guarantee", "value": "2% × 2.5M = KD 50,000" }
+        {
+          "label": "Annual revenue",
+          "value": "KD 4,200,000"
+        },
+        {
+          "label": "Net profit",
+          "value": "KD 260,000"
+        },
+        {
+          "label": "Equity",
+          "value": "KD 1,300,000"
+        },
+        {
+          "label": "Completed similar projects",
+          "value": "6 (all on time)"
+        },
+        {
+          "label": "Required guarantee",
+          "value": "2% × 2.5M = KD 50,000"
+        }
       ],
       "ratios": [
-        { "label": "Current ratio", "value": "1.4x", "benchmark": "> 1.2x comfortable" },
-        { "label": "Leverage (Debt / Equity)", "value": "0.7x", "benchmark": "< 2.0x comfortable" },
-        { "label": "Execution track record", "value": "Strong", "hint": "Six similar projects completed — they can genuinely perform if they win. That's the key question behind any bid bond." }
+        {
+          "label": "Current ratio",
+          "value": "1.4x",
+          "benchmark": "> 1.2x comfortable"
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "0.7x",
+          "benchmark": "< 2.0x comfortable"
+        },
+        {
+          "label": "Execution track record",
+          "value": "Strong",
+          "hint": "Six similar projects completed — they can genuinely perform if they win. That's the key question behind any bid bond."
+        }
       ]
     },
     "decisions": [
@@ -291,13 +395,39 @@
     ],
     "dealSizeKD": 50000,
     "facilitySummary": "Bid Bond KD 50,000 (MOH tender)",
-    "docTags": ["base", "tender"],
+    "docTags": [
+      "base",
+      "tender"
+    ],
     "plantedError": {
       "prompt": "Operations flags the file before issuing the guarantee. Review the checklist — is anything wrong?",
+      "exhibit": [
+        "File review date: 11 June 2026",
+        "Tender documents — MOH clinic renovation, bid bond KD 50,000, validity 90 days",
+        "Trade license No. 88412 — valid until 9 April 2026",
+        "Board resolution authorising bank facilities — signed and on file",
+        "Authorised signatory list — matches specimen cards",
+        "KYC file — refreshed this quarter"
+      ],
       "options": [
-        { "id": "a", "label": "The trade license on file expired two months ago", "correct": true, "feedback": "Caught it. Issuing a guarantee for a company whose trade license has lapsed is a compliance breach — get the renewed license before anything is issued." },
-        { "id": "b", "label": "The tender documents shouldn't be in the file", "correct": false, "feedback": "Tender documents are exactly what we need — they define the required bond amount, wording and validity." },
-        { "id": "c", "label": "Nothing — the file is complete, issue the bond", "correct": false, "feedback": "Look again at the trade license dates. It expired two months ago — a lapsed license must be renewed before issuance." }
+        {
+          "id": "a",
+          "label": "The trade license on file expired two months ago",
+          "correct": true,
+          "feedback": "Caught it. Issuing a guarantee for a company whose trade license has lapsed is a compliance breach — get the renewed license before anything is issued."
+        },
+        {
+          "id": "b",
+          "label": "The tender documents shouldn't be in the file",
+          "correct": false,
+          "feedback": "Tender documents are exactly what we need — they define the required bond amount, wording and validity."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — the file is complete, issue the bond",
+          "correct": false,
+          "feedback": "Look again at the trade license dates. It expired two months ago — a lapsed license must be renewed before issuance."
+        }
       ]
     },
     "learn": "The guarantee ladder follows the project: Bid Bond at tender → Performance Bond and APG at award → Retention Bond at completion. Behind every bond, the real question is: can this client perform?"
@@ -313,16 +443,43 @@
     "request": "\"Good news — we won the KD 1,800,000 substation steelworks contract! The Ministry requires a 10% performance bond before signing, and they're offering a 15% advance payment if we provide a guarantee for it. We want both, and the advance would really help us mobilise.\"",
     "analysisPack": {
       "figures": [
-        { "label": "Contract value", "value": "KD 1,800,000" },
-        { "label": "Performance bond required", "value": "10% = KD 180,000" },
-        { "label": "Advance offered", "value": "15% = KD 270,000 (against APG)" },
-        { "label": "Annual revenue", "value": "KD 2,900,000" },
-        { "label": "Equity", "value": "KD 980,000" }
+        {
+          "label": "Contract value",
+          "value": "KD 1,800,000"
+        },
+        {
+          "label": "Performance bond required",
+          "value": "10% = KD 180,000"
+        },
+        {
+          "label": "Advance offered",
+          "value": "15% = KD 270,000 (against APG)"
+        },
+        {
+          "label": "Annual revenue",
+          "value": "KD 2,900,000"
+        },
+        {
+          "label": "Equity",
+          "value": "KD 980,000"
+        }
       ],
       "ratios": [
-        { "label": "Current ratio", "value": "1.3x", "benchmark": "> 1.2x comfortable" },
-        { "label": "Leverage (Debt / Equity)", "value": "0.9x", "benchmark": "< 2.0x comfortable" },
-        { "label": "Contract / revenue", "value": "62%", "hint": "A big job for them, but within capacity given their track record on similar work." }
+        {
+          "label": "Current ratio",
+          "value": "1.3x",
+          "benchmark": "> 1.2x comfortable"
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "0.9x",
+          "benchmark": "< 2.0x comfortable"
+        },
+        {
+          "label": "Contract / revenue",
+          "value": "62%",
+          "hint": "A big job for them, but within capacity given their track record on similar work."
+        }
       ]
     },
     "decisions": [
@@ -396,7 +553,10 @@
     ],
     "dealSizeKD": 450000,
     "facilitySummary": "PB KD 180,000 + APG KD 270,000 (MEW contract)",
-    "docTags": ["base", "tender"],
+    "docTags": [
+      "base",
+      "tender"
+    ],
     "learn": "After award: Performance Bond to sign, APG to unlock the advance. Route the advance through the bank and take an assignment of contract proceeds — the contract payments are the natural security."
   },
   {
@@ -410,16 +570,44 @@
     "request": "\"Our delivery fleet is falling apart — we need six new vans, about KD 120,000 total. Just put it on an overdraft, that's easiest, right?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual sales", "value": "KD 1,950,000" },
-        { "label": "EBITDA (operating cash flow)", "value": "KD 95,000 / year" },
-        { "label": "Existing debt", "value": "KD 60,000 (small term loan)" },
-        { "label": "Vans cost", "value": "KD 120,000" },
-        { "label": "Van useful life", "value": "~5 years" }
+        {
+          "label": "Annual sales",
+          "value": "KD 1,950,000"
+        },
+        {
+          "label": "EBITDA (operating cash flow)",
+          "value": "KD 95,000 / year"
+        },
+        {
+          "label": "Existing debt",
+          "value": "KD 60,000 (small term loan)"
+        },
+        {
+          "label": "Vans cost",
+          "value": "KD 120,000"
+        },
+        {
+          "label": "Van useful life",
+          "value": "~5 years"
+        }
       ],
       "ratios": [
-        { "label": "DSCR at 4-year tenor", "value": "1.8x", "benchmark": "> 1.2x comfortable", "hint": "Pre-computed: yearly cash flow covers the proposed instalments 1.8 times over. Comfortable." },
-        { "label": "Current ratio", "value": "1.5x", "benchmark": "> 1.2x comfortable" },
-        { "label": "Leverage (Debt / Equity)", "value": "0.3x", "benchmark": "< 2.0x comfortable" }
+        {
+          "label": "DSCR at 4-year tenor",
+          "value": "1.8x",
+          "benchmark": "> 1.2x comfortable",
+          "hint": "Pre-computed: yearly cash flow covers the proposed instalments 1.8 times over. Comfortable."
+        },
+        {
+          "label": "Current ratio",
+          "value": "1.5x",
+          "benchmark": "> 1.2x comfortable"
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "0.3x",
+          "benchmark": "< 2.0x comfortable"
+        }
       ]
     },
     "decisions": [
@@ -494,13 +682,39 @@
     ],
     "dealSizeKD": 120000,
     "facilitySummary": "Term Loan KD 120,000 / 4 years (fleet)",
-    "docTags": ["base", "capex"],
+    "docTags": [
+      "base",
+      "capex"
+    ],
     "plantedError": {
       "prompt": "Documentation review before signing the facility agreement. Anything wrong with the file?",
+      "exhibit": [
+        "File review date: 11 June 2026",
+        "Supplier quotation — 6 delivery vans, total KD 120,000",
+        "Audited financial statements — last 3 years on file",
+        "Trade license — valid until March 2027",
+        "Authorised signatory list & specimen signatures — on file",
+        "Facility agreement — prepared and ready for signing"
+      ],
       "options": [
-        { "id": "a", "label": "There is no board resolution authorising the borrowing", "correct": true, "feedback": "Correct. Without a valid resolution authorising the company to borrow and naming who signs, the facility agreement may be unenforceable. Never sign without it." },
-        { "id": "b", "label": "The supplier quotation should not be in the credit file", "correct": false, "feedback": "The quotation is needed — it evidences what we're financing and the amount." },
-        { "id": "c", "label": "Nothing — proceed to signing", "correct": false, "feedback": "Check the corporate authorisations: there's no board resolution to borrow in the file. That's a blocking gap." }
+        {
+          "id": "a",
+          "label": "There is no board resolution authorising the borrowing",
+          "correct": true,
+          "feedback": "Correct. Without a valid resolution authorising the company to borrow and naming who signs, the facility agreement may be unenforceable. Never sign without it."
+        },
+        {
+          "id": "b",
+          "label": "The supplier quotation should not be in the credit file",
+          "correct": false,
+          "feedback": "The quotation is needed — it evidences what we're financing and the amount."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — proceed to signing",
+          "correct": false,
+          "feedback": "Check the corporate authorisations: there's no board resolution to borrow in the file. That's a blocking gap."
+        }
       ]
     },
     "learn": "Match the financing to the asset: fixed assets take term loans with tenors inside the asset's life, repaid by the cash flow it generates. DSCR above ~1.2x is the affordability test — and it's computed for you in the pack."
@@ -516,15 +730,39 @@
     "request": "\"Our corporate customers pay on the 25th but our suppliers debit us on the 10th. Two weeks every month we're stretched — maybe KD 60,000 at the worst point — then it clears. Can we get some kind of loan?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual sales", "value": "KD 2,700,000" },
-        { "label": "Net profit", "value": "KD 175,000" },
-        { "label": "Typical cash gap", "value": "KD 50–60,000 for ~2 weeks/month" },
-        { "label": "Account turnover with us", "value": "KD 220,000 / month, always returns to credit" }
+        {
+          "label": "Annual sales",
+          "value": "KD 2,700,000"
+        },
+        {
+          "label": "Net profit",
+          "value": "KD 175,000"
+        },
+        {
+          "label": "Typical cash gap",
+          "value": "KD 50–60,000 for ~2 weeks/month"
+        },
+        {
+          "label": "Account turnover with us",
+          "value": "KD 220,000 / month, always returns to credit"
+        }
       ],
       "ratios": [
-        { "label": "Current ratio", "value": "1.5x", "benchmark": "> 1.2x comfortable" },
-        { "label": "Leverage (Debt / Equity)", "value": "0.4x", "benchmark": "< 2.0x comfortable" },
-        { "label": "Account conduct", "value": "Excellent", "hint": "The account swings into and out of credit every month — that's the natural shape of an overdraft user." }
+        {
+          "label": "Current ratio",
+          "value": "1.5x",
+          "benchmark": "> 1.2x comfortable"
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "0.4x",
+          "benchmark": "< 2.0x comfortable"
+        },
+        {
+          "label": "Account conduct",
+          "value": "Excellent",
+          "hint": "The account swings into and out of credit every month — that's the natural shape of an overdraft user."
+        }
       ]
     },
     "decisions": [
@@ -597,7 +835,10 @@
     ],
     "dealSizeKD": 75000,
     "facilitySummary": "Overdraft KD 75,000",
-    "docTags": ["base", "wc"],
+    "docTags": [
+      "base",
+      "wc"
+    ],
     "learn": "Overdrafts suit short-lived, self-correcting swings — the account should return to credit regularly. An OD stuck at its limit is no longer an OD; it's a misclassified loan."
   },
   {
@@ -611,15 +852,39 @@
     "request": "\"Our Italian supplier offered us 90-day payment terms — but only if a bank stands behind the payment. Our stock sells through in about 70 days, so we'd collect from customers before we even pay them. How do we set this up?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual purchases from Italy", "value": "KD 800,000" },
-        { "label": "Requested line", "value": "KD 200,000" },
-        { "label": "Annual sales", "value": "KD 3,400,000" },
-        { "label": "Net profit", "value": "KD 290,000" }
+        {
+          "label": "Annual purchases from Italy",
+          "value": "KD 800,000"
+        },
+        {
+          "label": "Requested line",
+          "value": "KD 200,000"
+        },
+        {
+          "label": "Annual sales",
+          "value": "KD 3,400,000"
+        },
+        {
+          "label": "Net profit",
+          "value": "KD 290,000"
+        }
       ],
       "ratios": [
-        { "label": "Inventory days", "value": "~70 days", "hint": "Stock converts to cash in 70 days — inside the 90-day terms the supplier is offering. The trade finances itself." },
-        { "label": "Current ratio", "value": "1.4x", "benchmark": "> 1.2x comfortable" },
-        { "label": "Leverage (Debt / Equity)", "value": "0.6x", "benchmark": "< 2.0x comfortable" }
+        {
+          "label": "Inventory days",
+          "value": "~70 days",
+          "hint": "Stock converts to cash in 70 days — inside the 90-day terms the supplier is offering. The trade finances itself."
+        },
+        {
+          "label": "Current ratio",
+          "value": "1.4x",
+          "benchmark": "> 1.2x comfortable"
+        },
+        {
+          "label": "Leverage (Debt / Equity)",
+          "value": "0.6x",
+          "benchmark": "< 2.0x comfortable"
+        }
       ]
     },
     "decisions": [
@@ -693,7 +958,10 @@
     ],
     "dealSizeKD": 200000,
     "facilitySummary": "Usance LC (Acceptance) line KD 200,000, 90 days",
-    "docTags": ["base", "trade"],
+    "docTags": [
+      "base",
+      "trade"
+    ],
     "learn": "Usance LC (Acceptance) = LC with deferred payment. When the usance period covers the inventory turnover, the trade finances itself: stock sells before the payment falls due."
   },
   {
@@ -707,15 +975,39 @@
     "request": "\"The port authority always pays — but in 120 days, sometimes more. Meanwhile I have salaries every month. Right now I'm sitting on KD 350,000 of approved, certified invoices. Can the bank turn those into cash?\"",
     "analysisPack": {
       "figures": [
-        { "label": "Annual revenue", "value": "KD 1,600,000" },
-        { "label": "Approved invoices outstanding", "value": "KD 350,000" },
-        { "label": "Debtor", "value": "Public port authority (government)" },
-        { "label": "Average collection period", "value": "120–140 days" }
+        {
+          "label": "Annual revenue",
+          "value": "KD 1,600,000"
+        },
+        {
+          "label": "Approved invoices outstanding",
+          "value": "KD 350,000"
+        },
+        {
+          "label": "Debtor",
+          "value": "Public port authority (government)"
+        },
+        {
+          "label": "Average collection period",
+          "value": "120–140 days"
+        }
       ],
       "ratios": [
-        { "label": "Receivable days", "value": "128 days", "hint": "The problem in one number: work done, cash four months away." },
-        { "label": "Debtor quality", "value": "Government — effectively certain payment", "hint": "In discounting, the debtor's quality matters more than the client's. This debtor is as strong as they come." },
-        { "label": "Current ratio", "value": "1.3x", "benchmark": "> 1.2x comfortable" }
+        {
+          "label": "Receivable days",
+          "value": "128 days",
+          "hint": "The problem in one number: work done, cash four months away."
+        },
+        {
+          "label": "Debtor quality",
+          "value": "Government — effectively certain payment",
+          "hint": "In discounting, the debtor's quality matters more than the client's. This debtor is as strong as they come."
+        },
+        {
+          "label": "Current ratio",
+          "value": "1.3x",
+          "benchmark": "> 1.2x comfortable"
+        }
       ]
     },
     "decisions": [
@@ -789,13 +1081,38 @@
     ],
     "dealSizeKD": 300000,
     "facilitySummary": "Invoice Discounting line KD 300,000 (port authority invoices)",
-    "docTags": ["base", "recv"],
+    "docTags": [
+      "base",
+      "recv"
+    ],
     "plantedError": {
       "prompt": "Operations checks the first batch of invoices submitted for discounting. Anything wrong?",
+      "exhibit": [
+        "Batch of 9 invoices submitted for discounting — total KD 350,000",
+        "7 invoices — port authority certification stamp present",
+        "2 invoices — marked 'submitted, certification pending'",
+        "Assignment of receivables — signed",
+        "Notification letter — acknowledged by the port authority"
+      ],
       "options": [
-        { "id": "a", "label": "Two invoices have no certification stamp from the port authority", "correct": true, "feedback": "Correct. Only certified/approved invoices are eligible — an uncertified invoice may be disputed, leaving the bank advancing against air. Return them for certification." },
-        { "id": "b", "label": "The invoices show the client's logo, which is unprofessional", "correct": false, "feedback": "The client's own invoices naturally carry their logo — that's not an issue." },
-        { "id": "c", "label": "Nothing — advance against the full batch", "correct": false, "feedback": "Check the certification stamps: two invoices were never approved by the debtor. Those are not eligible." }
+        {
+          "id": "a",
+          "label": "Two invoices have no certification stamp from the port authority",
+          "correct": true,
+          "feedback": "Correct. Only certified/approved invoices are eligible — an uncertified invoice may be disputed, leaving the bank advancing against air. Return them for certification."
+        },
+        {
+          "id": "b",
+          "label": "The invoices show the client's logo, which is unprofessional",
+          "correct": false,
+          "feedback": "The client's own invoices naturally carry their logo — that's not an issue."
+        },
+        {
+          "id": "c",
+          "label": "Nothing — advance against the full batch",
+          "correct": false,
+          "feedback": "Check the certification stamps: two invoices were never approved by the debtor. Those are not eligible."
+        }
       ]
     },
     "learn": "Discounting turns strong receivables into immediate cash. The debtor's quality is the real credit; the assignment with debtor notification is the real security; and only certified invoices count."

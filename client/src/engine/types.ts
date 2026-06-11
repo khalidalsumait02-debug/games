@@ -26,6 +26,8 @@ export interface RatioLine {
 
 export interface PlantedError {
   prompt: string;
+  /** the deal file contents shown for inspection — the clue is buried in here */
+  exhibit?: string[];
   options: { id: string; label: string; correct: boolean; feedback: string }[];
 }
 
