@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { MeetingPick, Scenario } from '../engine/types';
+import type { Decision, MeetingPick, Quality, Scenario, SlotOption } from '../engine/types';
 import { QUALITY_POINTS } from '../engine/game';
 import { sfx } from '../engine/sfx';
 
@@ -47,71 +47,140 @@ const REACTIONS: Record<string, string[]> = {
   ],
 };
 
+function aggregateQuality(qualities: Quality[]): Quality {
+  const avg = qualities.reduce((a, q) => a + QUALITY_POINTS[q], 0) / Math.max(1, qualities.length);
+  if (avg >= 90) return 'best';
+  if (avg >= 20) return 'good';
+  if (avg >= -70) return 'poor';
+  return 'bad';
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
 export default function Meeting({ scenario, level, month, isFirstMeeting, onDone }: Props) {
   const [decisionIdx, setDecisionIdx] = useState(0);
   const [picks, setPicks] = useState<MeetingPick[]>([]);
-  const [picked, setPicked] = useState<string | null>(null);
   const [reaction, setReaction] = useState('');
   const [showNotes, setShowNotes] = useState(level === 1);
   const [coachDismissed, setCoachDismissed] = useState(() => localStorage.getItem('dcb_coached') === '1');
 
+  // classic decisions: chosen option id; slot decisions: chosen option per slot
+  const [picked, setPicked] = useState<string | null>(null);
+  const [slotPicks, setSlotPicks] = useState<Record<string, string>>({});
+  const [slotsSubmitted, setSlotsSubmitted] = useState(false);
+
   // shuffle option order once per meeting so answers aren't position-memorisable
-  const [shuffledByDecision] = useState(() =>
-    scenario.decisions.map((d) => [...d.options].sort(() => Math.random() - 0.5))
+  const [shuffled] = useState(() =>
+    scenario.decisions.map((d) => ({
+      options: d.options ? shuffle(d.options) : [],
+      slots: d.slots ? d.slots.map((sl) => ({ ...sl, options: shuffle(sl.options) })) : [],
+    }))
   );
 
-  const decision = scenario.decisions[decisionIdx];
-  const shuffledOptions = shuffledByDecision[decisionIdx];
-  const pickedOption = picked ? decision.options.find((o) => o.id === picked) : null;
+  const decision: Decision = scenario.decisions[decisionIdx];
+  const isSlots = Boolean(decision.slots?.length);
+  const shuffledOptions = shuffled[decisionIdx].options;
+  const shuffledSlots = shuffled[decisionIdx].slots;
+
+  const pickedOption = picked && decision.options ? decision.options.find((o) => o.id === picked) : null;
+
+  const chosenSlotOptions: { slotLabel: string; option: SlotOption }[] = slotsSubmitted
+    ? (decision.slots ?? []).map((sl) => ({
+        slotLabel: sl.label,
+        option: sl.options.find((o) => o.id === slotPicks[sl.id])!,
+      }))
+    : [];
+
+  const firstName = scenario.client.contact.split(',')[0].trim();
+  const setClientReaction = (q: Quality) => {
+    const pool = REACTIONS[q];
+    setReaction(pool[Math.floor(Math.random() * pool.length)].replace('{c}', firstName));
+  };
 
   const choose = (optionId: string) => {
-    if (picked) return;
-    const opt = decision.options.find((o) => o.id === optionId)!;
+    if (picked || isSlots) return;
+    const opt = decision.options!.find((o) => o.id === optionId)!;
     sfx[opt.quality]();
-    const pool = REACTIONS[opt.quality];
-    const firstName = scenario.client.contact.split(',')[0].trim();
-    setReaction(pool[Math.floor(Math.random() * pool.length)].replace('{c}', firstName));
+    setClientReaction(opt.quality);
     setPicked(optionId);
   };
 
-  const next = () => {
-    if (!pickedOption) return;
-    sfx.click();
-    const pick: MeetingPick = {
+  const submitSlots = () => {
+    if (slotsSubmitted) return;
+    const qualities = (decision.slots ?? []).map(
+      (sl) => sl.options.find((o) => o.id === slotPicks[sl.id])!.quality
+    );
+    const agg = aggregateQuality(qualities);
+    sfx[agg]();
+    setClientReaction(agg);
+    setSlotsSubmitted(true);
+  };
+
+  const buildPick = (): MeetingPick => {
+    if (isSlots) {
+      const chosen = (decision.slots ?? []).map((sl) => sl.options.find((o) => o.id === slotPicks[sl.id])!);
+      return {
+        decisionId: decision.id,
+        qualities: chosen.map((o) => o.quality),
+        consequences: chosen.map((o) => o.consequence).filter((c): c is string => Boolean(c)),
+        books: chosen.every((o) => o.books !== false),
+      };
+    }
+    const opt = pickedOption!;
+    return {
       decisionId: decision.id,
-      optionId: pickedOption.id,
-      quality: pickedOption.quality,
-      consequence: pickedOption.consequence,
-      books: pickedOption.books !== false,
+      qualities: [opt.quality],
+      consequences: opt.consequence ? [opt.consequence] : [],
+      books: opt.books !== false,
     };
+  };
+
+  const answered = isSlots ? slotsSubmitted : Boolean(pickedOption);
+
+  const next = () => {
+    if (!answered) return;
+    sfx.click();
+    const pick = buildPick();
     const newPicks = [...picks, pick];
-    if (pick.books === false || decisionIdx + 1 >= scenario.decisions.length) {
+    if (!pick.books || decisionIdx + 1 >= scenario.decisions.length) {
       onDone(newPicks);
     } else {
       setPicks(newPicks);
       setDecisionIdx(decisionIdx + 1);
       setPicked(null);
+      setSlotPicks({});
+      setSlotsSubmitted(false);
       setReaction('');
     }
   };
 
-  // keyboard play: 1–4 selects, Enter advances
+  // keyboard play: 1–4 selects (classic decisions), Enter advances
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
-      if (e.key === 'Enter' && picked) {
-        next();
+      if (e.key === 'Enter') {
+        if (answered) next();
+        else if (isSlots && (decision.slots ?? []).every((sl) => slotPicks[sl.id])) submitSlots();
         return;
       }
       const idx = parseInt(e.key, 10) - 1;
-      if (!picked && idx >= 0 && idx < shuffledOptions.length) {
+      if (!isSlots && !picked && idx >= 0 && idx < shuffledOptions.length) {
         choose(shuffledOptions[idx].id);
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [picked, decisionIdx, shuffledOptions]);
+  }, [picked, decisionIdx, shuffledOptions, slotPicks, slotsSubmitted, answered, isSlots]);
+
+  const slotsComplete = isSlots && (decision.slots ?? []).every((sl) => slotPicks[sl.id]);
+  const aggQualities = slotsSubmitted ? chosenSlotOptions.map((c) => c.option.quality) : [];
+  const agg = slotsSubmitted ? aggregateQuality(aggQualities) : 'good';
+  const slotPoints = slotsSubmitted
+    ? Math.round(aggQualities.reduce((a, q) => a + QUALITY_POINTS[q], 0) / Math.max(1, aggQualities.length))
+    : 0;
 
   return (
     <div className="meeting">
@@ -186,40 +255,113 @@ export default function Meeting({ scenario, level, month, isFirstMeeting, onDone
             Decision {decisionIdx + 1} of {scenario.decisions.length} · {STAGE_LABEL[decision.stage]}
           </span>
           <h3 className="decision-prompt">{decision.prompt}</h3>
-          <div className="options">
-            {shuffledOptions.map((o, i) => {
-              const isPicked = picked === o.id;
-              const revealClass = picked ? (isPicked ? `revealed ${o.quality}` : 'dimmed') : '';
-              return (
-                <button
-                  key={o.id}
-                  className={`option anim-rise ${revealClass}`}
-                  style={{ animationDelay: `${i * 50}ms` }}
-                  onClick={() => choose(o.id)}
-                  disabled={!!picked}
-                >
-                  <span className="option-key">{i + 1}</span>
-                  <span className="option-body">
-                    <span className="option-label">{o.label}</span>
-                    {o.detail && <span className="option-detail">{o.detail}</span>}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
 
-          {pickedOption && (
+          {!isSlots && (
+            <div className="options">
+              {shuffledOptions.map((o, i) => {
+                const isPicked = picked === o.id;
+                const revealClass = picked ? (isPicked ? `revealed ${o.quality}` : 'dimmed') : '';
+                return (
+                  <button
+                    key={o.id}
+                    className={`option anim-rise ${revealClass}`}
+                    style={{ animationDelay: `${i * 50}ms` }}
+                    onClick={() => choose(o.id)}
+                    disabled={!!picked}
+                  >
+                    <span className="option-key">{i + 1}</span>
+                    <span className="option-body">
+                      <span className="option-label">{o.label}</span>
+                      {o.detail && <span className="option-detail">{o.detail}</span>}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {isSlots && (
+            <div className="slot-builder">
+              {shuffledSlots.map((sl, si) => (
+                <div className="slot-group anim-rise" key={sl.id} style={{ animationDelay: `${si * 70}ms` }}>
+                  <span className="slot-label">{sl.label}</span>
+                  <div className="slot-options">
+                    {sl.options.map((o) => {
+                      const sel = slotPicks[sl.id] === o.id;
+                      let cls = sel ? 'selected' : '';
+                      if (slotsSubmitted) {
+                        cls = sel ? `revealed ${o.quality}` : 'dimmed';
+                      }
+                      return (
+                        <button
+                          key={o.id}
+                          className={`slot-option ${cls}`}
+                          disabled={slotsSubmitted}
+                          onClick={() => {
+                            sfx.click();
+                            setSlotPicks({ ...slotPicks, [sl.id]: o.id });
+                          }}
+                        >
+                          {o.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+              {!slotsSubmitted && (
+                <button className="btn primary" disabled={!slotsComplete} onClick={submitSlots}>
+                  Submit proposal
+                </button>
+              )}
+            </div>
+          )}
+
+          {!isSlots && pickedOption && (
             <div className={`feedback anim-pop ${pickedOption.quality}`}>
               <div className="feedback-head">
                 <span className={`verdict-tag ${pickedOption.quality}`}>
                   {QUALITY_LABEL[pickedOption.quality]}
                 </span>
-                <span className="pts-inline">+{QUALITY_POINTS[pickedOption.quality]} pts</span>
+                <span className="pts-inline">
+                  {QUALITY_POINTS[pickedOption.quality] >= 0 ? '+' : ''}
+                  {QUALITY_POINTS[pickedOption.quality]} pts
+                </span>
               </div>
               {reaction && <p className="reaction">{reaction}</p>}
               <p>{pickedOption.feedback}</p>
               <button className="btn primary" onClick={next}>
                 {pickedOption.books === false || decisionIdx + 1 >= scenario.decisions.length
+                  ? 'Conclude the meeting'
+                  : 'Next decision'}
+              </button>
+            </div>
+          )}
+
+          {isSlots && slotsSubmitted && (
+            <div className={`feedback anim-pop ${agg}`}>
+              <div className="feedback-head">
+                <span className={`verdict-tag ${agg}`}>{QUALITY_LABEL[agg]}</span>
+                <span className="pts-inline">
+                  {slotPoints >= 0 ? '+' : ''}
+                  {slotPoints} pts
+                </span>
+              </div>
+              {reaction && <p className="reaction">{reaction}</p>}
+              <div className="slot-feedback">
+                {chosenSlotOptions.map(({ slotLabel, option }) => (
+                  <div className="slot-feedback-row" key={slotLabel}>
+                    <span className={`verdict-dot ${option.quality}`} />
+                    <span className="slot-feedback-label">{slotLabel}:</span>
+                    <span className="slot-feedback-text">
+                      <strong>{option.label}</strong> — {option.feedback}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <button className="btn primary" onClick={next}>
+                {chosenSlotOptions.some((c) => c.option.books === false) ||
+                decisionIdx + 1 >= scenario.decisions.length
                   ? 'Conclude the meeting'
                   : 'Next decision'}
               </button>

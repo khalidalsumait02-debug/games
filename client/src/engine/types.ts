@@ -6,15 +6,34 @@ export interface DecisionOption {
   detail?: string;
   quality: Quality;
   feedback: string;
+  consequence?: string;  // tag for portfolio events
+  books?: boolean;       // default true; false = no deal booked (declined/lost)
+}
+
+export interface SlotOption {
+  id: string;
+  label: string;
+  quality: Quality;
+  feedback: string;
   consequence?: string;
   books?: boolean;
+}
+
+/** One blank in a fill-in-the-blank decision (e.g. "Facility", "Amount", "Tenor"). */
+export interface DecisionSlot {
+  id: string;
+  label: string;
+  options: SlotOption[];
 }
 
 export interface Decision {
   id: string;
   stage: 'structure' | 'collateral' | 'judgment';
   prompt: string;
-  options: DecisionOption[];
+  /** classic single-choice decisions */
+  options?: DecisionOption[];
+  /** builder decisions: pick one option per slot */
+  slots?: DecisionSlot[];
 }
 
 export interface RatioLine {
@@ -96,9 +115,9 @@ export interface GameEvent {
 
 export interface MeetingPick {
   decisionId: string;
-  optionId: string;
-  quality: Quality;
-  consequence?: string;
+  /** one quality per slot (single-element array for classic decisions) */
+  qualities: Quality[];
+  consequences: string[];
   books: boolean;
 }
 
@@ -107,11 +126,12 @@ export interface MeetingResult {
   picks: MeetingPick[];
 }
 
+export type DrillKind = 'order-full' | 'next-step' | 'misplaced' | 'docs';
+
 export interface ProcessResult {
   scenarioId: string;
-  orderScore: number; // 0-100
-  docScore: number; // 0-100
-  plantedScore: number | null; // 0-100 or null if no planted error
+  drillScore: number; // 0-100
+  plantedScore: number | null; // 0-100, or null if no file check appeared
 }
 
 export type Phase = 'meeting' | 'process' | 'monthEnd' | 'results';

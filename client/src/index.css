@@ -971,6 +971,130 @@ blockquote {
   animation: shake 0.4s;
 }
 
+/* slot builder (fill-in-the-blank decisions) */
+.slot-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.slot-group {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #fbfcfd;
+}
+
+.slot-label {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--label);
+  margin-bottom: 8px;
+}
+
+.slot-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.slot-option {
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s, opacity 0.2s;
+}
+
+.slot-option:hover:not(:disabled) {
+  border-color: var(--navy);
+}
+
+.slot-option.selected {
+  border-color: var(--navy);
+  background: var(--navy-pale);
+  color: var(--navy);
+}
+
+.slot-option.dimmed {
+  opacity: 0.4;
+}
+
+.slot-option.revealed.best { border-color: var(--green); background: var(--green-pale); opacity: 1; }
+.slot-option.revealed.good { border-color: var(--blue); background: var(--blue-pale); opacity: 1; }
+.slot-option.revealed.poor { border-color: var(--amber); background: var(--amber-pale); opacity: 1; }
+.slot-option.revealed.bad { border-color: var(--red); background: var(--red-pale); opacity: 1; animation: shake 0.4s; }
+
+.slot-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.slot-feedback-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 0.88rem;
+}
+
+.verdict-dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.verdict-dot.best { background: var(--green); }
+.verdict-dot.good { background: var(--blue); }
+.verdict-dot.poor { background: var(--amber); }
+.verdict-dot.bad { background: var(--red); }
+
+.slot-feedback-label {
+  flex: none;
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+/* process drill extras */
+.chip-correct {
+  border-color: var(--green) !important;
+  background: var(--green-pale) !important;
+}
+
+.chip-dim {
+  opacity: 0.4;
+}
+
+.chip-num {
+  display: inline-block;
+  min-width: 18px;
+  font-weight: 700;
+  color: var(--label);
+}
+
+.step-pool.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.step-pool.vertical .chip {
+  text-align: left;
+  border-radius: 9px;
+}
+
 .feedback {
   margin-top: 16px;
   border-radius: 9px;

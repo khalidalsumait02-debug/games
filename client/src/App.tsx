@@ -246,10 +246,15 @@ export default function App() {
               <Process
                 key={scenario.id}
                 scenario={scenario}
-                onDone={(orderScore, docScore, plantedScore) =>
+                drillKind={
+                  game.scenarioIndex === 0
+                    ? 'order-full'
+                    : (['next-step', 'misplaced', 'docs'] as const)[(game.scenarioIndex - 1) % 3]
+                }
+                onDone={(drillScore, plantedScore) =>
                   dispatch({
                     type: 'PROCESS_DONE',
-                    result: { scenarioId: scenario.id, orderScore, docScore, plantedScore },
+                    result: { scenarioId: scenario.id, drillScore, plantedScore },
                   })
                 }
               />

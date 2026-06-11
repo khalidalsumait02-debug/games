@@ -59,34 +59,103 @@
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "The numbers say the cycle needs ~KD 1.2M. The client wants 2.5M. What do you approve?",
-        "options": [
+        "prompt": "Build the proposal: what facility, how much, on what terms?",
+        "slots": [
           {
-            "id": "a",
-            "label": "STRL KD 1,200,000 — sized to the working capital cycle",
-            "quality": "best",
-            "feedback": "Limits are sized from the cycle, not from comfort. KD 1.2M funds the genuine 90-day gap; growth can justify increases at review, against fresh numbers."
+            "id": "facility",
+            "label": "Facility",
+            "options": [
+              {
+                "id": "a",
+                "label": "Short Term Revolving Loan",
+                "quality": "best",
+                "feedback": "Working capital revolves with the cycle."
+              },
+              {
+                "id": "b",
+                "label": "Term Loan",
+                "quality": "poor",
+                "feedback": "Working capital is not a 5-year amortising need.",
+                "consequence": "maturity_mismatch"
+              },
+              {
+                "id": "c",
+                "label": "Overdraft",
+                "quality": "poor",
+                "feedback": "A seven-figure permanent need invites hardcore OD usage."
+              },
+              {
+                "id": "d",
+                "label": "Sight LC line",
+                "quality": "bad",
+                "feedback": "There is no trade transaction here to secure.",
+                "consequence": "weak_structure"
+              }
+            ]
           },
           {
-            "id": "b",
-            "label": "STRL KD 2,500,000 — as requested, he's a good client",
-            "quality": "bad",
-            "feedback": "KD 1.3M above any operational need. Unneeded limits get used anyway — for early supplier payments, side ventures, or worse. Excess limit is where diversion starts.",
-            "consequence": "diversion"
+            "id": "amount",
+            "label": "Amount",
+            "options": [
+              {
+                "id": "a",
+                "label": "KD 1,200,000",
+                "quality": "best",
+                "feedback": "Sized to the 90-day cycle the pack computed."
+              },
+              {
+                "id": "b",
+                "label": "KD 2,500,000",
+                "quality": "bad",
+                "feedback": "KD 1.3M above any operational need — diversion territory.",
+                "consequence": "diversion"
+              },
+              {
+                "id": "c",
+                "label": "KD 400,000",
+                "quality": "poor",
+                "feedback": "A third of the genuine need — he will strain within months.",
+                "consequence": "underfunded"
+              },
+              {
+                "id": "d",
+                "label": "KD 1,800,000",
+                "quality": "poor",
+                "feedback": "Splitting the difference is not credit analysis.",
+                "consequence": "diversion"
+              }
+            ]
           },
           {
-            "id": "c",
-            "label": "STRL KD 400,000 — start small, build trust",
-            "quality": "poor",
-            "feedback": "A third of the computed need. He'll be back in two months, strained and annoyed — underfunding a healthy client damages them and the relationship.",
-            "consequence": "underfunded"
-          },
-          {
-            "id": "d",
-            "label": "Term Loan KD 1,200,000 over 5 years",
-            "quality": "poor",
-            "feedback": "Right size, wrong instrument — working capital revolves with the cycle; it isn't a five-year amortising need.",
-            "consequence": "maturity_mismatch"
+            "id": "tenor",
+            "label": "Drawdown tenor",
+            "options": [
+              {
+                "id": "a",
+                "label": "90-day revolving drawdowns",
+                "quality": "best",
+                "feedback": "Each drawdown matches the working capital cycle."
+              },
+              {
+                "id": "b",
+                "label": "12-month bullet",
+                "quality": "poor",
+                "feedback": "A year-long lump ignores how the cycle actually turns."
+              },
+              {
+                "id": "c",
+                "label": "5 years amortising",
+                "quality": "bad",
+                "feedback": "Long money for a 90-day need — maturity mismatch.",
+                "consequence": "maturity_mismatch"
+              },
+              {
+                "id": "d",
+                "label": "30-day drawdowns",
+                "quality": "poor",
+                "feedback": "Shorter than the cycle — he must refinance mid-cycle every time."
+              }
+            ]
           }
         ]
       },
@@ -220,33 +289,105 @@
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "Structure the full post-award package.",
-        "options": [
+        "prompt": "Build the post-award package: structure, sizing, and control.",
+        "slots": [
           {
-            "id": "a",
-            "label": "PB KD 1.2M + APG KD 2.4M + STRL KD 800,000, advance mandatorily routed through their account with us",
-            "quality": "best",
-            "feedback": "The complete package with the control that matters: every dinar of the advance lands where you can see it, and the STRL bridges only the genuine gap to the first progress payment."
+            "id": "facility",
+            "label": "Package",
+            "options": [
+              {
+                "id": "a",
+                "label": "PB + APG + STRL, approved as one package",
+                "quality": "best",
+                "feedback": "One project, one credit decision — full exposure assessed together."
+              },
+              {
+                "id": "b",
+                "label": "PB + APG only, no STRL",
+                "quality": "good",
+                "feedback": "Workable, but the mobilisation gap is real and will be funded somewhere."
+              },
+              {
+                "id": "c",
+                "label": "Single overdraft covering everything",
+                "quality": "bad",
+                "feedback": "Maximum cash exposure replacing controlled contingent instruments.",
+                "consequence": "weak_structure"
+              },
+              {
+                "id": "d",
+                "label": "PB now; APG and STRL later, piecemeal",
+                "quality": "poor",
+                "feedback": "Nobody ever assesses the full KD 4.4M as a package.",
+                "consequence": "weak_structure"
+              }
+            ]
           },
           {
-            "id": "b",
-            "label": "PB + APG only — the KD 2.4M advance covers mobilisation, no STRL needed",
-            "quality": "good",
-            "feedback": "Reasonable logic, but advances arrive after signing and guarantee issuance while mobilisation costs start immediately — the timing gap is real, and they'll fund it somewhere. Better it's with you, visible."
+            "id": "amount",
+            "label": "Sizing",
+            "options": [
+              {
+                "id": "a",
+                "label": "PB 1.2M + APG 2.4M + STRL 800K",
+                "quality": "best",
+                "feedback": "Exactly what the contract terms require — no more, no less."
+              },
+              {
+                "id": "b",
+                "label": "PB 600K + APG 1.2M",
+                "quality": "bad",
+                "feedback": "Half what the Ministry requires — the contract cannot sign.",
+                "consequence": "weak_structure"
+              },
+              {
+                "id": "c",
+                "label": "PB 1.2M + APG 2.4M + STRL 2.0M",
+                "quality": "poor",
+                "feedback": "KD 1.2M of working capital with no justification.",
+                "consequence": "diversion"
+              },
+              {
+                "id": "d",
+                "label": "PB 2.4M + APG 1.2M",
+                "quality": "poor",
+                "feedback": "The percentages are swapped — check the contract.",
+                "consequence": "weak_structure"
+              }
+            ]
           },
           {
-            "id": "c",
-            "label": "One big overdraft of KD 4,400,000 covering everything",
-            "quality": "bad",
-            "feedback": "Replaces two guarantee instruments (contingent, cheaper, controlled) with maximum cash exposure on day one, and forfeits the structure the Ministry's own payment scheme provides.",
-            "consequence": "weak_structure"
-          },
-          {
-            "id": "d",
-            "label": "Issue the PB now; tell them to come back for the APG and STRL after signing",
-            "quality": "poor",
-            "feedback": "Piecemeal credit for one project means nobody ever assessed the full KD 4.4M exposure as a package. Approve it whole, drawdown in stages.",
-            "consequence": "weak_structure"
+            "id": "tenor",
+            "label": "Cash control",
+            "options": [
+              {
+                "id": "a",
+                "label": "Advance routed through us + assignment of proceeds",
+                "quality": "best",
+                "feedback": "Every Ministry dinar lands where the bank can see it."
+              },
+              {
+                "id": "b",
+                "label": "Advance paid wherever the client prefers",
+                "quality": "bad",
+                "feedback": "A KD 2.4M advance you cannot see is an advance you cannot trust.",
+                "consequence": "diversion"
+              },
+              {
+                "id": "c",
+                "label": "No special routing — monitor at renewal",
+                "quality": "poor",
+                "feedback": "Annual hindsight is not control of live project cash.",
+                "consequence": "weak_security"
+              },
+              {
+                "id": "d",
+                "label": "100% cash margin on the bonds instead",
+                "quality": "poor",
+                "feedback": "KD 3.6M of blocked cash would strangle the project.",
+                "consequence": "lost_goodwill"
+              }
+            ]
           }
         ]
       },
@@ -376,35 +517,105 @@
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "The DSCR table is in front of you. What do you approve?",
-        "options": [
+        "prompt": "Build the financing for the extrusion line.",
+        "slots": [
           {
-            "id": "a",
-            "label": "Term Loan KD 600,000 over 6 years — Waleed funds KD 300,000 from equity or supplier credit",
-            "quality": "best",
-            "feedback": "The numbers work at 1.3x, and his own money in the machine aligns his interests with the bank's. You financed the ambition without financing the overreach."
+            "id": "facility",
+            "label": "Facility",
+            "options": [
+              {
+                "id": "a",
+                "label": "Term Loan",
+                "quality": "best",
+                "feedback": "A 10-year asset is term-loan territory."
+              },
+              {
+                "id": "b",
+                "label": "Short Term Revolving Loan",
+                "quality": "poor",
+                "feedback": "A machine never converts back to cash each cycle.",
+                "consequence": "maturity_mismatch"
+              },
+              {
+                "id": "c",
+                "label": "Overdraft",
+                "quality": "bad",
+                "feedback": "A permanent KD 900K hardcore from day one.",
+                "consequence": "maturity_mismatch"
+              },
+              {
+                "id": "d",
+                "label": "Usance LC, rolled",
+                "quality": "poor",
+                "feedback": "Trade paper cannot amortise capital equipment.",
+                "consequence": "weak_structure"
+              }
+            ]
           },
           {
-            "id": "b",
-            "label": "Term Loan KD 900,000 over 5 years — as requested",
-            "quality": "bad",
-            "feedback": "DSCR 0.8x: the pack told you, before lending a fil, that the instalments exceed his cash generation. Approving it schedules the default in advance.",
-            "consequence": "dscr_breach"
+            "id": "amount",
+            "label": "Amount",
+            "options": [
+              {
+                "id": "a",
+                "label": "KD 600,000 — Waleed funds 300K himself",
+                "quality": "best",
+                "feedback": "DSCR 1.3x, and his own money aligns his interests with ours."
+              },
+              {
+                "id": "b",
+                "label": "KD 900,000 — the full price",
+                "quality": "bad",
+                "feedback": "DSCR 0.8x: the default is scheduled before the first instalment.",
+                "consequence": "dscr_breach"
+              },
+              {
+                "id": "c",
+                "label": "KD 300,000",
+                "quality": "poor",
+                "feedback": "He cannot buy the machine — the deal dies politely.",
+                "consequence": "underfunded"
+              },
+              {
+                "id": "d",
+                "label": "KD 750,000",
+                "quality": "poor",
+                "feedback": "Still beyond what his cash flow services.",
+                "consequence": "dscr_breach"
+              }
+            ]
           },
           {
-            "id": "c",
-            "label": "Decline — the request as framed doesn't work",
-            "quality": "poor",
-            "feedback": "The request didn't work; the deal did. A 0.8x DSCR at one size is a 1.3x at another — restructuring is the RM's job, not declining.",
-            "consequence": "lost_deal",
-            "books": false
-          },
-          {
-            "id": "d",
-            "label": "Term Loan KD 900,000 over 9 years — stretch until it fits",
-            "quality": "poor",
-            "feedback": "Stretching tenor to the edge of the machine's life leaves zero margin for downturns or major maintenance — and nine years of exposure to make a marginal DSCR work is the tail wagging the dog.",
-            "consequence": "dscr_breach"
+            "id": "tenor",
+            "label": "Tenor",
+            "options": [
+              {
+                "id": "a",
+                "label": "6 years",
+                "quality": "best",
+                "feedback": "Comfortable coverage, well inside the machine’s life."
+              },
+              {
+                "id": "b",
+                "label": "5 years",
+                "quality": "poor",
+                "feedback": "Tight even at the smaller amount — no room for a bad quarter.",
+                "consequence": "dscr_breach"
+              },
+              {
+                "id": "c",
+                "label": "9 years",
+                "quality": "poor",
+                "feedback": "Stretched to the edge of the machine’s useful life."
+              },
+              {
+                "id": "d",
+                "label": "12 months",
+                "quality": "bad",
+                "feedback": "No cash flow on earth services that schedule.",
+                "consequence": "dscr_breach"
+              }
+            ]
           }
         ]
       },
@@ -530,33 +741,105 @@
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "The trade cycle is 90 days. The request is 180. What do you approve?",
-        "options": [
+        "prompt": "Build the trade line: instrument, size, and usance period.",
+        "slots": [
           {
-            "id": "a",
-            "label": "Usance LC line KD 600,000 at 90 days — matched to the cash conversion cycle",
-            "quality": "best",
-            "feedback": "Self-liquidating: goods sell, cash collects, LC falls due — in that order, with nothing left over to wander. The usance period is a financing tenor, and tenors match cycles."
+            "id": "facility",
+            "label": "Facility",
+            "options": [
+              {
+                "id": "a",
+                "label": "Usance LC (Acceptance)",
+                "quality": "best",
+                "feedback": "Deferred payment backed by the bank — built for this."
+              },
+              {
+                "id": "b",
+                "label": "Sight LC + STRL for the gap",
+                "quality": "good",
+                "feedback": "Economically equivalent, just two facilities doing one job."
+              },
+              {
+                "id": "c",
+                "label": "Sight LC only",
+                "quality": "poor",
+                "feedback": "Pays at shipment and leaves a 90-day funding hole.",
+                "consequence": "weak_structure"
+              },
+              {
+                "id": "d",
+                "label": "Term Loan",
+                "quality": "bad",
+                "feedback": "Five-year debt for tiles that sell in 60 days.",
+                "consequence": "maturity_mismatch"
+              }
+            ]
           },
           {
-            "id": "b",
-            "label": "Usance 180 days — as requested",
-            "quality": "poor",
-            "feedback": "For ~90 days per shipment, the client holds cash that belongs to a maturing bank obligation. That float will find a use — and it won't be paying your LC early.",
-            "consequence": "diversion"
+            "id": "amount",
+            "label": "Line size",
+            "options": [
+              {
+                "id": "a",
+                "label": "KD 600,000",
+                "quality": "best",
+                "feedback": "Matches the import flow the pack shows."
+              },
+              {
+                "id": "b",
+                "label": "KD 1,200,000",
+                "quality": "poor",
+                "feedback": "Double the documented trade — where does the rest go?",
+                "consequence": "diversion"
+              },
+              {
+                "id": "c",
+                "label": "KD 300,000",
+                "quality": "poor",
+                "feedback": "Half his shipment flow — he will be back, irritated, in weeks.",
+                "consequence": "underfunded"
+              },
+              {
+                "id": "d",
+                "label": "KD 2,200,000 — full annual imports",
+                "quality": "bad",
+                "feedback": "A year of imports outstanding at once was never the cycle.",
+                "consequence": "diversion"
+              }
+            ]
           },
           {
-            "id": "c",
-            "label": "Sight LC only — no usance at all",
-            "quality": "poor",
-            "feedback": "Now he pays at shipment and waits 90 days for his cash back — you've created a funding gap he'll fill with borrowing. The cycle justifies real usance; give it.",
-            "consequence": "weak_structure"
-          },
-          {
-            "id": "d",
-            "label": "Sight LC + STRL KD 450,000 to fund the 90-day gap",
-            "quality": "good",
-            "feedback": "Economically equivalent to 90-day usance and perfectly sound — just two facilities doing the work one usance LC does more elegantly (and the usance is cheaper for the client)."
+            "id": "tenor",
+            "label": "Usance period",
+            "options": [
+              {
+                "id": "a",
+                "label": "90 days",
+                "quality": "best",
+                "feedback": "Goods sell, cash collects, LC falls due — in that order."
+              },
+              {
+                "id": "b",
+                "label": "180 days — as requested",
+                "quality": "poor",
+                "feedback": "~90 days of float holding money owed to a maturing obligation.",
+                "consequence": "diversion"
+              },
+              {
+                "id": "c",
+                "label": "360 days",
+                "quality": "bad",
+                "feedback": "Four times the cycle — pure financing of something else.",
+                "consequence": "diversion"
+              },
+              {
+                "id": "d",
+                "label": "30 days",
+                "quality": "poor",
+                "feedback": "Shorter than the cycle — creates the gap usance exists to close.",
+                "consequence": "weak_structure"
+              }
+            ]
           }
         ]
       },
@@ -692,33 +975,105 @@
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "Five years is tight; the trucks last eight. Structure it.",
-        "options": [
+        "prompt": "Build the fleet financing.",
+        "slots": [
           {
-            "id": "a",
-            "label": "Term Loan KD 1,400,000 over 7 years",
-            "quality": "best",
-            "feedback": "1.4x on today's cash flow — before counting the new contracts — and still a year inside the trucks' life. Affordable on facts, with upside as cushion rather than crutch."
+            "id": "facility",
+            "label": "Facility",
+            "options": [
+              {
+                "id": "a",
+                "label": "Term Loan",
+                "quality": "best",
+                "feedback": "Eight-year assets, amortising debt."
+              },
+              {
+                "id": "b",
+                "label": "Overdraft",
+                "quality": "bad",
+                "feedback": "KD 1.4M of trucks parked permanently on a swing line.",
+                "consequence": "maturity_mismatch"
+              },
+              {
+                "id": "c",
+                "label": "Short Term Revolving Loan",
+                "quality": "poor",
+                "feedback": "Trucks don’t convert to cash each quarter.",
+                "consequence": "maturity_mismatch"
+              },
+              {
+                "id": "d",
+                "label": "Invoice discounting line",
+                "quality": "poor",
+                "feedback": "Funds receivables, not vehicle purchases.",
+                "consequence": "weak_structure"
+              }
+            ]
           },
           {
-            "id": "b",
-            "label": "Term Loan KD 1,400,000 over 5 years — as requested",
-            "quality": "poor",
-            "feedback": "1.1x leaves no room for fuel spikes, a lost contract, or late retailer payments. When a longer tenor fits comfortably inside the asset life, don't price the deal for perfection.",
-            "consequence": "dscr_breach"
+            "id": "amount",
+            "label": "Amount",
+            "options": [
+              {
+                "id": "a",
+                "label": "KD 1,400,000 — all twenty trucks",
+                "quality": "best",
+                "feedback": "The contracts are signed; the capacity is needed now."
+              },
+              {
+                "id": "b",
+                "label": "KD 1,000,000 — fourteen trucks first",
+                "quality": "good",
+                "feedback": "Conservative and defensible, at some risk to the new contracts."
+              },
+              {
+                "id": "c",
+                "label": "KD 2,000,000 — with buffer",
+                "quality": "poor",
+                "feedback": "KD 600K of \"buffer\" nobody asked to justify.",
+                "consequence": "diversion"
+              },
+              {
+                "id": "d",
+                "label": "KD 500,000",
+                "quality": "bad",
+                "feedback": "Too few trucks to serve the contracts that justify the deal.",
+                "consequence": "underfunded"
+              }
+            ]
           },
           {
-            "id": "c",
-            "label": "Term Loan KD 1,000,000 / 5 years — buy 14 trucks now, the rest next year",
-            "quality": "good",
-            "feedback": "Conservative and workable — though it risks the client under-serving the new contracts she signed. The 7-year full amount is cleaner given it clears DSCR comfortably."
-          },
-          {
-            "id": "d",
-            "label": "Overdraft KD 1,400,000 — flexible drawdown as trucks are delivered",
-            "quality": "bad",
-            "feedback": "A KD 1.4M permanent overdraft for 8-year assets — the largest maturity mismatch on today's desk.",
-            "consequence": "maturity_mismatch"
+            "id": "tenor",
+            "label": "Tenor",
+            "options": [
+              {
+                "id": "a",
+                "label": "7 years",
+                "quality": "best",
+                "feedback": "1.4x coverage on today’s cash flow, inside the trucks’ life."
+              },
+              {
+                "id": "b",
+                "label": "5 years",
+                "quality": "poor",
+                "feedback": "1.1x — priced for perfection in an imperfect world.",
+                "consequence": "dscr_breach"
+              },
+              {
+                "id": "c",
+                "label": "3 years",
+                "quality": "bad",
+                "feedback": "Instalments no logistics margin can carry.",
+                "consequence": "dscr_breach"
+              },
+              {
+                "id": "d",
+                "label": "10 years",
+                "quality": "poor",
+                "feedback": "Two years past the fleet’s useful life.",
+                "consequence": "maturity_mismatch"
+              }
+            ]
           }
         ]
       },
@@ -814,33 +1169,105 @@
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "KD 2.2M of approved government invoices. Size and structure the line.",
-        "options": [
+        "prompt": "Build the receivables financing.",
+        "slots": [
           {
-            "id": "a",
-            "label": "Invoice Discounting line KD 1,500,000 — ~70% advance rate, with recourse",
-            "quality": "best",
-            "feedback": "The advance rate is the structure: 70% means deductions, partial certifications and delays land in the client's 30%, not the bank's money. Recourse keeps the client behind their own paper."
+            "id": "facility",
+            "label": "Facility",
+            "options": [
+              {
+                "id": "a",
+                "label": "Invoice discounting line",
+                "quality": "best",
+                "feedback": "Purpose-built: advance against certified government invoices."
+              },
+              {
+                "id": "b",
+                "label": "Short Term Revolving Loan",
+                "quality": "good",
+                "feedback": "Funds the same gap without harnessing the debtor’s strength."
+              },
+              {
+                "id": "c",
+                "label": "Overdraft",
+                "quality": "bad",
+                "feedback": "A structural 135-day lag parked as permanent OD.",
+                "consequence": "maturity_mismatch"
+              },
+              {
+                "id": "d",
+                "label": "Term Loan",
+                "quality": "bad",
+                "feedback": "There is no five-year asset here — cash arrives in 135 days.",
+                "consequence": "maturity_mismatch"
+              }
+            ]
           },
           {
-            "id": "b",
-            "label": "Discount the full KD 2,200,000 — the government always pays",
-            "quality": "poor",
-            "feedback": "Pays, yes — in full, not always: deductions and adjustments are routine on government invoices. At 100% advance, every dinar of those is the bank's loss.",
-            "consequence": "weak_structure"
+            "id": "amount",
+            "label": "Advance",
+            "options": [
+              {
+                "id": "a",
+                "label": "KD 1,500,000 (~70% advance rate)",
+                "quality": "best",
+                "feedback": "The 30% margin absorbs deductions, disputes and delay."
+              },
+              {
+                "id": "b",
+                "label": "KD 2,200,000 (100%)",
+                "quality": "poor",
+                "feedback": "Every routine MOH deduction now lands on the bank.",
+                "consequence": "weak_structure"
+              },
+              {
+                "id": "c",
+                "label": "KD 700,000",
+                "quality": "poor",
+                "feedback": "Leaves most of the crushing gap unfunded.",
+                "consequence": "underfunded"
+              },
+              {
+                "id": "d",
+                "label": "KD 2,500,000 — above the book",
+                "quality": "bad",
+                "feedback": "Advancing more than the receivables that exist.",
+                "consequence": "diversion"
+              }
+            ]
           },
           {
-            "id": "c",
-            "label": "STRL KD 1,500,000 against the general working capital cycle",
-            "quality": "good",
-            "feedback": "Funds the same gap and the size is defensible — but it ignores the deal's special strength: a government debtor you can take assignment over. Discounting prices and secures better."
-          },
-          {
-            "id": "d",
-            "label": "Overdraft KD 1,500,000",
-            "quality": "bad",
-            "feedback": "A structural 135-day collection lag parked on an overdraft is a permanent hardcore balance from day one.",
-            "consequence": "maturity_mismatch"
+            "id": "tenor",
+            "label": "Basis",
+            "options": [
+              {
+                "id": "a",
+                "label": "With recourse + assignment with MOH notification",
+                "quality": "best",
+                "feedback": "The Ministry pays the bank; the client stays behind their paper."
+              },
+              {
+                "id": "b",
+                "label": "With recourse, no notification",
+                "quality": "poor",
+                "feedback": "Collections detour through the client’s hands first.",
+                "consequence": "weak_security"
+              },
+              {
+                "id": "c",
+                "label": "Without recourse",
+                "quality": "poor",
+                "feedback": "The bank inherits every dispute with no claim back.",
+                "consequence": "weak_structure"
+              },
+              {
+                "id": "d",
+                "label": "Clean advance, no assignment",
+                "quality": "bad",
+                "feedback": "Lending against paper the bank has no claim on.",
+                "consequence": "weak_security"
+              }
+            ]
           }
         ]
       },
@@ -969,33 +1396,104 @@
       {
         "id": "structure",
         "stage": "structure",
-        "prompt": "The OD is hardcore, growth is debt-fed, and he wants the ceiling raised. What do you do?",
-        "options": [
+        "prompt": "Rebuild the facilities: approach, working capital size, and conditions.",
+        "slots": [
           {
-            "id": "a",
-            "label": "Restructure: STRL KD 1,000,000 sized to the WIP cycle + LG line KD 600,000 for project bonds + OD trimmed to KD 150,000 for true swings",
-            "quality": "best",
-            "feedback": "Each need now has its instrument: project working capital revolves with the projects, guarantees come from a proper pre-approved line instead of last-minute scrambles, and the OD goes back to being an OD."
+            "id": "facility",
+            "label": "Approach",
+            "options": [
+              {
+                "id": "a",
+                "label": "STRL for WIP + LG line + OD trimmed to true swings",
+                "quality": "best",
+                "feedback": "Each need gets its instrument; the OD becomes an OD again."
+              },
+              {
+                "id": "b",
+                "label": "Term-out the hardcore into a 5-year TL + small OD + LG line",
+                "quality": "good",
+                "feedback": "The classic hardcore cleanup — blunter than an STRL, but honest."
+              },
+              {
+                "id": "c",
+                "label": "Raise the OD ceiling to KD 1,500,000",
+                "quality": "bad",
+                "feedback": "Feeding the hardcore: same chaos at a bigger number.",
+                "consequence": "overtrading"
+              },
+              {
+                "id": "d",
+                "label": "Freeze all lines until ratios improve",
+                "quality": "poor",
+                "feedback": "Strands seven live projects and likely causes the default.",
+                "consequence": "lost_goodwill"
+              }
+            ]
           },
           {
-            "id": "b",
-            "label": "Raise the OD to KD 1,500,000 — fastest answer to a growing client",
-            "quality": "bad",
-            "feedback": "Feeding the hardcore. In six months he'll be at 1.45M with the same chaos, more leverage, and thinner margins. The growth isn't the problem; the structure is.",
-            "consequence": "overtrading"
+            "id": "amount",
+            "label": "Working capital limit",
+            "options": [
+              {
+                "id": "a",
+                "label": "KD 1,000,000 — sized to the WIP cycle",
+                "quality": "best",
+                "feedback": "Project working capital, computed from the projects."
+              },
+              {
+                "id": "b",
+                "label": "KD 1,500,000",
+                "quality": "poor",
+                "feedback": "The increase he asked for, wearing a new name.",
+                "consequence": "diversion"
+              },
+              {
+                "id": "c",
+                "label": "KD 400,000",
+                "quality": "poor",
+                "feedback": "Starves seven live projects mid-build.",
+                "consequence": "underfunded"
+              },
+              {
+                "id": "d",
+                "label": "None — OD only",
+                "quality": "bad",
+                "feedback": "Recreates exactly the structure that failed.",
+                "consequence": "overtrading"
+              }
+            ]
           },
           {
-            "id": "c",
-            "label": "Term-out the hardcore KD 900,000 into a 5-year loan + small OD + LG line",
-            "quality": "good",
-            "feedback": "A legitimate classic for cleaning up hardcore OD — though terming out project working capital is a blunter fit than an STRL that revolves with the WIP. Either way, the key was refusing to just raise the ceiling."
-          },
-          {
-            "id": "d",
-            "label": "Decline any increase and freeze the lines until ratios improve",
-            "quality": "poor",
-            "feedback": "Freezing a fast-growing contractor mid-projects doesn't improve ratios — it strands seven live projects and likely creates the default you feared.",
-            "consequence": "lost_goodwill"
+            "id": "tenor",
+            "label": "Conditions",
+            "options": [
+              {
+                "id": "a",
+                "label": "Assignment of proceeds + quarterly management accounts",
+                "quality": "best",
+                "feedback": "Control of the cash and early sight of trouble."
+              },
+              {
+                "id": "b",
+                "label": "Personal guarantees of the partners only",
+                "quality": "good",
+                "feedback": "Commitment without the cash control that matters here."
+              },
+              {
+                "id": "c",
+                "label": "No conditions — the restructure is enough",
+                "quality": "poor",
+                "feedback": "Half a restructure: rebuilt and immediately unmonitored.",
+                "consequence": "weak_security"
+              },
+              {
+                "id": "d",
+                "label": "100% cash margins on the LG line",
+                "quality": "bad",
+                "feedback": "He has no spare cash — that is the whole situation.",
+                "consequence": "lost_goodwill"
+              }
+            ]
           }
         ]
       },
@@ -1130,34 +1628,105 @@
       {
         "id": "judgment",
         "stage": "judgment",
-        "prompt": "Before any decision — what are these numbers telling you?",
-        "options": [
+        "prompt": "Set your position: limit action, level, and verification.",
+        "slots": [
           {
-            "id": "a",
-            "label": "Inventory has likely gone slow-moving or obsolete: stock doubled, sales flat, suppliers stretched — cash is buried in the warehouse",
-            "quality": "best",
-            "feedback": "That's the read. Inventory days jumping 60→140 with flat sales means the stock isn't selling. New money would buy more stock for the same shelf — deepening the hole."
+            "id": "facility",
+            "label": "Limit action",
+            "options": [
+              {
+                "id": "a",
+                "label": "Hold at KD 600,000 pending facts",
+                "quality": "best",
+                "feedback": "No new money into an unexplained inventory pile — and no panic."
+              },
+              {
+                "id": "b",
+                "label": "Increase to KD 1,200,000",
+                "quality": "bad",
+                "feedback": "Doubling exposure to a warehouse of unsold stock.",
+                "consequence": "slow_stock"
+              },
+              {
+                "id": "c",
+                "label": "Increase to KD 900,000",
+                "quality": "poor",
+                "feedback": "Half the new money, same unanswered question.",
+                "consequence": "slow_stock"
+              },
+              {
+                "id": "d",
+                "label": "Cut to KD 300,000 immediately",
+                "quality": "poor",
+                "feedback": "A reflex cut mid-cycle can trigger the very default you fear.",
+                "consequence": "lost_goodwill"
+              }
+            ]
           },
           {
-            "id": "b",
-            "label": "Healthy expansion — he's stocking up ahead of growth",
-            "quality": "bad",
-            "feedback": "Stocking up 'ahead of growth' shows up as rising sales chasing rising inventory. Here sales are flat at −1% while stock sat for five months. The growth story has no growth in it.",
-            "consequence": "slow_stock"
+            "id": "amount",
+            "label": "Verification",
+            "options": [
+              {
+                "id": "a",
+                "label": "Detailed stock aging + warehouse visit",
+                "quality": "best",
+                "feedback": "Turns suspicion into facts within a week."
+              },
+              {
+                "id": "b",
+                "label": "Take his word — six good years",
+                "quality": "bad",
+                "feedback": "Relationship lending is knowing the client, not skipping the work.",
+                "consequence": "slow_stock"
+              },
+              {
+                "id": "c",
+                "label": "Wait for next year’s audited financials",
+                "quality": "poor",
+                "feedback": "Twelve months of exposure to a question answerable this week.",
+                "consequence": "slow_stock"
+              },
+              {
+                "id": "d",
+                "label": "Ask him for a budget and projections",
+                "quality": "poor",
+                "feedback": "Projections cannot explain stock that already isn’t selling.",
+                "consequence": "slow_stock"
+              }
+            ]
           },
           {
-            "id": "c",
-            "label": "Seasonal timing — the balance sheet date caught a peak",
-            "quality": "poor",
-            "feedback": "Possible in principle — but five straight months of 100% STRL utilisation isn't a season, it's a trend. The aging data would settle it, which is why you ask for it.",
-            "consequence": "slow_stock"
-          },
-          {
-            "id": "d",
-            "label": "The numbers look fine; six years of history is what matters",
-            "quality": "bad",
-            "feedback": "Relationship lending means knowing the client — not skipping the analysis. The pack is showing a classic deterioration pattern in plain sight.",
-            "consequence": "slow_stock"
+            "id": "tenor",
+            "label": "Interim monitoring",
+            "options": [
+              {
+                "id": "a",
+                "label": "Monthly stock & aging reports + pledge where feasible",
+                "quality": "best",
+                "feedback": "Visibility now, claim on the asset everyone is worried about."
+              },
+              {
+                "id": "b",
+                "label": "Quarterly financials covenant",
+                "quality": "good",
+                "feedback": "Helpful but slow for a situation moving this fast."
+              },
+              {
+                "id": "c",
+                "label": "Nothing until the review lands",
+                "quality": "poor",
+                "feedback": "The exposure is live today; monitoring starts today.",
+                "consequence": "weak_security"
+              },
+              {
+                "id": "d",
+                "label": "Demand his house or call the facility",
+                "quality": "bad",
+                "feedback": "An ultimatum on suspicion converts a workout into a war.",
+                "consequence": "lost_goodwill"
+              }
+            ]
           }
         ]
       },

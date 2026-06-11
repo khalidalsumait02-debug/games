@@ -10,8 +10,13 @@ import type {
 import { config, getDeck } from './content';
 import newsItems from '../data/news.json';
 
-export const QUALITY_POINTS: Record<Quality, number> = { best: 100, good: 60, poor: 25, bad: 0 };
-export const QUALITY_REP: Record<Quality, number> = { best: 2, good: 1, poor: -2, bad: -5 };
+// Points are two-sided: weak calls genuinely cost you.
+export const QUALITY_POINTS: Record<Quality, number> = { best: 100, good: 40, poor: -60, bad: -120 };
+// Deal health (0-100) drives portfolio behaviour — separate from score points.
+export const QUALITY_HEALTH: Record<Quality, number> = { best: 100, good: 70, poor: 30, bad: 0 };
+export const QUALITY_REP: Record<Quality, number> = { best: 2, good: 1, poor: -3, bad: -6 };
+
+export const BOARD_PENALTY = 500;
 
 const SAVE_PREFIX = 'dcb_save_v2_';
 
@@ -147,16 +152,19 @@ function runMonthEnd(state: GameState, events: GameEvent[]): void {
   state.deals = state.deals.map((deal) => {
     if (deal.status === 'npl') return deal;
     const d = { ...deal };
-    const inc = incomePoints(d);
-    events.push({
-      month: state.month,
-      kind: 'income',
-      text: `${d.clientName} — ${d.summary}: facility income earned.`,
-      points: inc,
-      reputation: 0,
-    });
-    state.score += inc;
-    state.breakdown = { ...state.breakdown, portfolio: state.breakdown.portfolio + inc };
+    // only a performing book earns — watchlisted names are frozen
+    if (d.status === 'performing') {
+      const inc = incomePoints(d);
+      events.push({
+        month: state.month,
+        kind: 'income',
+        text: `${d.clientName} — ${d.summary}: facility income earned.`,
+        points: inc,
+        reputation: 0,
+      });
+      state.score += inc;
+      state.breakdown = { ...state.breakdown, portfolio: state.breakdown.portfolio + inc };
+    }
 
     // audit findings surface with a lag
     if (d.auditMonth === state.month) {
@@ -164,11 +172,11 @@ function runMonthEnd(state: GameState, events: GameEvent[]): void {
         month: state.month,
         kind: 'audit',
         text: `Internal audit finding on the ${d.clientName} file: process gaps at booking (sequence/documentation). Remediation required.`,
-        points: -60,
+        points: -100,
         reputation: -8,
       });
-      state.score -= 60;
-      state.breakdown = { ...state.breakdown, process: state.breakdown.process - 60 };
+      state.score -= 100;
+      state.breakdown = { ...state.breakdown, process: state.breakdown.process - 100 };
       state.reputation -= 8;
       d.auditMonth = undefined;
     }
@@ -179,9 +187,9 @@ function runMonthEnd(state: GameState, events: GameEvent[]): void {
       const pWatch = d.quality < 40 ? 0.35 : d.quality < 70 ? 0.1 : 0.02;
       if (roll < pWatch) {
         d.status = 'watch';
-        events.push({ month: state.month, kind: 'watch', text: consequenceText(d, 'watch'), points: -40, reputation: -5 });
-        state.score -= 40;
-        state.breakdown = { ...state.breakdown, portfolio: state.breakdown.portfolio - 40 };
+        events.push({ month: state.month, kind: 'watch', text: consequenceText(d, 'watch'), points: -60, reputation: -5 });
+        state.score -= 60;
+        state.breakdown = { ...state.breakdown, portfolio: state.breakdown.portfolio - 60 };
         state.reputation -= 5;
       }
     } else if (d.status === 'watch') {
@@ -189,9 +197,9 @@ function runMonthEnd(state: GameState, events: GameEvent[]): void {
       if (roll < pNpl) {
         d.status = 'npl';
         nplThisMonth = true;
-        events.push({ month: state.month, kind: 'npl', text: consequenceText(d, 'npl'), points: -150, reputation: -15 });
-        state.score -= 150;
-        state.breakdown = { ...state.breakdown, portfolio: state.breakdown.portfolio - 150 };
+        events.push({ month: state.month, kind: 'npl', text: consequenceText(d, 'npl'), points: -300, reputation: -15 });
+        state.score -= 300;
+        state.breakdown = { ...state.breakdown, portfolio: state.breakdown.portfolio - 300 };
         state.reputation -= 15;
       } else if (d.quality >= 60 && roll > 0.7) {
         d.status = 'performing';
@@ -242,17 +250,19 @@ export function reduce(state: GameState, action: Action): GameState {
       const deck = getDeck(s.level);
       const scenario = deck[s.scenarioIndex];
       const events: GameEvent[] = [];
+      const avg = (ns: number[]) => ns.reduce((a, b) => a + b, 0) / Math.max(1, ns.length);
       let lost = false;
-      let qualitySum = 0;
+      let healthSum = 0;
       let bestCount = 0;
       for (const pick of action.result.picks) {
-        const pts = QUALITY_POINTS[pick.quality];
-        qualitySum += pts;
+        const pts = Math.round(avg(pick.qualities.map((q) => QUALITY_POINTS[q])));
+        healthSum += avg(pick.qualities.map((q) => QUALITY_HEALTH[q]));
         s.score += pts;
         s.breakdown.structuring += pts;
-        s.reputation += QUALITY_REP[pick.quality];
+        s.reputation += Math.round(avg(pick.qualities.map((q) => QUALITY_REP[q])));
         if (!pick.books) lost = true;
-        if (pick.quality === 'best') {
+        const allBest = pick.qualities.every((q) => q === 'best');
+        if (allBest) {
           bestCount++;
           s.streak++;
           if (s.streak > 0 && s.streak % 3 === 0) {
@@ -260,23 +270,27 @@ export function reduce(state: GameState, action: Action): GameState {
             s.breakdown.bonus += 50;
             events.push({ month: s.month, kind: 'info', text: `Decision streak ×${s.streak} — bonus points for consistent sound judgement.`, points: 50, reputation: 0 });
           }
-        } else if (pick.quality === 'poor' || pick.quality === 'bad') {
+        } else if (pick.qualities.some((q) => q === 'poor' || q === 'bad')) {
           s.streak = 0;
         }
       }
-      const quality = Math.round(qualitySum / action.result.picks.length);
+      const quality = Math.round(healthSum / action.result.picks.length);
       if (bestCount === action.result.picks.length) addAchievement(s, events, 'Flawless Structuring');
 
       // For decline-type scenarios (dealSizeKD 0), the "right" outcome may be no booking.
-      const lostWasWrong = lost && action.result.picks.some((p) => !p.books && (p.quality === 'poor' || p.quality === 'bad'));
+      const lostWasWrong =
+        lost &&
+        action.result.picks.some((p) => !p.books && p.qualities.some((q) => q === 'poor' || q === 'bad'));
       if (lostWasWrong) {
         events.push({
           month: s.month,
           kind: 'lost',
           text: `${scenario.client.name} took their business to a competitor. The relationship — and its income — is gone.`,
-          points: 0,
+          points: -100,
           reputation: -3,
         });
+        s.score -= 100;
+        s.breakdown.portfolio -= 100;
         s.reputation -= 3;
       }
 
@@ -288,9 +302,7 @@ export function reduce(state: GameState, action: Action): GameState {
         s.phase = lost ? 'monthEnd' : scenario.plantedError ? 'process' : 'monthEnd';
         if (s.phase === 'monthEnd') runMonthEnd(s, events);
       } else {
-        const consequences = action.result.picks
-          .map((p) => p.consequence)
-          .filter((c): c is string => Boolean(c));
+        const consequences = action.result.picks.flatMap((p) => p.consequences);
         s.pendingDeal = {
           scenarioId: scenario.id,
           clientName: scenario.client.name,
@@ -313,10 +325,11 @@ export function reduce(state: GameState, action: Action): GameState {
 
     case 'PROCESS_DONE': {
       const events: GameEvent[] = [...s.monthEvents];
-      const parts = [action.result.orderScore, action.result.docScore];
+      const parts = [action.result.drillScore];
       if (action.result.plantedScore !== null) parts.push(action.result.plantedScore);
       const processScore = Math.round(parts.reduce((a, b) => a + b, 0) / parts.length);
-      const pts = processScore;
+      // two-sided: a clean file earns up to +100, a sloppy one costs up to -100
+      const pts = Math.round((processScore - 50) * 2);
       s.score += pts;
       s.breakdown.process += pts;
       if (action.result.plantedScore === 100) addAchievement(s, events, 'Audit-Proof');
@@ -343,6 +356,9 @@ export function reduce(state: GameState, action: Action): GameState {
         s.finished = true;
         s.endedEarly = true;
         s.phase = 'results';
+        // board intervention is a failure, not an escape hatch
+        s.score -= BOARD_PENALTY;
+        s.breakdown.bonus -= BOARD_PENALTY;
         finalize(s);
         save(s);
         return s;
@@ -387,10 +403,12 @@ export function grade(score: number, level: number): string {
   const t = score / (level === 1 ? 1 : level === 2 ? 1.15 : 1.15);
   if (t >= 2400) return 'AAA — Committee Chair material';
   if (t >= 2000) return 'AA — Senior Relationship Manager';
-  if (t >= 1600) return 'A — Solid credit mind';
-  if (t >= 1200) return 'BBB — Developing well';
-  if (t >= 800) return 'BB — Re-read the credit manual';
-  return 'C — The audit department would like a word';
+  if (t >= 1500) return 'A — Solid credit mind';
+  if (t >= 1000) return 'BBB — Developing well';
+  if (t >= 500) return 'BB — Re-read the credit manual';
+  if (t >= 0) return 'C — The audit department would like a word';
+  if (t >= -1000) return 'CC — Lending license under review';
+  return 'D — HR would like a word';
 }
 
 export function save(state: GameState) {
