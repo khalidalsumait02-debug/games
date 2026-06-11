@@ -23,21 +23,24 @@ export function getDeck(level: 1 | 2 | 3): Scenario[] {
   return decks[level];
 }
 
-export const LEVEL_INFO: Record<number, { title: string; audience: string; blurb: string }> = {
+export const LEVEL_INFO: Record<number, { title: string; name: string; audience: string; blurb: string }> = {
   1: {
-    title: 'Level 1 — Foundations',
+    title: 'Level 1 — Analyst',
+    name: 'Analyst',
     audience: 'Fresh graduates',
-    blurb: 'Meet eight clients and learn each facility one need at a time: LCs, guarantees, overdrafts, the STRL, term loans and discounting. Analyst hints are shown inline.',
+    blurb: 'Analyst hints always on, single-decision meetings, forgiving scoring.',
   },
   2: {
-    title: 'Level 2 — Structuring',
-    audience: '1–5 years of experience',
-    blurb: 'Sizing limits from the working capital cycle, reading DSCR tables, matching usance to the trade cycle, restructuring messy clients — and resisting clients who push.',
+    title: 'Level 2 — Associate',
+    name: 'Associate',
+    audience: '1–5 years’ experience',
+    blurb: 'Hints on demand, multi-step decisions, market events in play.',
   },
   3: {
-    title: 'Level 3 — Refresher',
-    audience: '5+ years of experience',
-    blurb: 'The hard files: window dressing, evergreening, diversion by tenor, concentration, overtrading, and ratios that lie without their sector. Trust nothing; verify everything.',
+    title: 'Level 3 — Senior RM',
+    name: 'Senior RM',
+    audience: '5+ years’ experience',
+    blurb: 'Complex structures, thin margins for error, full audit exposure.',
   },
 };
 

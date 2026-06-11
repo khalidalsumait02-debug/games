@@ -77,37 +77,49 @@ export default function App() {
         </div>
         {game && view === 'game' && !game.finished && (
           <div className="hud">
-            <span className="hud-item level-tag">{LEVEL_INFO[game.level].title.split('—')[0].trim()}</span>
-            <span className="hud-item month-dots" title={`Month ${game.month} of ${config.campaignMonths}`}>
-              {Array.from({ length: config.campaignMonths }, (_, i) => (
-                <i key={i} className={i < game.month ? 'on' : ''} />
-              ))}
+            <span className="hud-stat">
+              <span className="hud-label">Level</span>
+              <span className="hud-value">
+                {game.level} · {LEVEL_INFO[game.level].name}
+              </span>
             </span>
-            <span className="hud-item score">
-              ⭐ <CountUp value={game.score} />
+            <span className="hud-stat">
+              <span className="hud-label">Month</span>
+              <span className="hud-value">
+                {game.month} of {config.campaignMonths}
+              </span>
             </span>
-            {game.streak >= 2 && <span className="hud-item streak">🔥 ×{game.streak}</span>}
-            <span className="hud-item rep" title="Reputation — at zero, the board ends your campaign">
+            <span className="hud-stat">
+              <span className="hud-label">Score</span>
+              <span className="hud-value">
+                <CountUp value={game.score} />
+              </span>
+            </span>
+            <span className="hud-stat">
+              <span className="hud-label">Streak</span>
+              <span className="hud-value">{game.streak > 0 ? `+${game.streak}` : '—'}</span>
+            </span>
+            <span className="hud-stat rep" title="Reputation — at zero, the board ends your campaign">
+              <span className="hud-label">Reputation · {game.reputation}/100</span>
               <span className="rep-bar">
                 <span
                   className={`rep-fill ${game.reputation < 30 ? 'danger' : ''}`}
                   style={{ width: `${game.reputation}%` }}
                 />
               </span>
-              {game.reputation}
             </span>
             <button className="btn tiny" onClick={() => openOverlay('journal')} title="Lessons collected so far">
-              📔
+              Journal
             </button>
             <button className="btn tiny" onClick={() => openOverlay('glossary')} title="Product & SOP guide">
-              📖
+              Reference guide
             </button>
             <button
               className="btn tiny"
               onClick={toMenu}
               title="Progress is saved automatically — resume from the menu"
             >
-              ⏸
+              Pause
             </button>
           </div>
         )}
@@ -143,6 +155,7 @@ export default function App() {
                 key={scenario.id}
                 scenario={scenario}
                 level={game.level}
+                month={game.month}
                 isFirstMeeting={game.scenarioIndex === 0}
                 onDone={(picks: MeetingPick[]) =>
                   dispatch({ type: 'MEETING_DONE', result: { scenarioId: scenario.id, picks } })

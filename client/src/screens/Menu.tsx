@@ -11,9 +11,6 @@ interface Props {
   onGlossary: () => void;
 }
 
-const LEVEL_ICONS: Record<number, string> = { 1: '🌱', 2: '📐', 3: '🦅' };
-const LEVEL_PIPS: Record<number, number> = { 1: 1, 2: 2, 3: 3 };
-
 export default function Menu({ savedGame, onStart, onResume, onLeaderboard, onGlossary }: Props) {
   const [name, setName] = useState(localStorage.getItem('dcb_player_name') ?? '');
   const [level, setLevel] = useState<1 | 2 | 3>(1);
@@ -28,52 +25,29 @@ export default function Menu({ savedGame, onStart, onResume, onLeaderboard, onGl
 
   return (
     <div className="menu">
-      <div className="menu-hero anim-rise">
-        <div className="emblem">
-          <span className="emblem-mark">{config.bankShort}</span>
-          <span className="emblem-ring" />
-        </div>
-        <h1>{config.bankName}</h1>
-        <p className="tagline">{config.tagline}</p>
+      <div className="menu-panel anim-rise">
+        <h1>{config.tagline}</h1>
+        <p className="menu-sub">A relationship-manager training simulation</p>
         <p className="menu-intro">
-          Take the Relationship Manager's chair. Read real analysis packs, structure cash &amp; non-cash
-          facilities, run every deal through the SOP — and answer for the consequences.
+          Meet a client each month. Structure the right facility, run the deal through the bank's process,
+          and keep your portfolio healthy across a {config.campaignMonths}-month campaign. Progress saves
+          automatically — leave anytime.
         </p>
-        <div className="menu-features">
-          <span>🤝 8 client meetings</span>
-          <span>📋 SOP &amp; documentation drills</span>
-          <span>📈 A living portfolio</span>
-          <span>🏆 Cohort leaderboard</span>
-        </div>
-      </div>
 
-      {savedGame && (
-        <div className="resume-card anim-rise d1">
-          <div>
-            <strong>Campaign in progress</strong>
-            <span>
-              {savedGame.playerName} · {LEVEL_INFO[savedGame.level].title} · Month {savedGame.month} ·{' '}
-              {savedGame.score.toLocaleString()} pts
-            </span>
-          </div>
-          <button className="btn primary" onClick={() => { sfx.click(); onResume(); }}>
-            Resume ▸
-          </button>
-        </div>
-      )}
-
-      <div className="menu-form anim-rise d2">
-        <label htmlFor="player-name">Banker name — as it will appear on the leaderboard</label>
+        <label className="field-label" htmlFor="player-name">
+          Your name — for the leaderboard
+        </label>
         <input
           id="player-name"
           value={name}
           maxLength={30}
-          placeholder="e.g. Khalid"
+          placeholder="e.g. Sara Al-Sabah"
           autoComplete="off"
           onChange={(e) => setName(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && start()}
         />
 
+        <div className="field-label">Choose your level</div>
         <div className="level-grid">
           {([1, 2, 3] as const).map((l) => (
             <button
@@ -81,15 +55,9 @@ export default function Menu({ savedGame, onStart, onResume, onLeaderboard, onGl
               className={`level-card ${level === l ? 'selected' : ''}`}
               onClick={() => { sfx.click(); setLevel(l); }}
             >
-              <div className="level-head">
-                <span className="level-icon">{LEVEL_ICONS[l]}</span>
-                <span className="level-pips">
-                  {[1, 2, 3].map((p) => (
-                    <i key={p} className={p <= LEVEL_PIPS[l] ? 'on' : ''} />
-                  ))}
-                </span>
-              </div>
-              <h3>{LEVEL_INFO[l].title}</h3>
+              <span className="level-tag-label">Level {l}</span>
+              {level === l && <span className="level-check">✓</span>}
+              <h3>{LEVEL_INFO[l].name}</h3>
               <span className="audience">{LEVEL_INFO[l].audience}</span>
               <p>{LEVEL_INFO[l].blurb}</p>
             </button>
@@ -97,39 +65,30 @@ export default function Menu({ savedGame, onStart, onResume, onLeaderboard, onGl
         </div>
 
         <div className="menu-actions">
-          <button className="btn primary big glow" onClick={start} disabled={!name.trim()}>
-            Start Campaign ▸
+          <button className="btn primary big" onClick={start} disabled={!name.trim()}>
+            Start campaign
           </button>
+          {savedGame && (
+            <button className="btn resume" onClick={() => { sfx.click(); onResume(); }}>
+              <strong>Resume saved campaign</strong>
+              <span>
+                Month {savedGame.month} · {LEVEL_INFO[savedGame.level].name} ·{' '}
+                {savedGame.score.toLocaleString()} pts
+              </span>
+            </button>
+          )}
+          <span className="kbd-hint">
+            Fully keyboard playable — <kbd>1</kbd>–<kbd>4</kbd> to choose, <kbd>Enter</kbd> to confirm
+          </span>
+        </div>
+
+        <div className="menu-links">
           <button className="btn" onClick={() => { sfx.click(); onLeaderboard(); }}>
-            🏆 Leaderboard
+            Leaderboard
           </button>
           <button className="btn" onClick={() => { sfx.click(); onGlossary(); }}>
-            📖 Product &amp; SOP Guide
+            Reference guide
           </button>
-        </div>
-      </div>
-
-      <div className="howto anim-rise d3">
-        <div className="howto-step">
-          <span className="howto-num">1</span>
-          <div>
-            <strong>Meet the client</strong>
-            <p>Every ratio is pre-computed. Your job is judgement: what to give, and how much.</p>
-          </div>
-        </div>
-        <div className="howto-step">
-          <span className="howto-num">2</span>
-          <div>
-            <strong>Run the process</strong>
-            <p>Sequence the SOP, complete the file, catch what audit would catch — before audit does.</p>
-          </div>
-        </div>
-        <div className="howto-step">
-          <span className="howto-num">3</span>
-          <div>
-            <strong>Live with your book</strong>
-            <p>Sound structures earn quietly. Weak ones come back — as watchlists, calls and write-offs.</p>
-          </div>
         </div>
       </div>
 

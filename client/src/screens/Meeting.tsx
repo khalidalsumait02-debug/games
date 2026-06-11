@@ -2,14 +2,27 @@ import { useEffect, useState } from 'react';
 import type { MeetingPick, Scenario } from '../engine/types';
 import { QUALITY_POINTS } from '../engine/game';
 import { sfx } from '../engine/sfx';
-import Avatar from '../components/Avatar';
 
 interface Props {
   scenario: Scenario;
   level: 1 | 2 | 3;
+  month: number;
   isFirstMeeting?: boolean;
   onDone: (picks: MeetingPick[]) => void;
 }
+
+const STAGE_LABEL: Record<string, string> = {
+  structure: 'Structuring',
+  collateral: 'Security & conditions',
+  judgment: 'Credit judgement',
+};
+
+const QUALITY_LABEL: Record<string, string> = {
+  best: 'Excellent',
+  good: 'Acceptable',
+  poor: 'Weak',
+  bad: 'Serious mistake',
+};
 
 const REACTIONS: Record<string, string[]> = {
   best: [
@@ -34,41 +47,7 @@ const REACTIONS: Record<string, string[]> = {
   ],
 };
 
-const STAGE_LABEL: Record<string, string> = {
-  structure: 'Structuring',
-  collateral: 'Security & Conditions',
-  judgment: 'Credit Judgement',
-};
-
-const QUALITY_LABEL: Record<string, string> = {
-  best: 'Excellent call',
-  good: 'Acceptable',
-  poor: 'Weak choice',
-  bad: 'Serious mistake',
-};
-
-function useTypewriter(text: string) {
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => {
-      setN((v) => {
-        if (v >= text.length) {
-          clearInterval(id);
-          return v;
-        }
-        return v + 3;
-      });
-    }, 18);
-    return () => clearInterval(id);
-  }, [text]);
-  return {
-    shown: text.slice(0, n),
-    done: n >= text.length,
-    skip: () => setN(text.length),
-  };
-}
-
-export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Props) {
+export default function Meeting({ scenario, level, month, isFirstMeeting, onDone }: Props) {
   const [decisionIdx, setDecisionIdx] = useState(0);
   const [picks, setPicks] = useState<MeetingPick[]>([]);
   const [picked, setPicked] = useState<string | null>(null);
@@ -84,7 +63,6 @@ export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Pro
   const decision = scenario.decisions[decisionIdx];
   const shuffledOptions = shuffledByDecision[decisionIdx];
   const pickedOption = picked ? decision.options.find((o) => o.id === picked) : null;
-  const quote = useTypewriter(scenario.request);
 
   const choose = (optionId: string) => {
     if (picked) return;
@@ -117,7 +95,7 @@ export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Pro
     }
   };
 
-  // keyboard play: A–D selects, Enter advances
+  // keyboard play: 1–4 selects, Enter advances
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
@@ -125,8 +103,8 @@ export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Pro
         next();
         return;
       }
-      const idx = e.key.toUpperCase().charCodeAt(0) - 65;
-      if (!picked && idx >= 0 && idx < shuffledOptions.length && /^[a-dA-D]$/.test(e.key)) {
+      const idx = parseInt(e.key, 10) - 1;
+      if (!picked && idx >= 0 && idx < shuffledOptions.length) {
         choose(shuffledOptions[idx].id);
       }
     };
@@ -139,66 +117,24 @@ export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Pro
     <div className="meeting">
       <div className="meeting-left">
         <div className="card client-card anim-rise">
-          <div className="client-head">
-            <Avatar name={scenario.client.name} />
-            <div>
-              <h2>{scenario.client.name}</h2>
-              <span className="sector">{scenario.client.sector}</span>
-            </div>
+          <span className="kicker">Client meeting — month {month}</span>
+          <h2>{scenario.client.name}</h2>
+          <div className="client-chips">
+            <span className="chip-tag">{scenario.client.sector}</span>
+            <span className="chip-tag">{scenario.client.contact}</span>
           </div>
+          <span className="kicker sub">Relationship history</span>
           <p className="profile">{scenario.client.profile}</p>
-          <blockquote onClick={quote.skip} className={quote.done ? '' : 'typing'}>
-            <span className="contact">{scenario.client.contact}</span>
-            {quote.shown}
-            {!quote.done && <span className="caret" />}
-          </blockquote>
+          <span className="kicker sub">The request, in their words</span>
+          <blockquote>{scenario.request}</blockquote>
         </div>
 
-        <div className="card pack-card anim-rise d1">
-          <div className="pack-header">
-            <h3>
-              <span className="pack-icon">📊</span> Analysis Pack
-            </h3>
-            {level > 1 && (
-              <button className="btn tiny" onClick={() => { sfx.click(); setShowNotes(!showNotes); }}>
-                {showNotes ? 'Hide analyst notes' : '💡 Analyst notes'}
-              </button>
-            )}
-          </div>
-          <table className="figures">
-            <tbody>
-              {scenario.analysisPack.figures.map((f) => (
-                <tr key={f.label}>
-                  <td>{f.label}</td>
-                  <td className="num">{f.value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <h4>Ratios &amp; indicators · pre-computed</h4>
-          <div className="ratios">
-            {scenario.analysisPack.ratios.map((r) => (
-              <div className="ratio" key={r.label}>
-                <div className="ratio-line">
-                  <span className="ratio-label">{r.label}</span>
-                  <span className="ratio-value">{r.value}</span>
-                </div>
-                {r.benchmark && <span className="benchmark">{r.benchmark}</span>}
-                {r.hint && showNotes && <p className="hint">💡 {r.hint}</p>}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="meeting-right">
         {isFirstMeeting && !coachDismissed && (
           <div className="coach-tip anim-rise">
-            <span className="coach-icon">🧭</span>
             <p>
-              <strong>First day on the desk?</strong> Read the analysis pack on the left — every ratio is
-              already computed for you. Your job is judgement: pick the structure that fits the numbers. You
-              can also play with keys <kbd>A</kbd>–<kbd>D</kbd> and <kbd>Enter</kbd>.
+              <strong>First day on the desk?</strong> Every ratio is pre-computed — your job is judgement:
+              pick the structure that fits the numbers. Play with keys <kbd>1</kbd>–<kbd>4</kbd> and{' '}
+              <kbd>Enter</kbd>.
             </p>
             <button
               className="btn tiny"
@@ -211,18 +147,44 @@ export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Pro
             </button>
           </div>
         )}
-        <div className="card decision-card anim-rise d2" key={decisionIdx}>
-          <div className="stage-chips">
-            {scenario.decisions.map((d, i) => (
-              <span
-                key={d.id}
-                className={`stage-chip ${i < decisionIdx ? 'done' : ''} ${i === decisionIdx ? 'active' : ''}`}
-              >
-                {i < decisionIdx ? '✓ ' : ''}
-                {STAGE_LABEL[d.stage]}
-              </span>
+      </div>
+
+      <div className="meeting-right">
+        <div className="card pack-card anim-rise d1">
+          <span className="kicker">Financials — audited</span>
+          <div className="figures-grid">
+            {scenario.analysisPack.figures.map((f) => (
+              <div className="figure-cell" key={f.label}>
+                <span className="figure-label">{f.label}</span>
+                <span className="figure-value">{f.value}</span>
+              </div>
             ))}
           </div>
+
+          <div className="pack-header">
+            <span className="kicker">Key ratios · analyst notes {level === 1 ? 'on' : 'on demand'}</span>
+            {level > 1 && (
+              <button className="btn tiny" onClick={() => { sfx.click(); setShowNotes(!showNotes); }}>
+                {showNotes ? 'Hide notes' : 'Show notes'}
+              </button>
+            )}
+          </div>
+          <div className="ratio-grid">
+            {scenario.analysisPack.ratios.map((r) => (
+              <div className="ratio" key={r.label}>
+                <span className="figure-label">{r.label}</span>
+                <span className="ratio-value">{r.value}</span>
+                {r.benchmark && <span className="benchmark">benchmark {r.benchmark}</span>}
+                {r.hint && showNotes && <p className="hint">{r.hint}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="card decision-card anim-rise d2" key={decisionIdx}>
+          <span className="decision-pill">
+            Decision {decisionIdx + 1} of {scenario.decisions.length} · {STAGE_LABEL[decision.stage]}
+          </span>
           <h3 className="decision-prompt">{decision.prompt}</h3>
           <div className="options">
             {shuffledOptions.map((o, i) => {
@@ -232,11 +194,11 @@ export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Pro
                 <button
                   key={o.id}
                   className={`option anim-rise ${revealClass}`}
-                  style={{ animationDelay: `${i * 60}ms` }}
+                  style={{ animationDelay: `${i * 50}ms` }}
                   onClick={() => choose(o.id)}
                   disabled={!!picked}
                 >
-                  <span className="option-key">{String.fromCharCode(65 + i)}</span>
+                  <span className="option-key">{i + 1}</span>
                   <span className="option-body">
                     <span className="option-label">{o.label}</span>
                     {o.detail && <span className="option-detail">{o.detail}</span>}
@@ -249,17 +211,17 @@ export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Pro
           {pickedOption && (
             <div className={`feedback anim-pop ${pickedOption.quality}`}>
               <div className="feedback-head">
-                <strong>{QUALITY_LABEL[pickedOption.quality]}</strong>
-                <span className={`pts-badge ${pickedOption.quality}`}>
-                  +{QUALITY_POINTS[pickedOption.quality]} pts
+                <span className={`verdict-tag ${pickedOption.quality}`}>
+                  {QUALITY_LABEL[pickedOption.quality]}
                 </span>
+                <span className="pts-inline">+{QUALITY_POINTS[pickedOption.quality]} pts</span>
               </div>
               {reaction && <p className="reaction">{reaction}</p>}
               <p>{pickedOption.feedback}</p>
               <button className="btn primary" onClick={next}>
                 {pickedOption.books === false || decisionIdx + 1 >= scenario.decisions.length
-                  ? 'Conclude the meeting ▸'
-                  : 'Next decision ▸'}
+                  ? 'Conclude the meeting'
+                  : 'Next decision'}
               </button>
             </div>
           )}

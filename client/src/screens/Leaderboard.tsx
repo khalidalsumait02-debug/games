@@ -35,7 +35,7 @@ export default function Leaderboard({ onBack }: Props) {
         <div className="tabs">
           {([1, 2, 3] as const).map((l) => (
             <button key={l} className={`tab ${level === l ? 'active' : ''}`} onClick={() => { sfx.click(); setLevel(l); }}>
-              {LEVEL_INFO[l].title.split('—')[0].trim()}
+              {`Level ${l} · ${LEVEL_INFO[l].name}`}
             </button>
           ))}
         </div>
