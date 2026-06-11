@@ -1,6 +1,6 @@
 {
-  "bankName": "Dasman Corporate Bank",
-  "bankShort": "DCB",
+  "bankName": "National Bank of Kuwait",
+  "bankShort": "NBK",
   "tagline": "Corporate Banking Academy",
   "currency": "KD",
   "leaderboardUrl": "http://localhost:8787",

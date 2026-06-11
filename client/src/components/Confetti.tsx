@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const COLORS = ['#d4af37', '#5b7fff', '#10b981', '#ec4899', '#f59e0b', '#06b6d4', '#f4f7ff'];
+const COLORS = ['#3b97e6', '#5b7fff', '#10b981', '#ec4899', '#f59e0b', '#06b6d4', '#f4f7ff'];
 
 interface Piece {
   left: number;

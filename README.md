@@ -1,7 +1,7 @@
 # Corporate Banking Academy — Training Game
 
-A browser-based training game for corporate banking new joiners. Players act as a
-Relationship Manager at the fictional **Dasman Corporate Bank**: over a 10-month
+A browser-based training game for NBK corporate banking new joiners. Players act as a
+Relationship Manager at the **National Bank of Kuwait** (set in config): over a 10-month
 campaign they meet clients, read ready-made analysis packs (all ratios
 pre-computed — the skill is *interpreting* the numbers, not calculating them),
 structure cash and non-cash facilities, choose collateral, walk every deal

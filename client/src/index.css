@@ -8,9 +8,9 @@
   --ink: #c8d2e4;
   --ink-strong: #f2f6ff;
   --muted: #7c8aa5;
-  --gold: #d4af37;
-  --gold-soft: #e8c95a;
-  --gold-dim: rgba(212, 175, 55, 0.16);
+  --gold: #2e8fdd;
+  --gold-soft: #6ab4f0;
+  --gold-dim: rgba(46, 143, 221, 0.16);
   --blue: #5b7fff;
   --blue-dim: rgba(91, 127, 255, 0.14);
   --green: #2dd393;
@@ -57,7 +57,7 @@ body {
   z-index: 0;
   background:
     radial-gradient(900px 500px at 15% -10%, rgba(91, 127, 255, 0.13), transparent 60%),
-    radial-gradient(800px 500px at 90% 0%, rgba(212, 175, 55, 0.09), transparent 55%),
+    radial-gradient(800px 500px at 90% 0%, rgba(46, 143, 221, 0.09), transparent 55%),
     radial-gradient(900px 700px at 50% 110%, rgba(45, 211, 147, 0.05), transparent 60%);
 }
 
@@ -174,8 +174,8 @@ code {
 }
 
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.35); }
-  50% { box-shadow: 0 0 26px 4px rgba(212, 175, 55, 0.18); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(46, 143, 221, 0.35); }
+  50% { box-shadow: 0 0 26px 4px rgba(46, 143, 221, 0.18); }
 }
 
 @keyframes splashIn {
@@ -267,8 +267,8 @@ code {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--gold), #a3791b);
-  color: #141002;
+  background: linear-gradient(135deg, var(--gold), #0b4f8f);
+  color: #ffffff;
   font-family: var(--font-display);
   font-weight: 800;
   border-radius: 10px;
@@ -276,7 +276,7 @@ code {
   height: 64px;
   font-size: 1.5rem;
   letter-spacing: 0.04em;
-  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 6px 18px rgba(46, 143, 221, 0.25);
 }
 
 .bank-mark.small {
@@ -307,7 +307,7 @@ code {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--gold);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  border: 1px solid rgba(46, 143, 221, 0.35);
   border-radius: 999px;
   padding: 3px 11px;
   background: var(--gold-dim);
@@ -390,13 +390,13 @@ code {
 }
 
 .btn.primary {
-  background: linear-gradient(135deg, #d8b545, #a3791b);
+  background: linear-gradient(135deg, #3b97e6, #0b4f8f);
   border-color: transparent;
-  color: #16110a;
+  color: #ffffff;
 }
 
 .btn.primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #e8c95a, #b8902b);
+  background: linear-gradient(135deg, #6ab4f0, #1565ad);
 }
 
 .btn.big {
@@ -517,19 +517,19 @@ code {
   width: 84px;
   height: 84px;
   border-radius: 22px;
-  background: linear-gradient(135deg, var(--gold), #8d6a14);
-  color: #16110a;
+  background: linear-gradient(135deg, var(--gold), #093e72);
+  color: #ffffff;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.9rem;
-  box-shadow: 0 14px 40px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 14px 40px rgba(46, 143, 221, 0.3);
 }
 
 .emblem-ring {
   position: absolute;
   inset: -10px;
   border-radius: 30px;
-  border: 1px dashed rgba(212, 175, 55, 0.4);
+  border: 1px dashed rgba(46, 143, 221, 0.4);
   animation: ringSpin 24s linear infinite;
 }
 
@@ -623,7 +623,7 @@ code {
 .menu-form input:focus,
 .glossary-search:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+  box-shadow: 0 0 0 3px rgba(46, 143, 221, 0.18);
 }
 
 .level-grid {
@@ -652,8 +652,8 @@ code {
 
 .level-card.selected {
   border-color: var(--gold);
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.02));
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.14), var(--shadow);
+  background: linear-gradient(180deg, rgba(46, 143, 221, 0.1), rgba(46, 143, 221, 0.02));
+  box-shadow: 0 0 0 3px rgba(46, 143, 221, 0.14), var(--shadow);
 }
 
 .level-head {
@@ -736,7 +736,7 @@ code {
   justify-content: center;
   border-radius: 50%;
   background: var(--gold-dim);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(46, 143, 221, 0.4);
   color: var(--gold);
   font-family: var(--font-display);
   font-weight: 700;
@@ -1422,8 +1422,8 @@ kbd {
 }
 
 .learn-box {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.03));
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: linear-gradient(135deg, rgba(46, 143, 221, 0.12), rgba(46, 143, 221, 0.03));
+  border: 1px solid rgba(46, 143, 221, 0.3);
   border-radius: 13px;
   padding: 16px 18px;
   margin: 18px 0;
@@ -1539,7 +1539,7 @@ kbd {
 
 .event.achievement {
   background: var(--gold-dim);
-  border-color: rgba(212, 175, 55, 0.45);
+  border-color: rgba(46, 143, 221, 0.45);
 }
 
 .event .text {
@@ -1657,7 +1657,7 @@ kbd {
 .badge.achievement {
   background: var(--gold-dim);
   color: var(--gold-soft);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(46, 143, 221, 0.4);
   margin: 0 8px 8px 0;
   padding: 8px 14px;
   font-size: 0.85rem;
@@ -1703,7 +1703,7 @@ kbd {
   font-size: 1.7rem;
   letter-spacing: 0.04em;
   background: var(--gold-dim);
-  box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 0 40px rgba(46, 143, 221, 0.25);
 }
 
 .anim-seal {
@@ -1867,9 +1867,9 @@ kbd {
 }
 
 .tab.active {
-  background: linear-gradient(135deg, #d8b545, #a3791b);
+  background: linear-gradient(135deg, #3b97e6, #0b4f8f);
   border-color: transparent;
-  color: #16110a;
+  color: #ffffff;
 }
 
 .empty-board {
@@ -1878,7 +1878,7 @@ kbd {
 }
 
 .scores tr.gold td {
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(46, 143, 221, 0.1);
 }
 
 .scores tr.silver td {
@@ -1917,7 +1917,7 @@ kbd {
   color: var(--gold);
   font-size: 0.78rem;
   font-weight: 700;
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(46, 143, 221, 0.4);
   background: var(--gold-dim);
   border-radius: 999px;
   padding: 2px 10px;
@@ -1970,7 +1970,7 @@ kbd {
   justify-content: center;
   border-radius: 50%;
   background: var(--gold-dim);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(46, 143, 221, 0.4);
   color: var(--gold);
   font-family: var(--font-display);
   font-weight: 700;

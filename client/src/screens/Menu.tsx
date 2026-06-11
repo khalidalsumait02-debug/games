@@ -134,8 +134,8 @@ export default function Menu({ savedGame, onStart, onResume, onLeaderboard, onGl
       </div>
 
       <p className="disclaimer">
-        Training simulation · fictional bank, fictional clients · content is draft material for the training
-        team to review — edit it in <code>src/data/</code>
+        Internal training simulation · all clients and figures are fictional · content is draft material for
+        the training team to review — edit it in <code>src/data/</code>
       </p>
     </div>
   );
