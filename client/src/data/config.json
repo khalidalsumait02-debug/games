@@ -3,7 +3,7 @@
   "bankShort": "NBK",
   "tagline": "Corporate Banking Academy",
   "currency": "KD",
-  "leaderboardUrl": "http://localhost:8787",
+  "leaderboardUrl": "",
   "campaignMonths": 10,
   "startingReputation": 70
 }

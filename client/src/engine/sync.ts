@@ -5,7 +5,7 @@ import type { GameState } from './types';
 import type { Profile } from './profiles';
 
 function canSync(profile: Profile | null): profile is Profile & { pin: string } {
-  return Boolean(profile?.pin && config.leaderboardUrl);
+  return Boolean(profile?.pin);
 }
 
 /** Push the current save (or null when the campaign ends) to the server. Fire-and-forget. */

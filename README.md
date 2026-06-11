@@ -53,6 +53,34 @@ With the shared server connected, an account **with a PIN** also syncs its
 in-progress campaign to the server — the same name + PIN resumes the campaign
 from any device. Without a PIN (or without a server) saves stay on the device.
 
+## Hosting on Cloudflare (game + leaderboard + database in one)
+
+The `worker/` directory deploys the whole product to Cloudflare: the game is
+served as static assets, `/api/*` is handled by a Worker, and scores + account
+saves live in a D1 (SQLite) database. One deployment, one domain, HTTPS —
+the shared leaderboard and cross-device account sync work out of the box.
+
+One-time setup (requires a free Cloudflare account):
+
+```bash
+cd worker
+npm install
+npx wrangler login                      # opens the browser to authorise
+npx wrangler d1 create academy-db       # prints a database_id
+#   → paste the database_id into worker/wrangler.toml
+npm run db:init                         # creates the tables
+npm run deploy                          # builds the client and deploys everything
+```
+
+The deploy prints a `*.workers.dev` URL — the game is live there immediately.
+To attach your own domain: Cloudflare dashboard → Workers & Pages →
+banking-academy → Settings → Domains & Routes → add your domain (instant,
+since the domain is already on Cloudflare).
+
+Redeploy after changes with `npm run deploy`. The client calls the API on the
+same origin (`leaderboardUrl` is empty in config), so no CORS or URL wiring is
+needed.
+
 ## Shared leaderboard & save server (optional)
 
 The game works standalone with per-device scores and saves. To share the

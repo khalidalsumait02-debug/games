@@ -1,0 +1,15 @@
+name = "banking-academy"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+
+# The game itself (built client) is served as static assets;
+# anything under /api/* falls through to the Worker code.
+[assets]
+directory = "../client/dist"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "academy-db"
+# paste the id printed by `npx wrangler d1 create academy-db` here:
+database_id = "REPLACE_WITH_YOUR_DATABASE_ID"

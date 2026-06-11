@@ -1,0 +1,13 @@
+{
+  "name": "banking-academy-worker",
+  "private": true,
+  "scripts": {
+    "db:init": "wrangler d1 execute academy-db --remote --file=schema.sql",
+    "db:init:local": "wrangler d1 execute academy-db --local --file=schema.sql",
+    "dev": "npm --prefix ../client run build && wrangler dev",
+    "deploy": "npm --prefix ../client run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}

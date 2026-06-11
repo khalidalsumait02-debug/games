@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS scores (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  level INTEGER NOT NULL,
+  score INTEGER NOT NULL,
+  grade TEXT DEFAULT '',
+  date TEXT DEFAULT ''
+);
+CREATE INDEX IF NOT EXISTS idx_scores_level ON scores(level, score DESC);
+
+CREATE TABLE IF NOT EXISTS saves (
+  key TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  pin_hash TEXT NOT NULL,
+  state TEXT,
+  saved_at INTEGER NOT NULL
+);
