@@ -23,8 +23,11 @@ from the menu).
 
 ## Play it online
 
-The game is live on GitHub Pages:
+**https://cbgquiz.com** — the full product on Cloudflare (game + shared
+leaderboard + account sync backed by a D1 database). Deploy it with
+`cd worker && npm run deploy` (see the Cloudflare section below).
 
+A local-only fallback copy also runs on GitHub Pages:
 **https://khalidalsumait02-debug.github.io/games/**
 
 Deployment is automatic: every push to `main` triggers the
@@ -72,10 +75,10 @@ npm run db:init                         # creates the tables
 npm run deploy                          # builds the client and deploys everything
 ```
 
-The deploy prints a `*.workers.dev` URL — the game is live there immediately.
-To attach your own domain: Cloudflare dashboard → Workers & Pages →
-banking-academy → Settings → Domains & Routes → add your domain (instant,
-since the domain is already on Cloudflare).
+The deploy attaches **https://cbgquiz.com** (and www) automatically — the
+custom domains are declared in `worker/wrangler.toml` and the zone lives on
+the same Cloudflare account. A `*.workers.dev` URL is also printed as a
+fallback address.
 
 Redeploy after changes with `npm run deploy`. The client calls the API on the
 same origin (`leaderboardUrl` is empty in config), so no CORS or URL wiring is

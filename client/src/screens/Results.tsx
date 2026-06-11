@@ -3,7 +3,7 @@ import type { GameState } from '../engine/types';
 import { grade } from '../engine/game';
 import { submitScore } from '../engine/leaderboard';
 import { recordResult } from '../engine/profiles';
-import { LEVEL_INFO } from '../engine/content';
+import { LEVEL_INFO, config } from '../engine/content';
 import { sfx } from '../engine/sfx';
 import CountUp from '../components/CountUp';
 import Confetti from '../components/Confetti';
@@ -140,7 +140,7 @@ export default function Results({ state, onMenu, onLeaderboard }: Props) {
             className="btn"
             onClick={() => {
               sfx.click();
-              const text = `I scored ${state.score.toLocaleString()} (${gradeShort}) on ${LEVEL_INFO[state.level].title} of the Corporate Banking Academy 🏦 Can you beat it?`;
+              const text = `I scored ${state.score.toLocaleString()} (${gradeShort}) on ${LEVEL_INFO[state.level].title} of the Corporate Banking Academy 🏦 Beat it: ${config.homeUrl}`;
               navigator.clipboard?.writeText(text).then(
                 () => setCopied(true),
                 () => setCopied(true)

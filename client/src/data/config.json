@@ -5,5 +5,6 @@
   "currency": "KD",
   "leaderboardUrl": "",
   "campaignMonths": 10,
-  "startingReputation": 70
+  "startingReputation": 70,
+  "homeUrl": "https://cbgquiz.com"
 }

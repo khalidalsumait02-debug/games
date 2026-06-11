@@ -2,6 +2,12 @@ name = "banking-academy"
 main = "src/index.js"
 compatibility_date = "2026-06-01"
 
+# Custom domains attach automatically on deploy (the zone is on this account).
+routes = [
+  { pattern = "cbgquiz.com", custom_domain = true },
+  { pattern = "www.cbgquiz.com", custom_domain = true },
+]
+
 # The game itself (built client) is served as static assets;
 # anything under /api/* falls through to the Worker code.
 [assets]
