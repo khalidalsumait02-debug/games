@@ -13,11 +13,16 @@ import newsItems from '../data/news.json';
 export const QUALITY_POINTS: Record<Quality, number> = { best: 100, good: 60, poor: 25, bad: 0 };
 export const QUALITY_REP: Record<Quality, number> = { best: 2, good: 1, poor: -2, bad: -5 };
 
-const SAVE_KEY = 'dcb_save_v1';
+const SAVE_PREFIX = 'dcb_save_v2_';
 
-export function newGame(playerName: string, level: 1 | 2 | 3): GameState {
+function saveKey(profileId: string) {
+  return `${SAVE_PREFIX}${profileId}`;
+}
+
+export function newGame(playerName: string, level: 1 | 2 | 3, profileId = 'local'): GameState {
   return {
     playerName,
+    profileId,
     level,
     month: 1,
     phase: 'meeting',
@@ -375,7 +380,7 @@ function finalize(s: GameState) {
   }
   if (s.reputation >= 85) addAchievement(s, events, 'Trusted Adviser');
   s.monthEvents = events;
-  clearSave();
+  clearSave(s.profileId ?? 'local');
 }
 
 export function grade(score: number, level: number): string {
@@ -390,15 +395,16 @@ export function grade(score: number, level: number): string {
 
 export function save(state: GameState) {
   try {
-    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    state.savedAt = Date.now();
+    localStorage.setItem(saveKey(state.profileId ?? 'local'), JSON.stringify(state));
   } catch {
     /* storage unavailable — ignore */
   }
 }
 
-export function loadSave(): GameState | null {
+export function loadSave(profileId = 'local'): GameState | null {
   try {
-    const raw = localStorage.getItem(SAVE_KEY);
+    const raw = localStorage.getItem(saveKey(profileId));
     if (!raw) return null;
     const s = JSON.parse(raw) as GameState;
     return s.finished ? null : s;
@@ -407,9 +413,9 @@ export function loadSave(): GameState | null {
   }
 }
 
-export function clearSave() {
+export function clearSave(profileId = 'local') {
   try {
-    localStorage.removeItem(SAVE_KEY);
+    localStorage.removeItem(saveKey(profileId));
   } catch {
     /* ignore */
   }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { GameState } from '../engine/types';
 import { grade } from '../engine/game';
 import { submitScore } from '../engine/leaderboard';
+import { recordResult } from '../engine/profiles';
 import { LEVEL_INFO } from '../engine/content';
 import { sfx } from '../engine/sfx';
 import CountUp from '../components/CountUp';
@@ -28,6 +29,7 @@ export default function Results({ state, onMenu, onLeaderboard }: Props) {
     (celebrate ? sfx.fanfare : sfx.month)();
     if (sessionStorage.getItem(guardKey)) return;
     sessionStorage.setItem(guardKey, '1');
+    recordResult(state.profileId, state.level, state.score);
     let cancelled = false;
     submitScore({
       name: state.playerName,

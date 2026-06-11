@@ -42,11 +42,21 @@ npm run dev          # local development — http://localhost:5173
 npm run build        # production build in client/dist (static files, host anywhere)
 ```
 
-## Shared leaderboard (optional)
+## Accounts & saves
 
-The game works standalone with a per-device leaderboard. To share high scores
-across a cohort, run the small API server somewhere everyone can reach (an
-internal host is fine):
+The game has lightweight accounts: each player creates an account on the menu
+(name + optional 4–8 digit PIN). Every account has its own save slot, best
+scores, and resume state on the device.
+
+With the shared server connected, an account **with a PIN** also syncs its
+in-progress campaign to the server — the same name + PIN resumes the campaign
+from any device. Without a PIN (or without a server) saves stay on the device.
+
+## Shared leaderboard & save server (optional)
+
+The game works standalone with per-device scores and saves. To share the
+leaderboard and enable cross-device resume for a cohort, run the small API
+server somewhere everyone can reach (an internal host is fine):
 
 ```bash
 cd server
@@ -56,8 +66,14 @@ npm start            # listens on port 8787 (override with PORT=...)
 
 Then point the client at it in `client/src/data/config.json` →
 `leaderboardUrl` (e.g. `http://training-server.internal:8787`) and rebuild.
-If the server is unreachable, the game falls back to the local leaderboard
-automatically. Scores are stored in `server/data/scores.json`.
+If the server is unreachable, the game falls back to local scores and saves
+automatically. Data lives in `server/data/scores.json` and
+`server/data/saves.json` (PINs stored hashed).
+
+Note on the public GitHub Pages copy: browsers block an `https://` page from
+calling a plain-`http://` server (mixed content), so to use the shared
+features either serve the built client from the same internal host as the
+server, or put the server behind HTTPS.
 
 ## Editing the training content
 

@@ -1,8 +1,18 @@
-import { useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import type { GameState, MeetingPick } from './engine/types';
 import { loadSave, newGame, reduce, save, scenarioFor, type Action } from './engine/game';
 import { LEVEL_INFO, config } from './engine/content';
 import { isMuted, sfx, toggleMute } from './engine/sfx';
+import {
+  createProfile,
+  deleteProfile,
+  getActiveProfile,
+  listProfiles,
+  migrateLegacy,
+  setActiveProfile,
+  type Profile,
+} from './engine/profiles';
+import { pullSave, pushSave } from './engine/sync';
 import CountUp from './components/CountUp';
 import MonthSplash from './components/MonthSplash';
 import Menu from './screens/Menu';
@@ -25,16 +35,71 @@ function gameReducer(
   return reduce(state, action);
 }
 
+migrateLegacy();
+
 export default function App() {
   const [view, setView] = useState<View>('menu');
   const [game, dispatch] = useReducer(gameReducer, null);
-  const [savedGame, setSavedGame] = useState<GameState | null>(() => loadSave());
+  const [profiles, setProfiles] = useState<Profile[]>(() => listProfiles());
+  const [profile, setProfile] = useState<Profile | null>(() => getActiveProfile());
+  const [savedGame, setSavedGame] = useState<GameState | null>(() => {
+    const p = getActiveProfile();
+    return p ? loadSave(p.id) : null;
+  });
   const [splashedMonth, setSplashedMonth] = useState(0);
   const [muted, setMuted] = useState(isMuted());
   const returnView = useRef<View>('menu');
 
-  const startGame = (name: string, level: 1 | 2 | 3) => {
-    const g = newGame(name, level);
+  // keep the server copy of the save in sync (no-op without a server/PIN)
+  const lastPushed = useRef<number>(0);
+  useEffect(() => {
+    if (!game || !profile || game.profileId !== profile.id) return;
+    if (game.savedAt && game.savedAt !== lastPushed.current) {
+      lastPushed.current = game.savedAt;
+      pushSave(profile, game.finished ? null : game);
+    }
+  }, [game, profile]);
+
+  const refreshProfiles = () => {
+    setProfiles(listProfiles());
+    setProfile(getActiveProfile());
+  };
+
+  const selectProfile = (id: string) => {
+    setActiveProfile(id);
+    const p = listProfiles().find((x) => x.id === id) ?? null;
+    setProfile(p);
+    const local = p ? loadSave(p.id) : null;
+    setSavedGame(local);
+    // if this account has a newer save on the server (played elsewhere), adopt it
+    if (p) {
+      pullSave(p).then((remote) => {
+        if (!remote || remote.finished) return;
+        if (!local || (remote.savedAt ?? 0) > (local.savedAt ?? 0)) {
+          remote.profileId = p.id;
+          save(remote);
+          setSavedGame(remote);
+        }
+      });
+    }
+  };
+
+  const addProfile = (name: string, pin?: string) => {
+    createProfile(name, pin);
+    refreshProfiles();
+    setSavedGame(null);
+  };
+
+  const removeProfile = (id: string) => {
+    deleteProfile(id);
+    refreshProfiles();
+    const p = getActiveProfile();
+    setSavedGame(p ? loadSave(p.id) : null);
+  };
+
+  const startGame = (level: 1 | 2 | 3) => {
+    if (!profile) return;
+    const g = newGame(profile.name, level, profile.id);
     save(g);
     setSplashedMonth(0);
     dispatch({ type: 'LOAD', state: g });
@@ -50,7 +115,9 @@ export default function App() {
 
   const toMenu = () => {
     dispatch({ type: 'LOAD', state: null });
-    setSavedGame(loadSave());
+    refreshProfiles();
+    const p = getActiveProfile();
+    setSavedGame(p ? loadSave(p.id) : null);
     setView('menu');
   };
 
@@ -60,7 +127,11 @@ export default function App() {
   };
 
   const closeOverlay = () => {
-    if (returnView.current === 'menu') setSavedGame(loadSave());
+    if (returnView.current === 'menu') {
+      refreshProfiles();
+      const p = getActiveProfile();
+      setSavedGame(p ? loadSave(p.id) : null);
+    }
     setView(returnView.current);
   };
 
@@ -77,6 +148,10 @@ export default function App() {
         </div>
         {game && view === 'game' && !game.finished && (
           <div className="hud">
+            <span className="hud-stat">
+              <span className="hud-label">Banker</span>
+              <span className="hud-value">{game.playerName}</span>
+            </span>
             <span className="hud-stat">
               <span className="hud-label">Level</span>
               <span className="hud-value">
@@ -135,7 +210,12 @@ export default function App() {
       <main>
         {view === 'menu' && (
           <Menu
+            profiles={profiles}
+            activeProfile={profile}
             savedGame={savedGame}
+            onSelectProfile={selectProfile}
+            onCreateProfile={addProfile}
+            onDeleteProfile={removeProfile}
             onStart={startGame}
             onResume={resumeGame}
             onLeaderboard={() => openOverlay('leaderboard')}

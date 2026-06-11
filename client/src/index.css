@@ -492,6 +492,115 @@ kbd {
   box-shadow: 0 0 0 3px rgba(11, 60, 99, 0.12);
 }
 
+/* accounts */
+.account-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.account-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.account-card.selected {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(11, 60, 99, 0.1);
+}
+
+.account-main {
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  color: var(--ink);
+}
+
+.account-main strong {
+  color: var(--navy);
+}
+
+.account-main span {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.sync-tag {
+  color: var(--green) !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.6rem !important;
+}
+
+.account-delete {
+  font: inherit;
+  border: none;
+  background: none;
+  color: var(--label);
+  cursor: pointer;
+  padding: 0 10px;
+  font-size: 1rem;
+  border-left: 1px solid var(--border);
+  border-radius: 0 9px 9px 0;
+}
+
+.account-delete:hover {
+  color: var(--red);
+  background: var(--red-pale);
+}
+
+.account-card.new {
+  font: inherit;
+  font-weight: 600;
+  color: var(--navy);
+  border-style: dashed;
+  border-color: var(--border-strong);
+  background: none;
+  cursor: pointer;
+  padding: 10px 16px;
+}
+
+.account-card.new:hover {
+  border-color: var(--navy);
+  background: var(--navy-pale);
+}
+
+.account-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.account-form input {
+  margin-bottom: 0;
+  max-width: 280px;
+}
+
+.account-form input:last-of-type {
+  max-width: 200px;
+}
+
+.account-note {
+  flex-basis: 100%;
+  margin: 2px 0 0;
+}
+
 .level-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));

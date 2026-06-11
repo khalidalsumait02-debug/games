@@ -2,25 +2,61 @@ import { useState } from 'react';
 import { LEVEL_INFO, config } from '../engine/content';
 import { sfx } from '../engine/sfx';
 import type { GameState } from '../engine/types';
+import type { Profile } from '../engine/profiles';
 
 interface Props {
+  profiles: Profile[];
+  activeProfile: Profile | null;
   savedGame: GameState | null;
-  onStart: (name: string, level: 1 | 2 | 3) => void;
+  onSelectProfile: (id: string) => void;
+  onCreateProfile: (name: string, pin?: string) => void;
+  onDeleteProfile: (id: string) => void;
+  onStart: (level: 1 | 2 | 3) => void;
   onResume: () => void;
   onLeaderboard: () => void;
   onGlossary: () => void;
 }
 
-export default function Menu({ savedGame, onStart, onResume, onLeaderboard, onGlossary }: Props) {
-  const [name, setName] = useState(localStorage.getItem('dcb_player_name') ?? '');
+export default function Menu({
+  profiles,
+  activeProfile,
+  savedGame,
+  onSelectProfile,
+  onCreateProfile,
+  onDeleteProfile,
+  onStart,
+  onResume,
+  onLeaderboard,
+  onGlossary,
+}: Props) {
   const [level, setLevel] = useState<1 | 2 | 3>(1);
+  const [creating, setCreating] = useState(profiles.length === 0);
+  const [newName, setNewName] = useState('');
+  const [newPin, setNewPin] = useState('');
+
+  const create = () => {
+    const name = newName.trim();
+    if (!name) return;
+    const pin = newPin.trim();
+    if (pin && !/^\d{4,8}$/.test(pin)) return;
+    sfx.click();
+    onCreateProfile(name, pin || undefined);
+    setNewName('');
+    setNewPin('');
+    setCreating(false);
+  };
 
   const start = () => {
-    const trimmed = name.trim();
-    if (!trimmed) return;
-    localStorage.setItem('dcb_player_name', trimmed);
+    if (!activeProfile) return;
     sfx.fanfare();
-    onStart(trimmed, level);
+    onStart(level);
+  };
+
+  const bestLine = (p: Profile) => {
+    const bests = ([1, 2, 3] as const)
+      .filter((l) => p.best[l] !== undefined)
+      .map((l) => `L${l} ${p.best[l]!.toLocaleString()}`);
+    return bests.length > 0 ? `Best: ${bests.join(' · ')}` : 'No campaigns finished yet';
   };
 
   return (
@@ -31,21 +67,71 @@ export default function Menu({ savedGame, onStart, onResume, onLeaderboard, onGl
         <p className="menu-intro">
           Meet a client each month. Structure the right facility, run the deal through the bank's process,
           and keep your portfolio healthy across a {config.campaignMonths}-month campaign. Progress saves
-          automatically — leave anytime.
+          automatically to your account — leave anytime.
         </p>
 
-        <label className="field-label" htmlFor="player-name">
-          Your name — for the leaderboard
-        </label>
-        <input
-          id="player-name"
-          value={name}
-          maxLength={30}
-          placeholder="e.g. Sara Al-Sabah"
-          autoComplete="off"
-          onChange={(e) => setName(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && start()}
-        />
+        <div className="field-label">Account</div>
+        <div className="account-row">
+          {profiles.map((p) => (
+            <div key={p.id} className={`account-card ${activeProfile?.id === p.id ? 'selected' : ''}`}>
+              <button className="account-main" onClick={() => { sfx.click(); onSelectProfile(p.id); }}>
+                <strong>{p.name}</strong>
+                <span>{bestLine(p)}</span>
+                {p.pin && <span className="sync-tag">sync on</span>}
+              </button>
+              <button
+                className="account-delete"
+                title="Delete this account on this device"
+                onClick={() => {
+                  if (window.confirm(`Delete the account "${p.name}" and its save on this device?`)) {
+                    onDeleteProfile(p.id);
+                  }
+                }}
+              >
+                ×
+              </button>
+            </div>
+          ))}
+          {!creating && (
+            <button className="account-card new" onClick={() => { sfx.click(); setCreating(true); }}>
+              + New account
+            </button>
+          )}
+        </div>
+
+        {creating && (
+          <div className="account-form anim-rise">
+            <input
+              value={newName}
+              maxLength={30}
+              placeholder="Your name — shown on the leaderboard"
+              autoComplete="off"
+              onChange={(e) => setNewName(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && create()}
+            />
+            <input
+              value={newPin}
+              maxLength={8}
+              inputMode="numeric"
+              placeholder="PIN (4–8 digits, optional)"
+              autoComplete="off"
+              onChange={(e) => setNewPin(e.target.value.replace(/\D/g, ''))}
+              onKeyDown={(e) => e.key === 'Enter' && create()}
+            />
+            <button className="btn primary" onClick={create} disabled={!newName.trim() || (!!newPin && !/^\d{4,8}$/.test(newPin))}>
+              Create account
+            </button>
+            {profiles.length > 0 && (
+              <button className="btn" onClick={() => setCreating(false)}>
+                Cancel
+              </button>
+            )}
+            <p className="muted small account-note">
+              The PIN lets the same account resume its campaign from another device when the shared server is
+              connected. Without one, progress stays on this device.
+            </p>
+          </div>
+        )}
 
         <div className="field-label">Choose your level</div>
         <div className="level-grid">
@@ -65,7 +151,7 @@ export default function Menu({ savedGame, onStart, onResume, onLeaderboard, onGl
         </div>
 
         <div className="menu-actions">
-          <button className="btn primary big" onClick={start} disabled={!name.trim()}>
+          <button className="btn primary big" onClick={start} disabled={!activeProfile}>
             Start campaign
           </button>
           {savedGame && (

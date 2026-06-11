@@ -125,6 +125,8 @@ export interface ScoreBreakdown {
 
 export interface GameState {
   playerName: string;
+  profileId: string;
+  savedAt?: number;
   level: 1 | 2 | 3;
   month: number;
   phase: Phase;
