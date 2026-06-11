@@ -7,8 +7,32 @@ import Avatar from '../components/Avatar';
 interface Props {
   scenario: Scenario;
   level: 1 | 2 | 3;
+  isFirstMeeting?: boolean;
   onDone: (picks: MeetingPick[]) => void;
 }
+
+const REACTIONS: Record<string, string[]> = {
+  best: [
+    '{c} leans back, visibly relieved. "This is exactly why we bank with you."',
+    '{c} nods slowly. "You actually read our numbers. Most bankers don\'t."',
+    '{c} smiles. "Sold. Send me the offer letter."',
+  ],
+  good: [
+    '{c} considers it, then nods. "Workable. Not what I imagined, but workable."',
+    '{c} shrugs. "Fine — though your competitor pitched it differently."',
+    '{c} agrees, with a slight pause you decide not to overthink.',
+  ],
+  poor: [
+    '{c} frowns at the term sheet. "I\'ll need to discuss this with my partners."',
+    '{c} goes quiet for a moment. "That\'s... not quite what we had in mind."',
+    '{c} checks their watch. The energy in the room has changed.',
+  ],
+  bad: [
+    '{c} stares at you. "Have you actually looked at our file?"',
+    '{c} closes the folder. The meeting is effectively over.',
+    '{c} smiles politely — the smile of someone already dialing another bank.',
+  ],
+};
 
 const STAGE_LABEL: Record<string, string> = {
   structure: 'Structuring',
@@ -44,11 +68,13 @@ function useTypewriter(text: string) {
   };
 }
 
-export default function Meeting({ scenario, level, onDone }: Props) {
+export default function Meeting({ scenario, level, isFirstMeeting, onDone }: Props) {
   const [decisionIdx, setDecisionIdx] = useState(0);
   const [picks, setPicks] = useState<MeetingPick[]>([]);
   const [picked, setPicked] = useState<string | null>(null);
+  const [reaction, setReaction] = useState('');
   const [showNotes, setShowNotes] = useState(level === 1);
+  const [coachDismissed, setCoachDismissed] = useState(() => localStorage.getItem('dcb_coached') === '1');
 
   // shuffle option order once per meeting so answers aren't position-memorisable
   const [shuffledByDecision] = useState(() =>
@@ -64,6 +90,9 @@ export default function Meeting({ scenario, level, onDone }: Props) {
     if (picked) return;
     const opt = decision.options.find((o) => o.id === optionId)!;
     sfx[opt.quality]();
+    const pool = REACTIONS[opt.quality];
+    const firstName = scenario.client.contact.split(',')[0].trim();
+    setReaction(pool[Math.floor(Math.random() * pool.length)].replace('{c}', firstName));
     setPicked(optionId);
   };
 
@@ -84,8 +113,27 @@ export default function Meeting({ scenario, level, onDone }: Props) {
       setPicks(newPicks);
       setDecisionIdx(decisionIdx + 1);
       setPicked(null);
+      setReaction('');
     }
   };
+
+  // keyboard play: A–D selects, Enter advances
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+      if (e.key === 'Enter' && picked) {
+        next();
+        return;
+      }
+      const idx = e.key.toUpperCase().charCodeAt(0) - 65;
+      if (!picked && idx >= 0 && idx < shuffledOptions.length && /^[a-dA-D]$/.test(e.key)) {
+        choose(shuffledOptions[idx].id);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [picked, decisionIdx, shuffledOptions]);
 
   return (
     <div className="meeting">
@@ -144,6 +192,25 @@ export default function Meeting({ scenario, level, onDone }: Props) {
       </div>
 
       <div className="meeting-right">
+        {isFirstMeeting && !coachDismissed && (
+          <div className="coach-tip anim-rise">
+            <span className="coach-icon">🧭</span>
+            <p>
+              <strong>First day on the desk?</strong> Read the analysis pack on the left — every ratio is
+              already computed for you. Your job is judgement: pick the structure that fits the numbers. You
+              can also play with keys <kbd>A</kbd>–<kbd>D</kbd> and <kbd>Enter</kbd>.
+            </p>
+            <button
+              className="btn tiny"
+              onClick={() => {
+                localStorage.setItem('dcb_coached', '1');
+                setCoachDismissed(true);
+              }}
+            >
+              Got it
+            </button>
+          </div>
+        )}
         <div className="card decision-card anim-rise d2" key={decisionIdx}>
           <div className="stage-chips">
             {scenario.decisions.map((d, i) => (
@@ -187,6 +254,7 @@ export default function Meeting({ scenario, level, onDone }: Props) {
                   +{QUALITY_POINTS[pickedOption.quality]} pts
                 </span>
               </div>
+              {reaction && <p className="reaction">{reaction}</p>}
               <p>{pickedOption.feedback}</p>
               <button className="btn primary" onClick={next}>
                 {pickedOption.books === false || decisionIdx + 1 >= scenario.decisions.length

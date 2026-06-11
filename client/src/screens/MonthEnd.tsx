@@ -17,6 +17,7 @@ const KIND_ICON: Record<string, string> = {
   lost: '🚪',
   info: '✦',
   achievement: '🏆',
+  news: '📰',
 };
 
 function managerNote(state: GameState): string | null {

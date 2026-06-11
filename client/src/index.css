@@ -1156,6 +1156,53 @@ blockquote .contact {
   border: 1px solid var(--glass-border-strong);
 }
 
+.coach-tip {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  background: linear-gradient(135deg, rgba(45, 211, 147, 0.12), rgba(45, 211, 147, 0.03));
+  border: 1px solid rgba(45, 211, 147, 0.35);
+  border-radius: 13px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.coach-icon {
+  font-size: 1.4rem;
+}
+
+.coach-tip p {
+  margin: 0;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.coach-tip strong {
+  color: var(--ink-strong);
+}
+
+kbd {
+  font-family: var(--font-body);
+  font-size: 0.78em;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border-strong);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 1px 6px;
+}
+
+.reaction {
+  font-style: italic;
+  color: var(--muted);
+  border-left: 2px solid var(--glass-border-strong);
+  padding-left: 12px;
+}
+
+.event.news {
+  background: rgba(91, 127, 255, 0.07);
+  border-color: rgba(91, 127, 255, 0.25);
+}
+
 /* ============ process ============ */
 .process .card {
   max-width: 880px;

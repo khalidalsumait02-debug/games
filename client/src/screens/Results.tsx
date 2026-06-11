@@ -20,6 +20,7 @@ export default function Results({ state, onMenu, onLeaderboard }: Props) {
   const [submitState, setSubmitState] = useState<'sending' | 'shared' | 'local'>(() =>
     sessionStorage.getItem(guardKey) ? 'shared' : 'sending'
   );
+  const [copied, setCopied] = useState(false);
 
   const celebrate = !state.endedEarly && state.score >= 1600;
 
@@ -132,6 +133,19 @@ export default function Results({ state, onMenu, onLeaderboard }: Props) {
         <div className="menu-actions">
           <button className="btn primary big" onClick={() => { sfx.click(); onLeaderboard(); }}>
             🏆 View Leaderboard
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              sfx.click();
+              const text = `I scored ${state.score.toLocaleString()} (${gradeShort}) on ${LEVEL_INFO[state.level].title} of the Corporate Banking Academy 🏦 Can you beat it?`;
+              navigator.clipboard?.writeText(text).then(
+                () => setCopied(true),
+                () => setCopied(true)
+              );
+            }}
+          >
+            {copied ? '✓ Copied!' : '📋 Share score'}
           </button>
           <button className="btn" onClick={() => { sfx.click(); onMenu(); }}>
             Back to Menu

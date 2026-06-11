@@ -86,7 +86,7 @@ export interface BookedDeal {
 
 export interface GameEvent {
   month: number;
-  kind: 'income' | 'watch' | 'npl' | 'audit' | 'lost' | 'info' | 'achievement';
+  kind: 'income' | 'watch' | 'npl' | 'audit' | 'lost' | 'info' | 'achievement' | 'news';
   text: string;
   points: number;
   reputation: number;
@@ -134,6 +134,7 @@ export interface GameState {
   deals: BookedDeal[];
   monthEvents: GameEvent[];
   achievements: string[];
+  newsSeen?: string[];
   finished: boolean;
   endedEarly: boolean;
   // transient: result of the meeting just played, consumed by process/monthEnd

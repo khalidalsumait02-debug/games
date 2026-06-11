@@ -143,6 +143,7 @@ export default function App() {
                 key={scenario.id}
                 scenario={scenario}
                 level={game.level}
+                isFirstMeeting={game.scenarioIndex === 0}
                 onDone={(picks: MeetingPick[]) =>
                   dispatch({ type: 'MEETING_DONE', result: { scenarioId: scenario.id, picks } })
                 }

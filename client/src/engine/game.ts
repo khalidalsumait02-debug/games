@@ -8,6 +8,7 @@ import type {
   Scenario,
 } from './types';
 import { config, getDeck } from './content';
+import newsItems from '../data/news.json';
 
 export const QUALITY_POINTS: Record<Quality, number> = { best: 100, good: 60, poor: 25, bad: 0 };
 export const QUALITY_REP: Record<Quality, number> = { best: 2, good: 1, poor: -2, bad: -5 };
@@ -179,7 +180,7 @@ function runMonthEnd(state: GameState, events: GameEvent[]): void {
         state.reputation -= 5;
       }
     } else if (d.status === 'watch') {
-      const pNpl = d.quality < 40 ? 0.4 : 0.15;
+      const pNpl = d.quality < 40 ? 0.4 : d.quality < 60 ? 0.15 : 0.05;
       if (roll < pNpl) {
         d.status = 'npl';
         nplThisMonth = true;
@@ -203,6 +204,19 @@ function runMonthEnd(state: GameState, events: GameEvent[]): void {
     }
     return d;
   });
+
+  // market pulse: an occasional bit of desk news to keep months from feeling identical
+  if (Math.random() < 0.45) {
+    const seen = state.newsSeen ?? [];
+    const fresh = newsItems.filter((n) => !seen.includes(n.id));
+    if (fresh.length > 0) {
+      const item = fresh[Math.floor(Math.random() * fresh.length)];
+      state.newsSeen = [...seen, item.id];
+      events.push({ month: state.month, kind: 'news', text: item.text, points: item.points, reputation: 0 });
+      state.score += item.points;
+      state.breakdown = { ...state.breakdown, bonus: state.breakdown.bonus + item.points };
+    }
+  }
 
   if (!nplThisMonth && state.month >= 3 && events.every((e) => e.points >= 0)) {
     // quiet, healthy month
